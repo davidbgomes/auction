@@ -14,3 +14,47 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.css-selector {
+  background: linear-gradient(143deg, #c6f6d5, #9cf2ee);
+  background-size: 400% 400%;
+
+  animation: AnimationName 8s ease infinite;
+}
+
+@keyframes AnimationName {
+  0%{background-position:1% 0%}
+  50%{background-position:99% 100%}
+  100%{background-position:1% 0%}
+}
+
+.area-div{
+  height:35px;
+  width:fit-content;
+  border:2px solid grey;
+  z-index:1;
+  position:relative;
+  padding: 2px;
+}
+
+.area-div:before {
+  position:absolute;
+  top:-20%; 
+  left:20%;
+  content:"";
+  display:block;
+  height:10px;
+  width:90%;
+  background:white;
+}
+
+.area-div:after {
+  position:absolute;
+  bottom:-5px; 
+  left:-9%;
+  content:"";
+  display:block;
+  height:6px;
+  width:35px;
+  background:white;
+}
