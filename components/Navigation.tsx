@@ -7,13 +7,16 @@ import {
   Flex,
   FormLabel,
   Button,
+  useMediaQuery,
+  FormControl,
 } from "@chakra-ui/react";
 
 import CheckboxField, {CheckboxOption} from "./fields/CheckboxField";
 import RadioField from "./fields/RadioField";
 import SelectField from "./fields/SelectField";
+import { useRouter } from 'next/router'
 
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useWatch } from "react-hook-form";
 
 import areaOptions from "@/utils/data/area.json"
 import cityOptions from "@/utils/data/cities.json"
@@ -21,24 +24,40 @@ import priceOptions from "@/utils/data/price.json"
 import { BaseSyntheticEvent, Dispatch, SetStateAction, useEffect } from "react";
 
 type Props = {
-  defaultDistrict : number,
+  defaultDistrict: string,
+  defaultCounty: string,
+  defaultParish: string,
+  defaultMinPrice: string,
+  defaultMaxPrice: string,
+  defaultMinArea: string,
+  defaultMaxArea: string,
+  defaultHouseType: string[],
+  defaultTypology: string[],
+  endpoint: string,
   setEndpoint : Dispatch<SetStateAction<string>>,
-  currentDistrict : number | undefined,
-  setDistrict: Dispatch<SetStateAction<number | undefined>>,
+  closeDrawer? : () => void,
 }
 
 
-export default function Navigation({defaultDistrict, setEndpoint, currentDistrict, setDistrict} : Props) : JSX.Element {
+export default function Navigation({
+  defaultDistrict,
+  defaultCounty,
+  defaultParish,
+  defaultMinPrice,
+  defaultMaxPrice,
+  defaultMinArea,
+  defaultMaxArea,
+  defaultHouseType,
+  defaultTypology,
+  endpoint,
+  setEndpoint,
+  closeDrawer,
+  } : Props) : JSX.Element {
+  const router = useRouter()
 
-  useEffect(() => {
-    if(defaultDistrict){
-      console.log("defaultDistrict", defaultDistrict)
-      console.log(districtOptions.find(({value}) => parseInt(value) === defaultDistrict))
-      setValue("district", districtOptions.find(({value}) => parseInt(value) === defaultDistrict)?.value)
-    }
-  },[])
+  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)")
 
-  const defaultValues = {
+  const resetValues = {
     district: "",
     county: "",
     parish: "",
@@ -47,16 +66,25 @@ export default function Navigation({defaultDistrict, setEndpoint, currentDistric
     minArea: "",
     maxArea: "",
     houseType: [],
-    rooms: [],
+    typology: [],
   }
 
   const formMethods = useForm<any>({
     mode: 'onBlur',
-    defaultValues: defaultValues
+    defaultValues: {
+      district: defaultDistrict || "",
+      county: defaultCounty || "",
+      parish: defaultParish || "",
+      minPrice: defaultMinPrice || "",
+      maxPrice: defaultMaxPrice || "",
+      minArea: defaultMinArea || "",
+      maxArea: defaultMaxArea || "",
+      houseType: defaultHouseType || [],
+      typology: defaultTypology || [],
+    },
   });
   const {
     handleSubmit,
-    setValue,
     watch,
     reset,
   } = formMethods;
@@ -79,34 +107,42 @@ export default function Navigation({defaultDistrict, setEndpoint, currentDistric
   const houseTypeOptions : CheckboxOption[] = [
     {
       label: "Apartamento",
-      value: "apartment"
+      value: "Apartamento"
     },
     {
       label: "Moradia",
-      value: "house"
+      value: "Moradia"
     },
   ]
 
-  const roomsOptions : CheckboxOption[] = [
+  const typologyOptions : CheckboxOption[] = [
     {
       label: "T0",
-      value: "t0",
+      value: "T0",
     },
     {
       label: "T1",
-      value: "t1",
+      value: "T1",
     },
     {
       label: "T2",
-      value: "t2",
+      value: "T2",
     },
     {
       label: "T3",
-      value: "t3",
+      value: "T3",
     },
     {
-      label: "T4 ou +",
-      value: "t4+",
+      label: "T4",
+      value: "T4",
+    },
+    {
+      label: "T5",
+      value: "T5",
+    },
+    {
+      label: "T6 ou superior",
+      value: "T6 ou superior",
     },
   ]
 
@@ -114,52 +150,56 @@ export default function Navigation({defaultDistrict, setEndpoint, currentDistric
     e.preventDefault();
 
     handleSubmit(async (filters: Record<string, string>) => {
+      const pathname = router.pathname
       const usedFilters = Object.fromEntries(Object.entries(filters).filter(([_,v]) => v.length !== 0))
-      console.log("usedFilters", usedFilters)
       const searchParams = new URLSearchParams(usedFilters)
       const queryString = searchParams.toString();
-      setEndpoint(queryString)
-      console.log("filters", filters)
-      console.log("queryString", queryString)
+      router.push(`${pathname}?${queryString}`)
+
+      if(isSmallerThan768 && typeof closeDrawer !== "undefined"){
+        closeDrawer()
+      }
     })(e)
   }
 
-  const getDistrictValueByLabel = (name: string) => {
-    setValue("district", districtOptions.find(({label}) => label.toLowerCase() === name.toLowerCase())?.value)
+  const clearFilters = () => {
+    reset(resetValues)
+    const pathname = router.pathname
+    router.push(pathname)
   }
 
-
-
   return(
-    <Box py="6" borderRadius="xl" borderWidth="thin" boxShadow="md">
+    <Box py="8" borderRadius={{base:"none", md:"xl"}} borderWidth={{base:"inherit", md:"thin"}} boxShadow={{base:"inherit", md:"md"}}>
       <Container maxW="container.xl">
         <FormProvider {...formMethods}>
           <form onSubmit={filter} noValidate>
-            <VStack spacing="10">
-              <Heading fontWeight="thin" fontSize="25px">Filtros</Heading>
+            <VStack spacing={{base:"3", md:"10"}}>
+              {!isSmallerThan768 &&
+                <Heading fontWeight="thin" fontSize="25px">Filtros</Heading>
+              }
               <SelectField name="district" label="Distrito" options={districtOptions} placeholder="Escolha o Distrito" />
               <SelectField name="county" label="Concelho" options={countyOptions} disabled={!district} placeholder="Escolha o Concelho"/>
-              <SelectField name="parish" label="Freguesia" options={parishOptions} disabled={!district && !county} placeholder="Escolha o Distrito"/>
-              <Flex flexWrap="wrap">
+              <SelectField name="parish" label="Freguesia" options={parishOptions} disabled={!district && !county} placeholder="Escolha a Freguesia"/>
+              <FormControl id="price">
                 <FormLabel>Preço</FormLabel>
                 <HStack>
                   <SelectField name="minPrice" label="" options={priceOptions} placeholder="Min"/>
                   <SelectField name="maxPrice" label="" options={priceOptions} placeholder="Max"/>
                 </HStack>
-              </Flex>
-              <Flex flexWrap="wrap">
+              </FormControl>
+              <FormControl id="area">
                 <FormLabel>Área</FormLabel>
                 <HStack>
                   <SelectField name="minArea" label="" options={areaOptions} placeholder="Min"/>
                   <SelectField name="maxArea" label="" options={areaOptions} placeholder="Max"/>
                 </HStack>
-              </Flex>
+              </FormControl>
               <CheckboxField name="houseType" label="Tipo de casa" options={houseTypeOptions}/>
-              <CheckboxField name="rooms" label="Tipologia" options={roomsOptions}/>
+              <CheckboxField name="typology" label="Tipologia" options={typologyOptions}/>
               <HStack>
                 <Button
                   colorScheme="blackAlpha"
-                  onClick={() => reset(defaultValues)}>Limpar</Button>
+                  onClick={clearFilters}>Limpar</Button>
                 <Button type="submit" colorScheme="green">
                   Filtrar
                 </Button>

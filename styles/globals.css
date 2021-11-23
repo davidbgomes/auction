@@ -58,3 +58,12 @@ a {
   width:35px;
   background:white;
 }
+
+.slick-next{
+  right: 3% !important;
+  z-index: 1;
+}
+.slick-prev{
+  left: 3% !important;
+  z-index: 1;
+}

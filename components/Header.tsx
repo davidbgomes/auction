@@ -16,10 +16,12 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { useRef } from "react"
 
 export default function Header() : JSX.Element {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef(null)
 
   return(
     <Box my={{base:"5", md:"10"}}>
@@ -41,13 +43,13 @@ export default function Header() : JSX.Element {
         </HStack>
         {!isLargerThan768 &&
           <>
-            <HamburgerIcon w={8} h={8} color="blackAlpha.900" onClick={onOpen}/>
+            <HamburgerIcon w={8} h={8} color="blackAlpha.900" onClick={onOpen} ref={btnRef}/>
             <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="full">
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerHeader borderBottomWidth="1px" display="flex" alignItems="center" justifyContent="space-between">
                   <Heading size="md">Basic Drawer</Heading>
-                  <CloseIcon w={3} h={3} onClick={onClose}/>
+                  <DrawerCloseButton />
                 </DrawerHeader>
                 <DrawerBody>
                   <p>Some contents...</p>

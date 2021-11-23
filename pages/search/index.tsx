@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {
   Box,
   Container,
   Image,
   HStack,
+  Button,
   Heading,
   Stack,
   VStack,
+  Center,
   Text,
   Grid,
   GridItem,
@@ -19,20 +21,34 @@ import {
   StatHelpText,
   StatArrow,
   StatGroup,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react"
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
+import SkeletonSearch from '@/components/SkeletonSearch';
 import NumberFormat from 'react-number-format';
 import Navigation from "@/components/Navigation"
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import { GetServerSideProps } from "next";
 import Link from "next/link"
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
+import useSWRInfinite from 'swr/infinite'
 import { fetcher } from '@/utils/helpers'
+import Slider from 'react-slick'
+import InfiniteScroll from 'react-infinite-scroll-component';
+//import Image from 'next/image'
+
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 type Props = {
-  [key: string] : string,
+  query:{
+    [key: string] : string,
+  }
 }
 
 type AuctionCardType = {
@@ -49,26 +65,29 @@ type AuctionCardType = {
   [rest : string]: number | string | boolean | string[] | undefined,
 }
 
+const PAGE_SIZE = 8;
+
 const CarouselComponent = ({id, images}:{id: string, images: string[]}) : JSX.Element => {
   const router = useRouter()
   return(
     <Box className="carousel-wrapper">
-      <Carousel
-        showThumbs={false}
-        showStatus={false}
-        onClickItem={() => router.push(`/search/${id}`)}
-        infiniteLoop
-        swipeScrollTolerance={40}
-        preventMovementUntilSwipeScrollTolerance
+      <Slider
+        dots= {true}
+        infinite= {true}
+        speed= {500}
+        slidesToShow= {1}
+        slidesToScroll= {1}
+        lazyLoad="ondemand"
+        arrows={true}
       >
         {images.map((el, i) => {
           return(
             <Box key={i}>
-              <Image src={el} alt={`carousel-image-${i}`} borderTopRadius="lg" boxSize="280px" objectFit="cover" />
+              <Image src={el} alt={`carousel-image-${i}`} borderTopRadius="lg" height="280px" w="inherit" objectFit="cover" />
             </Box>
           )
         })}
-      </Carousel>
+      </Slider>
     </Box>
   )
 }
@@ -90,7 +109,7 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
   return(
     <Box
       borderRadius="lg"
-      maxW={{base:"sm", lg:"410px"}}
+      maxW={{base:"340px", sm: "380px", md:"360px", lg: "360px", xl:"390px"}}
       boxShadow="lg"
       _hover={{transform:"scale3d(1.01, 1.01, 1.01)"}}
       transition="0.2s ease-in-out"
@@ -154,30 +173,58 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
 }
 
 export default function Search(props : Props) : JSX.Element {
+
   const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
-  const [district, setDistrict] = useState<number>();
+  const [queryString, setQueryString] = useState<string>('');
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = useRef(null)
+  
+  const { query } = props
+  const {
+    district: defaultDistrict,
+    county: defaultCounty,
+    parish: defaultParish,
+    minPrice: defaultMinPrice,
+    maxPrice: defaultMaxPrice,
+    minArea: defaultMinArea,
+    maxArea: defaultMaxArea,
+    houseType: defaultHouseType,
+    typology: defaultTypology,
+  } = query
+  const houseTypeArray = defaultHouseType?.split(',')
+  const typologyArray = defaultTypology?.split(',')
+  
+  // A function to get the SWR key of each page,
+  // its return value will be accepted by `fetcher`.
+  // If `null` is returned, the request of that page won't start.
+  const getKey = (pageIndex:number, previousPageData:any) => {
+    console.log("pageIndex", pageIndex)
+    console.log("previousPageData", previousPageData)
+    if (previousPageData && !previousPageData.length) return null // reached the end
+    const params = new URLSearchParams(query)
+    params.append('page',(pageIndex + 1).toString())
+    params.append('limit',PAGE_SIZE.toString())
+    console.log(`${endpoint}?${params.toString()}` )
+    return `${endpoint}?${params.toString()}`                    // SWR key
+  }
 
-  const { district : defaultDistrict } = props
 
-  const {data, error} = useSWR(endpoint, fetcher)
+  const {data, error, size, setSize} = useSWRInfinite(getKey, fetcher)
 
   if(!data || error){
     return (
-      <Container maxW="container.sm">
-        <VStack spacing={8}>
-          {Array.from(new Array(3),(_,i) => {
-            return(
-              <Box key={i} padding="6" boxShadow="lg" bg="white" borderRadius="lg" w="md" maxW={{base:"300px", lg:"410px"}}>
-                <SkeletonCircle size="200" m="auto" />
-                <SkeletonText mt="4" noOfLines={8} spacing="4"/>
-              </Box>
-            )
-          })}
-        </VStack>
-      </Container>
+      <SkeletonSearch />
     )
   }
-  const { data: houses } : { data: AuctionCardType[] } = data
+  
+  const refresh = () => {
+    if(data){
+      return [...data]
+    }
+  }
+
+  const houses : AuctionCardType[] = data ? [].concat(...data) : [];
+
   console.log("houses", houses)
 
   return(
@@ -190,22 +237,79 @@ export default function Search(props : Props) : JSX.Element {
         >
           <GridItem rowSpan={2} colSpan={1} display={{base:"none", lg:"initial"}}>
             <Navigation
-              defaultDistrict={parseInt(defaultDistrict)}
+              defaultDistrict={defaultDistrict}
+              defaultCounty={defaultCounty}
+              defaultParish={defaultParish}
+              defaultMinPrice={defaultMinPrice}
+              defaultMaxPrice={defaultMaxPrice}
+              defaultMinArea={defaultMinArea}
+              defaultMaxArea={defaultMaxArea}
+              defaultHouseType={houseTypeArray}
+              defaultTypology={typologyArray}
+              endpoint={endpoint}
               setEndpoint={setEndpoint}
-              currentDistrict={district}
-              setDistrict={setDistrict}
             />
           </GridItem>
           <GridItem rowSpan={3} colSpan={{base:5, lg:4}}>
-            <SimpleGrid columns={{base:1, md:2}} spacing={5} justifyItems="center">
-              {houses.map((house,key) => {
-                return(
-                  <AuctionCard key={key}
-                    {...house}
+            <Center mb="4" d={{base:"flex", md:"none"}}>
+              <Button ref={btnRef} onClick={onOpen} borderRadius="xl" colorScheme="green" width="56">
+                Filtros
+              </Button>
+            </Center>
+            <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="6xl">
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerHeader borderBottomWidth="1px" display="flex" alignItems="center" justifyContent="space-between">
+                  <Heading size="md">Filtros</Heading>
+                  <DrawerCloseButton />
+                </DrawerHeader>
+                <DrawerBody>
+                  <Navigation
+                    defaultDistrict={defaultDistrict}
+                    defaultCounty={defaultCounty}
+                    defaultParish={defaultParish}
+                    defaultMinPrice={defaultMinPrice}
+                    defaultMaxPrice={defaultMaxPrice}
+                    defaultMinArea={defaultMinArea}
+                    defaultMaxArea={defaultMaxArea}
+                    defaultHouseType={houseTypeArray}
+                    defaultTypology={typologyArray}
+                    endpoint={endpoint}
+                    setEndpoint={setEndpoint}
+                    closeDrawer={onClose}
                   />
-                )
-              })}
-            </SimpleGrid>
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
+            <InfiniteScroll
+              dataLength={houses.length} //This is important field to render the next data
+              next={() => setSize(size + 1)}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+              endMessage={
+                <p style={{ textAlign: 'center' }}>
+                  <b>Yay! You have seen it all</b>
+                </p>
+              }
+              // below props only if you need pull down functionality
+              pullDownToRefresh
+              refreshFunction= {refresh}
+              pullDownToRefreshThreshold={50}
+              pullDownToRefreshContent={
+                <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+              }
+              releaseToRefreshContent={
+                <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+              }
+            >
+              <SimpleGrid columns={{base:1, md:2}} spacing={5} justifyItems="center">
+                  {houses.map(house => {
+                    return(
+                      <AuctionCard key={house.houseId} {...house}/>
+                    )
+                  })}
+              </SimpleGrid>
+            </InfiniteScroll>
           </GridItem>
         </Grid>
       </Container>
@@ -215,12 +319,11 @@ export default function Search(props : Props) : JSX.Element {
 
 export const getServerSideProps : GetServerSideProps = async context => {
   const query = context.query
-  console.log("query", query)
 
   if(query){
     return {
       props: {
-        ...query,
+        query,
       },
     }
   } else {
