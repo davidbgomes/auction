@@ -67,3 +67,9 @@ a {
   left: 3% !important;
   z-index: 1;
 }
+
+.chakra-spinner{
+  display: block !important;
+  margin: auto;
+  width: min-content;
+}

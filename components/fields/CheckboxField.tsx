@@ -49,7 +49,7 @@ export default function CheckboxField({
         defaultValue={defaultValue}
         render={({ field, fieldState: { invalid } }) => (
           <CheckboxGroup {...field} {...rest} >
-            <Stack direction={direction}>
+            <Stack direction={direction} flexWrap="wrap">
               {options.map(({ label, value, ...rest }) => (
                 <Checkbox value={value} key={value} isInvalid={invalid} {...rest}>
                   {label}

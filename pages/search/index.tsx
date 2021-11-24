@@ -29,6 +29,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Spinner,
 } from "@chakra-ui/react"
 import SkeletonSearch from '@/components/SkeletonSearch';
 import NumberFormat from 'react-number-format';
@@ -72,7 +73,7 @@ const CarouselComponent = ({id, images}:{id: string, images: string[]}) : JSX.El
   return(
     <Box className="carousel-wrapper">
       <Slider
-        dots= {true}
+        dots= {false}
         infinite= {true}
         speed= {500}
         slidesToShow= {1}
@@ -80,9 +81,10 @@ const CarouselComponent = ({id, images}:{id: string, images: string[]}) : JSX.El
         lazyLoad="ondemand"
         arrows={true}
       >
-        {images.map((el, i) => {
+        {images.map((el,i) => {
           return(
-            <Box key={i}>
+            <Box key={el} pos="relative">
+              <Text pos="absolute" top="0" right="0" color="whiteAlpha.900" pr="1" textShadow="-0.5px 1px black, 0 1px black, 0.5px 0 black, 0 -0.5px black">{`${i + 1} de ${images.length}`}</Text>
               <Image src={el} alt={`carousel-image-${i}`} borderTopRadius="lg" height="280px" w="inherit" objectFit="cover" />
             </Box>
           )
@@ -175,9 +177,8 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
 export default function Search(props : Props) : JSX.Element {
 
   const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
-  const [queryString, setQueryString] = useState<string>('');
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef(null)
+  const btnRef = useRef()
   
   const { query } = props
   const {
@@ -216,20 +217,12 @@ export default function Search(props : Props) : JSX.Element {
       <SkeletonSearch />
     )
   }
-  
-  const refresh = () => {
-    if(data){
-      return [...data]
-    }
-  }
-
   const houses : AuctionCardType[] = data ? [].concat(...data) : [];
-
-  console.log("houses", houses)
+  const hasFinished = houses.length < PAGE_SIZE || data[data.length - 1].length < PAGE_SIZE
 
   return(
     <Box>
-      <Container maxW="container.xl" p="6">
+      <Container maxW="container.xl" py="6">
         <Grid
           templateRows="repeat(2, 1fr)"
           templateColumns=" 240px repeat(4, 1fr)"
@@ -252,11 +245,11 @@ export default function Search(props : Props) : JSX.Element {
           </GridItem>
           <GridItem rowSpan={3} colSpan={{base:5, lg:4}}>
             <Center mb="4" d={{base:"flex", md:"none"}}>
-              <Button ref={btnRef} onClick={onOpen} borderRadius="xl" colorScheme="green" width="56">
+              <Button onClick={onOpen} borderRadius="xl" colorScheme="green" width="56">
                 Filtros
               </Button>
             </Center>
-            <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="6xl">
+            <Drawer placement="top" onClose={onClose} isOpen={isOpen} size="full">
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerHeader borderBottomWidth="1px" display="flex" alignItems="center" justifyContent="space-between">
@@ -284,22 +277,16 @@ export default function Search(props : Props) : JSX.Element {
             <InfiniteScroll
               dataLength={houses.length} //This is important field to render the next data
               next={() => setSize(size + 1)}
-              hasMore={true}
-              loader={<h4>Loading...</h4>}
+              hasMore={!hasFinished}
+              loader={
+                <Center w="min-content" m="auto" py="4">
+                  <Spinner color="green.500" emptyColor="gray.300" size="lg"/>
+                </Center>
+              }
               endMessage={
                 <p style={{ textAlign: 'center' }}>
-                  <b>Yay! You have seen it all</b>
+                  <b>Não existem mais casas com os filtros atuais.</b>
                 </p>
-              }
-              // below props only if you need pull down functionality
-              pullDownToRefresh
-              refreshFunction= {refresh}
-              pullDownToRefreshThreshold={50}
-              pullDownToRefreshContent={
-                <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-              }
-              releaseToRefreshContent={
-                <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
               }
             >
               <SimpleGrid columns={{base:1, md:2}} spacing={5} justifyItems="center">

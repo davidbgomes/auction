@@ -29,7 +29,7 @@ export default function Header() : JSX.Element {
         <HStack spacing="10">
           <Link href="/">
             <a>
-              <Image src="vercel.svg" alt="logo" h="7" w="28"/>
+              <Image src="auction-logo.png" alt="logo" h="7" w="30"/>
             </a>
           </Link>
           {isLargerThan768 &&

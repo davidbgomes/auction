@@ -169,7 +169,7 @@ export default function Navigation({
   }
 
   return(
-    <Box py="8" borderRadius={{base:"none", md:"xl"}} borderWidth={{base:"inherit", md:"thin"}} boxShadow={{base:"inherit", md:"md"}}>
+    <Box pt="2" pb="6" borderRadius={{base:"none", md:"xl"}} borderWidth={{base:"inherit", md:"thin"}} boxShadow={{base:"inherit", md:"md"}}>
       <Container maxW="container.xl">
         <FormProvider {...formMethods}>
           <form onSubmit={filter} noValidate>
@@ -194,8 +194,8 @@ export default function Navigation({
                   <SelectField name="maxArea" label="" options={areaOptions} placeholder="Max"/>
                 </HStack>
               </FormControl>
-              <CheckboxField name="houseType" label="Tipo de casa" options={houseTypeOptions}/>
-              <CheckboxField name="typology" label="Tipologia" options={typologyOptions}/>
+              <CheckboxField name="houseType" label="Tipo de casa" options={houseTypeOptions} direction={isSmallerThan768 ? "row" : "column"}/>
+              <CheckboxField name="typology" label="Tipologia" options={typologyOptions} direction={isSmallerThan768 ? "row" : "column"}/>
               <HStack>
                 <Button
                   colorScheme="blackAlpha"
