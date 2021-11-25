@@ -1,66 +1,114 @@
+import {useEffect, useState} from 'react'
 import {
   Box,
   Container,
   Image,
   HStack,
+  VStack,
   Heading,
   useMediaQuery,
-  useDisclosure,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
+  Badge,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { ChevronRightIcon } from '@chakra-ui/icons'
 import { useRef } from "react"
+import {motion, Variants} from 'framer-motion'
+import { MenuToggle } from "@/components/MenuToggle";
+import { useRouter } from 'next/router'
+
+const variants : Variants = {
+  open: {
+    willChange:"transform",
+    opacity: 1,
+    x: 0,
+    transition:{
+      delay:0.3,
+    },
+  },
+  closed: {
+    willChange:"transform",
+    opacity: 0,
+    x: "-100%",
+  },
+}
 
 export default function Header() : JSX.Element {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+
+  const link = (path : string) => {
+    setIsOpen(false)
+    router.push(path)
+  }
+
+  useEffect(() => {
+    if(isOpen){
+      document.body.style.overflow = 'hidden';
+    } else{
+      document.body.style.overflow = 'unset';
+    }
+  },[isOpen])
 
   return(
     <Box my={{base:"5", md:"10"}}>
-      <Container maxW="container.xl" d="flex" alignItems="center" justifyContent="space-between">
+      <Container maxW="container.xl" d="flex" alignItems="center" justifyContent="space-between" zIndex="3">
         <HStack spacing="10">
-          <Link href="/">
-            <a>
-              <Image src="auction-logo.png" alt="logo" h="7" w="30"/>
+          <Link href="/" passHref>
+            <a onClick={() => setIsOpen(false)}>
+              <Image src="auction-logo.png" alt="logo" h="7" w="30" _hover={{opacity:"0.7"}}/>
             </a>
           </Link>
           {isLargerThan768 &&
-            <Link href="/search">
-              <a>
-                <Heading size="md"
-                _hover={{color:"grey"}}>Imóveis</Heading>
-              </a>
-            </Link>
+          <Link href="/search" passHref>
+            <a>
+              <Heading size="md"
+              _hover={{color:"grey"}}>Imóveis</Heading>
+            </a>
+          </Link>
           }
         </HStack>
         {!isLargerThan768 &&
-          <>
-            <HamburgerIcon w={8} h={8} color="blackAlpha.900" onClick={onOpen} ref={btnRef}/>
-            <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="full">
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerHeader borderBottomWidth="1px" display="flex" alignItems="center" justifyContent="space-between">
-                  <Heading size="md">Basic Drawer</Heading>
-                  <DrawerCloseButton />
-                </DrawerHeader>
-                <DrawerBody>
-                  <p>Some contents...</p>
-                  <p>Some contents...</p>
-                  <p>Some contents...</p>
-                </DrawerBody>
-              </DrawerContent>
-            </Drawer>
-          </>
+          <motion.nav
+            initial={false}
+            animate={isOpen ? "open" : "closed"}
+          >
+            <MenuToggle toggle={() => setIsOpen(!isOpen)} />
+          </motion.nav>
         }
       </Container>
+      <motion.div
+        initial={{ opacity: 0 }}
+        className="mobile-menu-background"
+        animate={isOpen ? "open" : "closed"}
+        variants={variants}
+
+      >
+        <VStack pos="absolute" top="0" left="0" mt="10" ml="10" spacing="10" alignItems="flex-start">
+          <Link href="/search" passHref>
+            <a onClick={() => setIsOpen(false)}>
+              <Box d="flex" alignItems="center">
+                <ChevronRightIcon/>
+                <Heading fontWeight="medium" size="lg">Imóveis</Heading>
+              </Box>
+            </a>
+          </Link>
+          <Link href="/terms" passHref>
+            <a onClick={() => setIsOpen(false)}>
+              <Box d="flex" alignItems="center">
+                <ChevronRightIcon/>
+                <Heading fontWeight="medium" size="lg" textDecor="line-through">Veículos</Heading>
+                <Badge borderRadius="xl" ml="3">Em breve!</Badge>
+              </Box>
+            </a>
+          </Link>
+          <Box d="flex" alignItems="center">
+            <ChevronRightIcon/>
+            <Heading fontWeight="medium" size="lg" textDecor="line-through">Equipamentos</Heading>
+            <Badge ml="3">Em breve!</Badge>
+          </Box>
+        </VStack>
+      </motion.div>
     </Box>
   )
 }

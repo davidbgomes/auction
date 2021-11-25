@@ -13,6 +13,7 @@ const Home: NextPage = () => {
         <title>Leiloo</title>
         <meta name="description" content="Leiloo - Leilões de imóveis em Portugal" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preload" href="/api/houses" as="fetch" crossOrigin="anonymous"></link>
       </Head>
       <Hero />
       <Explore />

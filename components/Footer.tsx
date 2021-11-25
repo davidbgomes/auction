@@ -16,19 +16,18 @@ export default function Footer(): JSX.Element {
       <Container maxWidth="container.xl">
         <VStack
           alignItems="center"
+          spacing={{base:5, md:2}}
         >
           <Stack
             direction={{ base: 'column', md: 'row' }}
             width={{ base: 'initial', md: 'full' }}
             justifyContent={{ base: 'initial', md: 'space-around' }}
+            spacing={{base:6, md:1}}
           >
-            <VStack maxW="56" spacing={6} alignItems="flex-start">
+            <VStack maxW="56" spacing={{base:3, md:6}} alignItems="flex-start">
               <Heading as="h3" fontSize="3xl" fontWeight="medium">
-                Leiloo
+                Leiloou
               </Heading>
-              <Text as="p">
-                Application Online LTD 20-22, Wenlock Road, London, England, N1 7GU
-              </Text>
               <VStack spacing={6}>
                 <List fontSize={{ base: '15px', sm: 'md' }}>
                   <ListItem _hover={{ textDecoration: 'underline' }}>
@@ -44,18 +43,23 @@ export default function Footer(): JSX.Element {
                 </List>
               </VStack>
             </VStack>
-            <VStack spacing={6} alignItems="flex-start">
-              <Heading as="h3" fontSize="3xl" fontWeight="medium">
-                Contact us
+            <VStack maxW="72" spacing={{base:3, md:6}} alignItems="flex-start">
+              <Heading as="h3" fontSize={{base:"2xl",md:"3xl"}} fontWeight="medium">
+                Pesquise connosco
               </Heading>
               <Text as="p">
-                Contact
+                Trazemos o melhor e mais rápido motor de busca de leilões em território nacional.
               </Text>
             </VStack>
           </Stack>
-          <Text as="p">
-            All rights reserved © Your Company Formations Ltd 2021
-          </Text>
+          <Box textAlign="center">
+            <Text as="p">
+              Todos os direitos reservados.
+            </Text>
+            <Text as="p">
+              Leiloou.pt | 2021
+            </Text>
+          </Box>
         </VStack>
       </Container>
     </Box>
