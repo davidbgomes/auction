@@ -91,3 +91,52 @@ a {
     display: none;
   }
 }
+
+.ol-map {
+  min-width: fit-content;
+  min-height: fit-content;
+  height: 300px;
+  width: "100%";
+  }
+  .ol-control {
+  position: absolute;
+  background-color: rgb(5 129 235 / 57%);
+  padding: 2px;
+  }
+  .fullscreen {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .fullscreen:fullscreen .ol-map{
+    width: 100%;
+    height: 100%;
+  }
+
+  .ol-full-screen{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .ol-full-screen-false{
+    line-height: 0;
+    height: 20px;
+    font-size: xx-large;
+  }
+  .ol-full-screen-true{
+    line-height: 0;
+    height: 20px;
+    font-size: xx-large;
+  }
+  .ol-zoom{
+    display: none;
+
+  }
+  .ol-rotate{
+    display: none;
+  }
+
+  .leaflet-container{
+    height: 300px;
+    width: 100%;
+  }

@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import { ChevronRightIcon } from '@chakra-ui/icons'
-import { useRef } from "react"
 import {motion, Variants} from 'framer-motion'
 import { MenuToggle } from "@/components/MenuToggle";
 import { useRouter } from 'next/router'
@@ -56,7 +55,7 @@ export default function Header() : JSX.Element {
         <HStack spacing="10">
           <Link href="/" passHref>
             <a onClick={() => setIsOpen(false)}>
-              <Image src="auction-logo.png" alt="logo" h="7" w="30" _hover={{opacity:"0.7"}}/>
+              <Image src="/auction-logo.png" alt="logo" h="7" w="30" _hover={{opacity:"0.7"}}/>
             </a>
           </Link>
           {isLargerThan768 &&

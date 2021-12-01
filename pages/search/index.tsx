@@ -32,19 +32,16 @@ import {
   Spinner,
 } from "@chakra-ui/react"
 import SkeletonSearch from '@/components/SkeletonSearch';
-import NumberFormat from 'react-number-format';
 import Navigation from "@/components/Navigation"
 import { GetServerSideProps } from "next";
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import useSWRInfinite from 'swr/infinite'
 import { fetcher } from '@/utils/helpers'
-import Slider from 'react-slick'
+import CarouselComponent from '@/components/Carousel';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import CurrencyField from '@/components/fields/CurrencyField';
 //import Image from 'next/image'
-
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
 
 type Props = {
   query:{
@@ -67,32 +64,6 @@ type AuctionCardType = {
 }
 
 const PAGE_SIZE = 8;
-
-const CarouselComponent = ({id, images}:{id: string, images: string[]}) : JSX.Element => {
-  const router = useRouter()
-  return(
-    <Box className="carousel-wrapper">
-      <Slider
-        dots= {false}
-        infinite= {true}
-        speed= {500}
-        slidesToShow= {1}
-        slidesToScroll= {1}
-        lazyLoad="ondemand"
-        arrows={true}
-      >
-        {images.map((el,i) => {
-          return(
-            <Box key={el} pos="relative">
-              <Text pos="absolute" top="0" right="0" color="whiteAlpha.900" pr="1" textShadow="-0.5px 1px black, 0 1px black, 0.5px 0 black, 0 -0.5px black">{`${i + 1} de ${images.length}`}</Text>
-              <Image src={el} alt={`carousel-image-${i}`} borderTopRadius="lg" height="280px" w="inherit" objectFit="cover" />
-            </Box>
-          )
-        })}
-      </Slider>
-    </Box>
-  )
-}
 
 const AreaInfo = ({area}:{area:string}) : JSX.Element =>{
   return(
@@ -150,12 +121,7 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
                 <Stat colorScheme="linkedin">
                   <StatLabel>Lance Atual</StatLabel>
                   <StatNumber>
-                    <NumberFormat
-                      value={currentBid}
-                      displayType={'text'}
-                      thousandSeparator=' '
-                      suffix="€"
-                    />
+                    <CurrencyField value={currentBid} />
                   </StatNumber>
                   {priceChange === 1 &&
                     <>
@@ -199,13 +165,10 @@ export default function Search(props : Props) : JSX.Element {
   // its return value will be accepted by `fetcher`.
   // If `null` is returned, the request of that page won't start.
   const getKey = (pageIndex:number, previousPageData:any) => {
-    console.log("pageIndex", pageIndex)
-    console.log("previousPageData", previousPageData)
     if (previousPageData && !previousPageData.length) return null // reached the end
     const params = new URLSearchParams(query)
     params.append('page',(pageIndex + 1).toString())
     params.append('limit',PAGE_SIZE.toString())
-    console.log(`${endpoint}?${params.toString()}` )
     return `${endpoint}?${params.toString()}`                    // SWR key
   }
 
@@ -284,9 +247,7 @@ export default function Search(props : Props) : JSX.Element {
                 </Center>
               }
               endMessage={
-                <p style={{ textAlign: 'center' }}>
-                  <b>Não existem mais casas com os filtros atuais.</b>
-                </p>
+                <Text mt="10" fontStyle="italic" textAlign="center">Não existem mais casas com os filtros atuais.</Text>
               }
             >
               <SimpleGrid columns={{base:1, md:2}} spacing={5} justifyItems="center">
