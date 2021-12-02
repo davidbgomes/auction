@@ -92,15 +92,11 @@ export default function Header() : JSX.Element {
               </Box>
             </a>
           </Link>
-          <Link href="/terms" passHref>
-            <a onClick={() => setIsOpen(false)}>
-              <Box d="flex" alignItems="center">
-                <ChevronRightIcon/>
-                <Heading fontWeight="medium" size="lg" textDecor="line-through">Veículos</Heading>
-                <Badge borderRadius="xl" ml="3">Em breve!</Badge>
-              </Box>
-            </a>
-          </Link>
+          <Box d="flex" alignItems="center">
+            <ChevronRightIcon/>
+            <Heading fontWeight="medium" size="lg" textDecor="line-through">Veículos</Heading>
+            <Badge borderRadius="xl" ml="3">Em breve!</Badge>
+          </Box>
           <Box d="flex" alignItems="center">
             <ChevronRightIcon/>
             <Heading fontWeight="medium" size="lg" textDecor="line-through">Equipamentos</Heading>

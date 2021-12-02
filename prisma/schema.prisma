@@ -8,23 +8,31 @@ datasource db {
 }
 
 model House {
-  houseId       String   @id @db.VarChar
-  title         String   @db.VarChar
-  description   String   @db.VarChar
-  typology      String?  @db.VarChar
-  houseType     String   @db.VarChar
-  area          Int      @db.SmallInt
-  district      String   @db.VarChar
-  county        String   @db.VarChar
-  parish        String   @db.VarChar
-  startingPrice Decimal  @db.Decimal(11, 2)
-  minimumPrice  Decimal? @db.Decimal(11, 2)
-  marketValue   Decimal? @db.Decimal(11, 2)
-  currentBid    Decimal? @db.Decimal(11, 2)
-  website       String   @db.VarChar
-  images        String[] @db.VarChar
-  startsAt      DateTime @db.Timestamptz(6)
-  endsAt        DateTime @db.Timestamptz(6)
-  createdAt     DateTime @db.Timestamptz(6)
-  updatedAt     DateTime @db.Timestamptz(6)
+  houseId           String    @id @db.VarChar
+  title             String    @db.VarChar
+  description       String    @db.VarChar
+  typology          String?   @db.VarChar
+  houseType         String    @db.VarChar
+  area              Int       @db.SmallInt
+  district          String    @db.VarChar
+  county            String    @db.VarChar
+  parish            String    @db.VarChar
+  startingPrice     Decimal   @db.Decimal(11, 2)
+  minimumPrice      Decimal?  @db.Decimal(11, 2)
+  marketValue       Decimal?  @db.Decimal(11, 2)
+  currentBid        Decimal?  @db.Decimal(11, 2)
+  website           String    @db.VarChar
+  images            String[]  @db.VarChar
+  startsAt          DateTime? @db.Timestamptz(6)
+  endsAt            DateTime  @db.Timestamptz(6)
+  createdAt         DateTime  @db.Timestamptz(6)
+  updatedAt         DateTime  @db.Timestamptz(6)
+  addressLine1      String    @db.VarChar
+  addressNumber     String?   @db.VarChar
+  addressFloor      String?   @db.VarChar
+  postcode          String    @db.VarChar
+  latitude          String    @db.VarChar
+  longitude         String    @db.VarChar
+  currentBidHistory Decimal[] @db.Decimal
+  url               String    @db.VarChar
 }

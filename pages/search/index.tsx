@@ -41,6 +41,8 @@ import { fetcher } from '@/utils/helpers'
 import CarouselComponent from '@/components/Carousel';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CurrencyField from '@/components/fields/CurrencyField';
+import dayjs from 'dayjs'
+import Head from 'next/head'
 //import Image from 'next/image'
 
 type Props = {
@@ -58,6 +60,7 @@ type AuctionCardType = {
   typology: string,
   area: string,
   currentBid: number,
+  endsAt: any,
   isNew?: boolean,
   priceChange?: number,
   [rest : string]: number | string | boolean | string[] | undefined,
@@ -73,70 +76,96 @@ const AreaInfo = ({area}:{area:string}) : JSX.Element =>{
   )
 }
 
-const AuctionCard = ({houseId, images, title, description, houseType, typology, area, isNew, currentBid, priceChange} : AuctionCardType) : JSX.Element => {
+const AuctionCard = ({houseId, images, title, description, houseType, typology, area, isNew, currentBid, endsAt, priceChange} : AuctionCardType) : JSX.Element => {
   const formatTitle = () => {
     const lowerCaseTitle= title.toLowerCase()
     return lowerCaseTitle.replace(/(^\w|\s\w)/g, m => m.toUpperCase())
   }
 
+  const timeRemaining = () : string =>{
+    const daysLeft = dayjs(endsAt).diff(dayjs(), 'day', true)
+    if(daysLeft > 0){
+      if(daysLeft > 1){
+        return `${daysLeft < 2 ? `Falta ${daysLeft.toFixed()} dia` : `Faltam ${daysLeft.toFixed()} dias`}`
+      } else {
+        return (`${parseInt((24 * daysLeft).toFixed()) > 1 ?
+          `Faltam ${(24*daysLeft).toFixed()} horas`
+        : (
+          `${parseInt((24 * daysLeft).toFixed()) === 1 ?
+            `Falta 1 hora`
+            :
+            `Falta < 1 hora`}`
+        )
+        }`)
+      }
+    } else {
+      return 'Terminado'
+    }
+  }
+
   return(
-    <Box
-      borderRadius="lg"
-      maxW={{base:"340px", sm: "380px", md:"360px", lg: "360px", xl:"390px"}}
-      boxShadow="lg"
-      _hover={{transform:"scale3d(1.01, 1.01, 1.01)"}}
-      transition="0.2s ease-in-out"
-    >
-      <CarouselComponent id={houseId} images={images}/>
-      <Link href={`/search/${houseId}`} passHref >
-        <a>
-          <Box p="6">
-            <Box display="flex" alignItems="baseline" justifyContent="space-between">
-              <Box display="flex" alignItems="baseline">
-                {isNew && (
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    New
-                  </Badge>
-                )}
-                <Box
-                  color="gray.500"
-                  fontWeight="semibold"
-                  letterSpacing="wide"
-                  fontSize="xs"
-                  textTransform="uppercase"
-                  ml="2"
-                >
-                  {typology} &bull; {houseType}
+    <>
+      <Head>
+        <title>Leiloou - Imóveis</title>
+      </Head>
+      <Box
+        borderRadius="lg"
+        maxW={{base:"340px", sm: "380px", md:"360px", lg: "360px", xl:"390px"}}
+        boxShadow="lg"
+        _hover={{transform:"scale3d(1.01, 1.01, 1.01)"}}
+        transition="0.2s ease-in-out"
+      >
+        <CarouselComponent id={houseId} images={images}/>
+        <Link href={`/search/${houseId}`} passHref >
+          <a>
+            <Box p="6">
+              <Box display="flex" alignItems="baseline" justifyContent="space-between">
+                <Box display="flex" alignItems="baseline">
+                  {isNew && (
+                    <Badge borderRadius="full" px="2" colorScheme="teal">
+                      New
+                    </Badge>
+                  )}
+                  <Box
+                    color="gray.500"
+                    fontWeight="semibold"
+                    letterSpacing="wide"
+                    fontSize="xs"
+                    textTransform="uppercase"
+                    ml="2"
+                  >
+                    {typology} &bull; {houseType}
+                  </Box>
                 </Box>
+                <AreaInfo area={area}/>
               </Box>
-              <AreaInfo area={area}/>
-            </Box>
-            <Heading size="sm" mt="2">{formatTitle()}</Heading>
-            <Box mt="2" color="slategray">
-              <Text fontSize="sm" noOfLines={3}>{description}</Text>
-            </Box>
-            <Divider my="4"/>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
-              <Box>
-                <Stat colorScheme="linkedin">
-                  <StatLabel>Lance Atual</StatLabel>
-                  <StatNumber>
-                    <CurrencyField value={currentBid} />
-                  </StatNumber>
-                  {priceChange === 1 &&
-                    <>
-                      <StatArrow type="increase" />
-                      23.36%
-                    </>
-                  }
-                </Stat>
+              <Heading size="sm" mt="2">{formatTitle()}</Heading>
+              <Box mt="2" color="slategray">
+                <Text fontSize="sm" noOfLines={3}>{description}</Text>
               </Box>
-              <Text fontSize="xs" color="gray.600">Faltam 2 dias</Text>
+              <Divider my="4"/>
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Box>
+                  <Stat colorScheme="linkedin">
+                    <StatLabel>Lance Atual</StatLabel>
+                    <StatNumber>
+                      <CurrencyField value={currentBid} />
+                    </StatNumber>
+                    {/*{priceChange === 1 &&
+                      <>
+                        <StatArrow type="increase" />
+                        23.36%
+                      </>
+                    } */}
+                  </Stat>
+                </Box>
+                <Text fontSize="xs" color="gray.600">{timeRemaining()}</Text>
+              </Box>
             </Box>
-          </Box>
-        </a>
-      </Link>
-    </Box>
+          </a>
+        </Link>
+      </Box>
+    </>
   )
 }
 
@@ -144,7 +173,7 @@ export default function Search(props : Props) : JSX.Element {
 
   const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef()
+  const router = useRouter()
   
   const { query } = props
   const {

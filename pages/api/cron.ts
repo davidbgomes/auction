@@ -68,7 +68,7 @@ const eLeilaoRobot = async() => {
     //console.log("totalResults", totalResults)
 
     console.log("--------------\nStart scrolling!")
-     while(parseInt(currentResults) < parseInt(totalResults)){
+    while(parseInt(currentResults) < parseInt(totalResults)){
       const delta = Math.random() * (230 - 140) + 140
       await page.mouse.wheel({ deltaY: delta });
       await page.mouse.wheel({ deltaY: delta });
@@ -132,10 +132,18 @@ const eLeilaoRobot = async() => {
           const area = await housePage.$eval('#InfoBemDescricao div:nth-child(11) div:last-child', el => parseInt((el as HTMLElement).innerText.substr(0,(el as HTMLElement).innerText.indexOf(' '))));
           const typology = await housePage.$eval('#InfoBemDescricao div:nth-child(5) div:last-child', el => (el as HTMLElement).innerText);
           const houseType = await housePage.$eval('#InfoBemDescricao div:nth-child(3) b', el => (el as HTMLElement).innerText);
-          const location = await getEleilaoLocation(housePage)
-          const district = location.substring('Distrito: '.length,location.indexOf('Concelho:')).trim()
-          const county = location.substring(location.indexOf('Concelho: ') + 'Concelho: '.length, location.indexOf('Freguesia')).trim()
-          const parish = location.substring(location.indexOf('Freguesia: ') + 'Freguesia: '.length)
+          const locationDiv = await getEleilaoLocation(housePage)
+          const locationCities = await locationDiv?.$eval(`div:nth-child(6)`, el => (el as HTMLElement).innerText.trim())
+          const district = locationCities?.substring('Distrito: '.length,locationCities.indexOf('Concelho:')).trim() as string
+          const county = locationCities?.substring(locationCities?.indexOf('Concelho: ') + 'Concelho: '.length, locationCities?.indexOf('Freguesia')).trim() as string
+          const parish = locationCities?.substring(locationCities?.indexOf('Freguesia: ') + 'Freguesia: '.length) as string
+          const locationAddress = await locationDiv?.$eval(`div:nth-child(3)`, el => (el as HTMLElement).innerText.trim())
+          const address = locationAddress?.substring('Morada: '.length, locationAddress.indexOf('Número:')).trim()
+          const addressNumber = locationAddress?.includes('Número:') ? (locationAddress?.substring(locationAddress?.indexOf('Número:') + 'Número: '.length, locationAddress?.indexOf('Andar') > 0 ? locationAddress?.indexOf('Andar') : locationAddress?.length).trim()) : null
+          const addressFloor = locationAddress?.includes('Andar:') ? locationAddress?.substring(locationAddress?.indexOf('Andar: ') + 'Andar: '.length).trim() : null
+          const locationPostCode = await locationDiv?.$eval(`div:nth-child(4)`, el => (el as HTMLElement).innerText.substring('Código Postal:'.length).trim())
+          const locationLatitude = await locationDiv?.$eval(`div:nth-child(8)`, el => (el as HTMLElement).innerText.substring('GPS Latitude:'.length).trim())
+          const locationLongitude = await locationDiv?.$eval(`div:nth-child(9)`, el => (el as HTMLElement).innerText.substring('GPS Longitude:'.length).trim())
           const marketValue = await housePage.$eval('#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:first-child div:last-child b', el => (el as HTMLElement).innerText.replace(/[€\s]/g, '').replace(',','.'));
           const minimumPrice = await housePage.$eval('#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:nth-child(5) div:last-child b', el => (el as HTMLElement).innerText.replace(/[€\s]/g, '').replace(',','.'));
           const startingPrice = await housePage.$eval('#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:nth-child(3) div:last-child b', el => (el as HTMLElement).innerText.replace(/[€\s]/g, '').replace(',','.'));
@@ -144,6 +152,7 @@ const eLeilaoRobot = async() => {
           const endsAt = await housePage.$eval('#CPH_Body_UP_RelogioDatas div:nth-child(2) div:nth-child(3) div:nth-child(2) b', el => (el as HTMLElement).innerText.trim().replaceAll(' ', ''));
           const startsAtDate = dayjs(startsAt,'DD-MM-YYYY HH:mm:ss').toDate();
           const endsAtDate = dayjs(endsAt,'DD-MM-YYYY HH:mm:ss').toDate();
+          const url = await housePage.url();
           house.push({
             houseId,
             images,
@@ -164,6 +173,14 @@ const eLeilaoRobot = async() => {
             website: 'e-leiloes',
             createdAt: new Date(),
             updatedAt: new Date(),
+            addressLine1: (address as string),
+            addressNumber,
+            addressFloor,
+            postcode: (locationPostCode as string),
+            latitude: (locationLatitude as string),
+            longitude: (locationLongitude as string),
+            currentBidHistory: [],
+            url,
           })
           //console.log("House:", house[house.length - 1])
           await housePage.close()
@@ -190,18 +207,16 @@ const eLeilaoRobot = async() => {
 }
 
 const getEleilaoLocation = async(page: puppeteer.Page) => {
-  let locationString: string = '';
   let locationDiv = 15
   let locationFound = false
   while(!locationFound){
       const locationHeader = await page.$eval(`#InfoBemDescricao div:nth-child(${locationDiv.toString()}) div:first-child b`, el => (el as HTMLElement).innerText.trim());
       if(locationHeader === 'Localização:'){
-        locationString = await page.$eval(`#InfoBemDescricao div:nth-child(${locationDiv}) div:nth-child(6)`, el => (el as HTMLElement).innerText.trim());
         locationFound = true
       }
       else{
         locationDiv = locationDiv + 2
       }
   }
-  return locationString
+  return await page.$(`#InfoBemDescricao div:nth-child(${locationDiv.toString()})`)
 }

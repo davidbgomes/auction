@@ -18,6 +18,5 @@ export const getHouse = async(houseId : string) : Promise<House> =>{
   const house = await fetch(`${endpoint}/api/houses?id=${houseId}`)
     .then(res => res.json())
     .catch(err => console.log("Error:", err))
-  console.log("house", house)
   return house
 }
