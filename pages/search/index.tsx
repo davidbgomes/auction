@@ -37,7 +37,8 @@ import { GetServerSideProps } from "next";
 import Link from "next/link"
 import { useRouter } from 'next/router'
 import useSWRInfinite from 'swr/infinite'
-import { fetcher } from '@/utils/helpers'
+import {SWRConfig} from 'swr'
+import { fetcher, prefetchHouses } from '@/utils/helpers'
 import CarouselComponent from '@/components/Carousel';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CurrencyField from '@/components/fields/CurrencyField';
@@ -169,11 +170,9 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
   )
 }
 
-export default function Search(props : Props) : JSX.Element {
-
+const GetHouses = (props: Props) : JSX.Element => {
   const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const router = useRouter()
   
   const { query } = props
   const {
@@ -294,13 +293,25 @@ export default function Search(props : Props) : JSX.Element {
   )
 }
 
+export default function Search(props : any) : JSX.Element {
+  const { fallback } = props
+  return(
+    <SWRConfig value={{ fallback }}>
+      <GetHouses {...props} />
+    </SWRConfig>
+  )
+}
+
 export const getServerSideProps : GetServerSideProps = async context => {
   const query = context.query
-
+  const houses = await prefetchHouses()
   if(query){
     return {
       props: {
         query,
+        fallback: {
+          '/api/houses': houses
+        }
       },
     }
   } else {

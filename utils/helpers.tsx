@@ -20,3 +20,13 @@ export const getHouse = async(houseId : string) : Promise<House> =>{
     .catch(err => console.log("Error:", err))
   return house
 }
+
+export const prefetchHouses = async() : Promise<House> =>{
+  const endpoint = process.env.NEXT_PUBLIC_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://auction-steel.vercel.app'
+  const houses = await fetch(`${endpoint}/api/houses`)
+    .then(res => res.json())
+    .catch(err => console.log("Error:", err))
+  return houses
+}

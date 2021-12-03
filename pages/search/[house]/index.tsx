@@ -23,11 +23,11 @@ import { BiArea, BiMap, BiBuilding, BiHome, BiBed } from 'react-icons/bi'
 import dynamic from "next/dynamic"
 import { House as HouseType } from '@prisma/client'
 import Head from 'next/head'
+import {SWRConfig} from 'swr'
 
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), { ssr:false })
 
-export default function House({house} : {house : HouseType} ) : JSX.Element {
-
+const GetHouse = ({house} : any) : JSX.Element => {
   const renderer = ({ days, hours, minutes, seconds, completed } : { days: number, hours: number, minutes: number, seconds: number, completed: boolean}) => {
     if (completed) {
       return <Text>Terminado</Text>;
@@ -62,7 +62,6 @@ export default function House({house} : {house : HouseType} ) : JSX.Element {
     url,
     website,
   } = house
-  console.log("houseId",houseId)
   return(
     <>
       <Head>
@@ -190,6 +189,14 @@ export default function House({house} : {house : HouseType} ) : JSX.Element {
   )
 }
 
+export default function House({house} : {house : HouseType} ) : JSX.Element {
+  return(
+    <SWRConfig>
+      <GetHouse house={house}/>
+    </SWRConfig>
+  )
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const params = (context.params as {[key: string] : string})
   const {house : houseId} = params
@@ -197,6 +204,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return{
     props:{
       house,
+      fallback: {
+        'api/houses': house
+      }
     },
   }
 }
