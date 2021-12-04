@@ -38,7 +38,7 @@ import Link from "next/link"
 import { useRouter } from 'next/router'
 import useSWRInfinite from 'swr/infinite'
 import {SWRConfig} from 'swr'
-import { fetcher, prefetchHouses } from '@/utils/helpers'
+import { fetcher, prefetchHouses, housesCount } from '@/utils/helpers'
 import CarouselComponent from '@/components/Carousel';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CurrencyField from '@/components/fields/CurrencyField';
@@ -47,6 +47,7 @@ import Head from 'next/head'
 //import Image from 'next/image'
 
 type Props = {
+  count: number,
   query:{
     [key: string] : string,
   }
@@ -174,7 +175,7 @@ const GetHouses = (props: Props) : JSX.Element => {
   const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
   const { isOpen, onOpen, onClose } = useDisclosure()
   
-  const { query } = props
+  const { query, count } = props
   const {
     district: defaultDistrict,
     county: defaultCounty,
@@ -185,6 +186,7 @@ const GetHouses = (props: Props) : JSX.Element => {
     maxArea: defaultMaxArea,
     houseType: defaultHouseType,
     typology: defaultTypology,
+    orderBy: defaultOrderBy,
   } = query
   const houseTypeArray = defaultHouseType?.split(',')
   const typologyArray = defaultTypology?.split(',')
@@ -230,6 +232,7 @@ const GetHouses = (props: Props) : JSX.Element => {
               defaultMaxArea={defaultMaxArea}
               defaultHouseType={houseTypeArray}
               defaultTypology={typologyArray}
+              defaultOrderBy={defaultOrderBy}
               endpoint={endpoint}
               setEndpoint={setEndpoint}
             />
@@ -258,6 +261,7 @@ const GetHouses = (props: Props) : JSX.Element => {
                     defaultMaxArea={defaultMaxArea}
                     defaultHouseType={houseTypeArray}
                     defaultTypology={typologyArray}
+                    defaultOrderBy={defaultOrderBy}
                     endpoint={endpoint}
                     setEndpoint={setEndpoint}
                     closeDrawer={onClose}
@@ -265,6 +269,7 @@ const GetHouses = (props: Props) : JSX.Element => {
                 </DrawerBody>
               </DrawerContent>
             </Drawer>
+            <Text fontSize={{base:"lg", md:"xl"}} mb="2" mr={{base:"2", md:"12"}} fontStyle="italic" textDecor="underline" textAlign="right"><b>{count}</b> casas encontradas</Text>
             <InfiniteScroll
               dataLength={houses.length} //This is important field to render the next data
               next={() => setSize(size + 1)}
@@ -305,10 +310,12 @@ export default function Search(props : any) : JSX.Element {
 export const getServerSideProps : GetServerSideProps = async context => {
   const query = context.query
   const houses = await prefetchHouses()
+  const count = await housesCount(query as {[key: string] : string})
   if(query){
     return {
       props: {
         query,
+        count,
         fallback: {
           '/api/houses': houses
         }

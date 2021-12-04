@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from "@chakra-ui/react"
+import GdprBanner from '@/components/GdprBanner'
 
 import Header from '../components/Header'
 
@@ -9,6 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider>
       <Header />
       <Component {...pageProps} />
+      <GdprBanner />
     </ChakraProvider>
   )
 }

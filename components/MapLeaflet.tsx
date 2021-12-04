@@ -14,9 +14,12 @@ console.log("icon", icon)
 const DefaultIcon = L.icon({
   iconUrl: icon.src,
   shadowUrl: iconShadow.src,
+  iconSize:[26,42],
+  iconAnchor:[13,42],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
+
 
 export default function MapLeaflet({latitude, longitude, title} : {latitude: number, longitude: number, title: string}){
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
@@ -42,14 +45,14 @@ export default function MapLeaflet({latitude, longitude, title} : {latitude: num
         scrollWheelZoom={false}
         dragging={isLargerThan768}
         maxZoom={18}
-        minZoom={12}
+        minZoom={14}
         maxBounds={maxBounds}
         maxBoundsViscosity={0.6}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           /* url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" */
-          url="https://api.mapbox.com/styles/v1/davidbgomes/ckwny3zzf0lbx15r0vq67y0ok/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGF2aWRiZ29tZXMiLCJhIjoiY2t3bnRpMndhMDd0dDJwcG42cHI5MzV5aCJ9.L8biNYykHHcRIlqC3yZuAQ"
+          url="https://api.mapbox.com/styles/v1/davidbgomes/ckwqlvvzr6ia314n31ysf3yej/tiles/512/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGF2aWRiZ29tZXMiLCJhIjoiY2t3bnRpMndhMDd0dDJwcG42cHI5MzV5aCJ9.L8biNYykHHcRIlqC3yZuAQ"
         />
         <Marker
           position={[latitude, longitude]}

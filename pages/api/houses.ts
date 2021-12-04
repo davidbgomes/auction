@@ -12,7 +12,6 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try{
-
       const query = req.query
       console.log("queryString", query)
       const houseId = (query.id as string)
@@ -37,6 +36,8 @@ export default async function handler(
         const maxArea = parseInt((query.maxArea as string))
         const houseType = (query.houseType as string)?.split(',')
         const typology = (query.typology as string)?.split(',')
+        const sortBy = (query.orderBy as string)?.split('_')
+        const count = (query.count as string)
         const page = Number(query.page || 1);
         const skip = Math.abs((page - 1) * PER_PAGE);
 
@@ -87,17 +88,25 @@ export default async function handler(
             },
           }),
         }
-
-        const housesCount = await prisma.house.count({
-          where,
-        })
-
-        const houses = await prisma.house.findMany({
-          where,
-          take: PER_PAGE,
-          skip,
-        })
-        res.json( houses );
+        // If Count is in the params, return only the search count
+        if(count === 'true'){
+          const housesCount = await prisma.house.count({
+            where,
+          })
+          res.json( housesCount );
+        } else{
+          const houses = await prisma.house.findMany({
+            where,
+            take: PER_PAGE,
+            skip,
+            ...(sortBy && {
+              orderBy: {
+                [sortBy[0]] : sortBy[1],
+              },
+            }),
+          })
+          res.json( houses );
+        }
       }
     }
     catch(err){

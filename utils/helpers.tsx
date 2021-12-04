@@ -30,3 +30,15 @@ export const prefetchHouses = async() : Promise<House> =>{
     .catch(err => console.log("Error:", err))
   return houses
 }
+
+export const housesCount = async(query : {[key: string] : string}) : Promise<House> =>{
+  const queryString = new URLSearchParams(query)
+  queryString.append('count', 'true')
+  const endpoint = process.env.NEXT_PUBLIC_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://auction-steel.vercel.app'
+  const count = await fetch(`${endpoint}/api/houses?${queryString}`)
+    .then(res => res.json())
+    .catch(err => console.log("Error:", err))
+  return count
+}

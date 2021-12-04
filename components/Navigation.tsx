@@ -33,6 +33,7 @@ type Props = {
   defaultMaxArea: string,
   defaultHouseType: string[],
   defaultTypology: string[],
+  defaultOrderBy: string,
   endpoint: string,
   setEndpoint : Dispatch<SetStateAction<string>>,
   closeDrawer? : () => void,
@@ -49,6 +50,7 @@ export default function Navigation({
   defaultMaxArea,
   defaultHouseType,
   defaultTypology,
+  defaultOrderBy,
   endpoint,
   setEndpoint,
   closeDrawer,
@@ -67,6 +69,7 @@ export default function Navigation({
     maxArea: "",
     houseType: [],
     typology: [],
+    orderBy: "",
   }
 
   const formMethods = useForm<any>({
@@ -81,6 +84,7 @@ export default function Navigation({
       maxArea: defaultMaxArea || "",
       houseType: defaultHouseType || [],
       typology: defaultTypology || [],
+      orderBy: defaultOrderBy || "",
     },
   });
   const {
@@ -146,6 +150,33 @@ export default function Navigation({
     },
   ]
 
+  const orderByOptions : CheckboxOption[] = [
+    {
+      label: "Maior preço",
+      value: "currentBid_desc",
+    },
+    {
+      label: "Menor preço",
+      value: "currentBid_asc",
+    },
+    {
+      label: "Mais recentes",
+      value: "createdAt_desc",
+    },
+    {
+      label: "Mais antigos",
+      value: "createdAt_asc",
+    },
+    {
+      label: "Maior área",
+      value: "area_desc",
+    },
+    {
+      label: "Menor área",
+      value: "area_asc",
+    },
+  ]
+
   const filter = (e : BaseSyntheticEvent<object, any, any>) =>{
     e.preventDefault();
 
@@ -196,6 +227,7 @@ export default function Navigation({
               </FormControl>
               <CheckboxField name="houseType" label="Tipo de casa" options={houseTypeOptions} direction={isSmallerThan768 ? "row" : "column"}/>
               <CheckboxField name="typology" label="Tipologia" options={typologyOptions} direction={isSmallerThan768 ? "row" : "column"}/>
+              <SelectField name="orderBy" label="Ordenar por" options={orderByOptions} placeholder="Escolha a ordenação"/>
               <HStack>
                 <Button
                   colorScheme="blackAlpha"
