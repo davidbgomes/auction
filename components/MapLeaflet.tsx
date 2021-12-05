@@ -41,11 +41,11 @@ export default function MapLeaflet({latitude, longitude, title} : {latitude: num
       <MapContainer
         id="map"
         center={[latitude, longitude]}
-        zoom={17}
+        zoom={18}
         scrollWheelZoom={false}
         dragging={isLargerThan768}
         maxZoom={18}
-        minZoom={14}
+        minZoom={12}
         maxBounds={maxBounds}
         maxBoundsViscosity={0.6}
       >

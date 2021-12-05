@@ -109,6 +109,7 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
     <>
       <Head>
         <title>Leiloou - Imóveis</title>
+        <meta name="description" content="Pesquise todos os Imóveis em Leilão Eletrónico de Portugal." />
       </Head>
       <Box
         borderRadius="lg"
@@ -269,7 +270,7 @@ const GetHouses = (props: Props) : JSX.Element => {
                 </DrawerBody>
               </DrawerContent>
             </Drawer>
-            <Text fontSize={{base:"lg", md:"xl"}} mb="2" mr={{base:"2", md:"12"}} fontStyle="italic" textDecor="underline" textAlign="right"><b>{count}</b> casas encontradas</Text>
+            <Heading as="h1" fontWeight="normal" fontSize={{base:"lg", md:"xl"}} mb="2" mr={{base:"2", md:"12"}} fontStyle="italic" textAlign="right"><b>{count}</b> casas encontradas</Heading>
             <InfiniteScroll
               dataLength={houses.length} //This is important field to render the next data
               next={() => setSize(size + 1)}

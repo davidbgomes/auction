@@ -1,0 +1,13 @@
+User-Agent: *
+Disallow: /search?district=11
+Disallow: /search?district=13
+Disallow: /search?district=15
+Disallow: /search?district=3
+Disallow: /search?district=1
+Disallow: /search?district=8
+Disallow: /search/
+Disallow: /terms
+Disallow: /privacy
+
+Sitemap: https://www.leiloou.pt/sitemap.xml
+Sitemap: https://leiloou.pt/sitemap.xml

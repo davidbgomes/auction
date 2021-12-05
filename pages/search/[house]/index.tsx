@@ -83,7 +83,7 @@ const GetHouse = ({house} : any) : JSX.Element => {
             <CarouselComponent id={houseId} images={images} height="550px"/>
             <VStack mt="3" spacing="6" p="3">
               <VStack spacing={{base:4, md:7}} w="full">
-                <Heading fontSize={{base:"xl", md:"3xl"}} fontWeight="bold" textAlign="center">{title}</Heading>
+                <Heading as="h1" fontSize={{base:"xl", md:"3xl"}} fontWeight="bold" textAlign="center">{title}</Heading>
                 <SimpleGrid columns={{base:1, md: 4}} spacing={{base:1, md: 5}} w="full">
                   <Box d="flex" alignItems={{base:"flex-start", md:"center"}} mr="auto" m={{base:"inherit", md:"auto"}} flexDirection={{base:"inherit", md:"column"}} w="full" >
                     <Icon as={BiMap} w={{base:6, md:8}} h={{base:6, md:8}}/>

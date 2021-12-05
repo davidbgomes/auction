@@ -22,10 +22,15 @@ export default function AboutUs() : JSX.Element {
           <VStack spacing="6" pos="relative" alignItems={{ base: "center", md:"flex-start"}} textAlign={{ base: "center", md:"initial"}} mt={{base:"10", md:"inherit"}} order={{base:2, md:1}}>
             <Heading as="h1" fontSize={{base: "3xl", md:"3xl", lg: "4xl", xl:"5xl"}}>Sobre Nós</Heading>
             <Text fontSize={{base: "sm", sm:"md", md: "lg"}} textAlign="justify">
-              A nossa missão é simples: reunir todos os bens em leilão eletrónico no território português e trazê-los aos nossos utilizadores.
+              A nossa missão é simples: reunir todos os bens em <b>leilão eletrónico</b> no território português e trazê-los aos nossos utilizadores. 
+              Para isso, usamos <b>tecnologia de ponta</b> para recolher informação de várias entidades de leilão eletrónico certificadas, e exibimos os resultados no nosso site.
             </Text>
             <Text fontSize={{base: "sm", sm:"md", md: "lg"}} textAlign="justify">
-              Aqui pode encontrar facilmente imóveis, veículos, equipamento e mobiliário de várias entidades certificadas.
+              Todos sabemos que os leilões eletrónicos são oportunidades de negócio incríveis! Quer seja para comprar a sua primeira casa por um preço <b>mais barato</b>, encontrar o seu próximo <b>investimento imobiliário</b>, 
+              ou simplesmente comprar um veículo por um preço imbatível, o nosso site providencia todas as ferramentas para analisar que leilões existem no mercado, e fazer uma decição mais informada.
+            </Text>
+            <Text fontSize={{base: "sm", sm:"md", md: "lg"}} textAlign="justify">
+              Os dias de sites de leilões dispersos e sem usabilidade acabaram. Aqui pode encontrar facilmente <b>imóveis, veículos, equipamento e mobiliário</b> de várias entidades certificadas.
             </Text>
             <CTA text="Pesquise agora"/>
           </VStack>
@@ -44,9 +49,18 @@ export default function AboutUs() : JSX.Element {
                 <Icon as={AiOutlineCheck} w={6} h={6} mr="4"/>
                 <Heading fontSize={{base: "lg", md: "xl", lg:"2xl"}} fontWeight="light">Decisão informada</Heading>
               </Box>
-              {/* <InfoCard src="/search-engine.svg" alt="real state agent" title="Pesquisa centralizada" />
-              <InfoCard src="/mobile.svg" alt="real state agent" title="Site responsivo" />
-              <InfoCard src="/decision.svg" alt="real state agent" title="Decisão informada" /> */}
+              <Box d="flex" alignItems="center">
+                <Icon as={AiOutlineCheck} w={6} h={6} mr="4"/>
+                <Heading fontSize={{base: "lg", md: "xl", lg:"2xl"}} fontWeight="light">Excelente experiência de utilizador</Heading>
+              </Box>
+              <Box d="flex" alignItems="center">
+                <Icon as={AiOutlineCheck} w={6} h={6} mr="4"/>
+                <Heading fontSize={{base: "lg", md: "xl", lg:"2xl"}} fontWeight="light">Navegação rápida</Heading>
+              </Box>
+              <Box d="flex" alignItems="center">
+                <Icon as={AiOutlineCheck} w={6} h={6} mr="4"/>
+                <Heading fontSize={{base: "lg", md: "xl", lg:"2xl"}} fontWeight="light">Filtre por várias categorias</Heading>
+              </Box>
             </VStack>
           </Box>
         </SimpleGrid>
