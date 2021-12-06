@@ -12,6 +12,7 @@ import {
   SimpleGrid,
   Icon,
   Divider,
+  useMediaQuery,
 } from "@chakra-ui/react"
 import CarouselComponent from "@/components/Carousel"
 import { GetServerSideProps } from "next"
@@ -28,6 +29,7 @@ import {SWRConfig} from 'swr'
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), { ssr:false })
 
 const GetHouse = ({house} : any) : JSX.Element => {
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
   const renderer = ({ days, hours, minutes, seconds, completed } : { days: number, hours: number, minutes: number, seconds: number, completed: boolean}) => {
     if (completed) {
       return <Text>Terminado</Text>;
@@ -80,7 +82,7 @@ const GetHouse = ({house} : any) : JSX.Element => {
             borderRadius="sm"
             pb="10"
           >
-            <CarouselComponent id={houseId} images={images} height="550px"/>
+            <CarouselComponent id={houseId} images={images} height={isLargerThan768 ? "500px" : "400px"} lazyLoad="progressive"/>
             <VStack mt="3" spacing="6" p="3">
               <VStack spacing={{base:4, md:7}} w="full">
                 <Heading as="h1" fontSize={{base:"xl", md:"3xl"}} fontWeight="bold" textAlign="center">{title}</Heading>
