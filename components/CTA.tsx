@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/layout";
 import Link from "next/link";
 
-export default function CTA({text} : {text: string}) : JSX.Element{
+export default function CTA({text = "Pesquise Agora"} : {text: string}) : JSX.Element{
   return(
     <Link href="/search" passHref>
       <Box

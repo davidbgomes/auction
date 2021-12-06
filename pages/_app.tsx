@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider } from "@chakra-ui/react"
 import GdprBanner from '@/components/GdprBanner'
 import Head from 'next/head'
+import Script from 'next/script'
 
 import Header from '../components/Header'
 
@@ -10,6 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -24,6 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <GdprBanner />
       </ChakraProvider>
+      {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-NRX4X2PD84" />
+      <Script id="googleAnalytics" dangerouslySetInnerHTML={{__html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-NRX4X2PD84');`}} />
     </>
   )
 }

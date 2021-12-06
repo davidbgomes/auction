@@ -13,8 +13,8 @@ export default function Privacy(): JSX.Element {
       <Head>
         <title>Política de Privacidade</title>
       </Head>
-      <Container maxWidth="container.lg" pb="12" pt="5" mt="12" boxShadow="md" px="10">
-        <Heading as="h2" mb="4" color="brand">
+      <Container maxWidth="container.lg" pb="12" pt="5" mt="12" boxShadow={{base:"inherit", md:"md"}} px={{base:"5", md:"10"}}>
+        <Heading as="h2" mb="8" color="brand">
           Política de Privacidade
         </Heading>
         <VStack spacing="4" alignItems="flex-start" mb="8">
@@ -46,7 +46,7 @@ export default function Privacy(): JSX.Element {
             O uso do nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais.
           </Text>
         </VStack>
-        <VStack spacing="4" alignItems="flex-start">
+        <VStack spacing="7" alignItems="flex-start">
           <VStack spacing="4" alignItems="flex-start">
             <Heading as="h3" fontSize="24">
               1. Política de Cookies

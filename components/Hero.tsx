@@ -1,4 +1,4 @@
-import { Box, Container, Image, HStack, Heading, Stack, VStack, Text } from "@chakra-ui/react"
+import { Box, Container, Image, Heading, Stack, VStack, Text } from "@chakra-ui/react"
 import CTA from "./CTA"
 
 export default function Hero() : JSX.Element {

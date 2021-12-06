@@ -5,6 +5,7 @@ import AboutUs from '../components/AboutUs'
 import Explore from '../components/Explore'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
+import OurServices from '@/components/OurServices'
 
 const Home: NextPage = () => {
   return (
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
       <Hero />
       <Explore />
       <AboutUs />
+      <OurServices />
       <Footer />
     </>
   )

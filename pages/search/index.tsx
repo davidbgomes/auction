@@ -2,12 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import {
   Box,
   Container,
-  Image,
-  HStack,
   Button,
   Heading,
-  Stack,
-  VStack,
   Center,
   Text,
   Grid,
@@ -18,13 +14,9 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
-  StatArrow,
-  StatGroup,
   useDisclosure,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -119,14 +111,14 @@ const AuctionCard = ({houseId, images, title, description, houseType, typology, 
         transition="0.2s ease-in-out"
       >
         <CarouselComponent id={houseId} images={images}/>
-        <Link href={`/search/${houseId}`} passHref >
+        <Link href={`/search/${houseId}`} passHref   >
           <a>
             <Box p="6">
               <Box display="flex" alignItems="baseline" justifyContent="space-between">
                 <Box display="flex" alignItems="baseline">
                   {isNew && (
                     <Badge borderRadius="full" px="2" colorScheme="teal">
-                      New
+                      Novo
                     </Badge>
                   )}
                   <Box

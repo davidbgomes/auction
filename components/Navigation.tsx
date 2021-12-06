@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import CheckboxField, {CheckboxOption} from "./fields/CheckboxField";
-import RadioField from "./fields/RadioField";
 import SelectField from "./fields/SelectField";
 import { useRouter } from 'next/router'
 
@@ -206,7 +205,7 @@ export default function Navigation({
           <form onSubmit={filter} noValidate>
             <VStack spacing={{base:"3", md:"10"}}>
               {!isSmallerThan768 &&
-                <Heading fontWeight="thin" fontSize="25px">Filtros</Heading>
+                <Heading fontWeight="normal" fontSize="25px">Filtros</Heading>
               }
               <SelectField name="district" label="Distrito" options={districtOptions} placeholder="Escolha o Distrito" />
               <SelectField name="county" label="Concelho" options={countyOptions} disabled={!district} placeholder="Escolha o Concelho"/>

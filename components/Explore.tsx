@@ -1,9 +1,15 @@
-import { Box, Container, Image, HStack, Heading, Stack, VStack, Text, SimpleGrid } from "@chakra-ui/react"
+import { Box, Container, Heading, VStack, SimpleGrid } from "@chakra-ui/react"
 import Link from "next/link"
 
 const DistrictCard = ({label, value, liveAuctions, image} : {label: string, value: number, liveAuctions: number, image: string}) : JSX.Element => {
   return(
-    <Link href={`/search?district=${value}`} passHref>
+    <Link 
+      href={{
+        pathname:'/search',
+        query: {district: value}
+      }}
+      passHref
+    >
       <a>
         <Box
           boxShadow="lg"

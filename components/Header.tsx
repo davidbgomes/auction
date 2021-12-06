@@ -36,11 +36,6 @@ export default function Header() : JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
-  const link = (path : string) => {
-    setIsOpen(false)
-    router.push(path)
-  }
-
   useEffect(() => {
     if(isOpen){
       document.body.style.overflow = 'hidden';

@@ -9,8 +9,8 @@ export default function Terms(): JSX.Element {
       <Head>
         <title>Termos & Condições</title>
       </Head>
-      <Container maxWidth="container.lg" pb="12" pt="5" mt="12" boxShadow="md">
-        <VStack spacing="4" alignItems="flex-start" mb="8">
+      <Container maxWidth="container.lg" pb="12" pt="5" mt="12" boxShadow={{base:"inherit", md:"md"}} px={{base:"5", md:"10"}}>
+        <VStack spacing="8" alignItems="flex-start" mb="8">
           <Heading as="h2" color="brand">
             Termos & Condições
           </Heading>
