@@ -4,40 +4,38 @@ import {
   HStack,
   Heading,
   VStack,
-  Flex,
   FormLabel,
   Button,
   useMediaQuery,
   FormControl,
 } from "@chakra-ui/react";
 
-import CheckboxField, {CheckboxOption} from "./fields/CheckboxField";
+import CheckboxField, { CheckboxOption } from "./fields/CheckboxField";
 import SelectField from "./fields/SelectField";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
-import { useForm, FormProvider, useWatch } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 
-import areaOptions from "@/utils/data/area.json"
-import cityOptions from "@/utils/data/cities.json"
-import priceOptions from "@/utils/data/price.json"
+import areaOptions from "@/utils/data/area.json";
+import cityOptions from "@/utils/data/cities.json";
+import priceOptions from "@/utils/data/price.json";
 import { BaseSyntheticEvent, Dispatch, SetStateAction, useEffect } from "react";
 
 type Props = {
-  defaultDistrict: string,
-  defaultCounty: string,
-  defaultParish: string,
-  defaultMinPrice: string,
-  defaultMaxPrice: string,
-  defaultMinArea: string,
-  defaultMaxArea: string,
-  defaultHouseType: string[],
-  defaultTypology: string[],
-  defaultOrderBy: string,
-  endpoint: string,
-  setEndpoint : Dispatch<SetStateAction<string>>,
-  closeDrawer? : () => void,
-}
-
+  defaultDistrict: string;
+  defaultCounty: string;
+  defaultParish: string;
+  defaultMinPrice: string;
+  defaultMaxPrice: string;
+  defaultMinArea: string;
+  defaultMaxArea: string;
+  defaultHouseType: string[];
+  defaultTypology: string[];
+  defaultOrderBy: string;
+  endpoint: string;
+  setEndpoint: Dispatch<SetStateAction<string>>;
+  closeDrawer?: () => void;
+};
 
 export default function Navigation({
   defaultDistrict,
@@ -53,10 +51,10 @@ export default function Navigation({
   endpoint,
   setEndpoint,
   closeDrawer,
-  } : Props) : JSX.Element {
-  const router = useRouter()
+}: Props): JSX.Element {
+  const router = useRouter();
 
-  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)")
+  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
 
   const resetValues = {
     district: "",
@@ -69,10 +67,10 @@ export default function Navigation({
     houseType: [],
     typology: [],
     orderBy: "",
-  }
+  };
 
   const formMethods = useForm<any>({
-    mode: 'onBlur',
+    mode: "onBlur",
     defaultValues: {
       district: defaultDistrict || "",
       county: defaultCounty || "",
@@ -86,39 +84,47 @@ export default function Navigation({
       orderBy: defaultOrderBy || "",
     },
   });
-  const {
-    handleSubmit,
-    watch,
-    reset,
-  } = formMethods;
+  const { handleSubmit, watch, reset } = formMethods;
 
-  const district = watch('district')
-  const county = watch('county')
+  const district = watch("district");
+  const county = watch("county");
 
-  const districtOptions = cityOptions.filter(({level}) => level === 1).map(({name, code}) => {
-    return({label: name, value: code.toString()})
-  })
+  const districtOptions = cityOptions
+    .filter(({ level }) => level === 1)
+    .map(({ name, code }) => {
+      return { label: name, value: code.toString() };
+    });
 
-  const countyOptions = cityOptions.filter(({level, code}) => level === 2 && code >= district*100 +1 && code <= district*100 +99).map(({name, code}) => {
-    return({label: name, value: code.toString()})
-  })
+  const countyOptions = cityOptions
+    .filter(
+      ({ level, code }) =>
+        level === 2 && code >= district * 100 + 1 && code <= district * 100 + 99
+    )
+    .map(({ name, code }) => {
+      return { label: name, value: code.toString() };
+    });
 
-  const parishOptions = cityOptions.filter(({level, code}) => level === 3 && code >= county * 100 + 1 && code <= county * 100 + 99).map(({name, code}) => {
-    return({label: name, value: code.toString()})
-  })
+  const parishOptions = cityOptions
+    .filter(
+      ({ level, code }) =>
+        level === 3 && code >= county * 100 + 1 && code <= county * 100 + 99
+    )
+    .map(({ name, code }) => {
+      return { label: name, value: code.toString() };
+    });
 
-  const houseTypeOptions : CheckboxOption[] = [
+  const houseTypeOptions: CheckboxOption[] = [
     {
       label: "Apartamento",
-      value: "Apartamento"
+      value: "Apartamento",
     },
     {
       label: "Moradia",
-      value: "Moradia"
+      value: "Moradia",
     },
-  ]
+  ];
 
-  const typologyOptions : CheckboxOption[] = [
+  const typologyOptions: CheckboxOption[] = [
     {
       label: "T0",
       value: "T0",
@@ -147,9 +153,9 @@ export default function Navigation({
       label: "T6 ou superior",
       value: "T6 ou superior",
     },
-  ]
+  ];
 
-  const orderByOptions : CheckboxOption[] = [
+  const orderByOptions: CheckboxOption[] = [
     {
       label: "Maior preço",
       value: "currentBid_desc",
@@ -174,63 +180,125 @@ export default function Navigation({
       label: "Menor área",
       value: "area_asc",
     },
-  ]
+  ];
 
-  const filter = (e : BaseSyntheticEvent<object, any, any>) =>{
+  const filter = (e: BaseSyntheticEvent<object, any, any>) => {
     e.preventDefault();
 
     handleSubmit(async (filters: Record<string, string>) => {
-      const pathname = router.pathname
-      const usedFilters = Object.fromEntries(Object.entries(filters).filter(([_,v]) => v.length !== 0))
-      const searchParams = new URLSearchParams(usedFilters)
+      const pathname = router.pathname;
+      const usedFilters = Object.fromEntries(
+        Object.entries(filters).filter(([_, v]) => v.length !== 0)
+      );
+      const searchParams = new URLSearchParams(usedFilters);
       const queryString = searchParams.toString();
-      router.push(`${pathname}?${queryString}`)
+      router.push(`${pathname}?${queryString}`);
 
-      if(isSmallerThan768 && typeof closeDrawer !== "undefined"){
-        closeDrawer()
+      if (isSmallerThan768 && typeof closeDrawer !== "undefined") {
+        closeDrawer();
       }
-    })(e)
-  }
+    })(e);
+  };
 
   const clearFilters = () => {
-    reset(resetValues)
-    const pathname = router.pathname
-    router.push(pathname)
-  }
+    reset(resetValues);
+    const pathname = router.pathname;
+    router.push(pathname);
+  };
 
-  return(
-    <Box pt="2" pb="6" borderRadius={{base:"none", md:"xl"}} borderWidth={{base:"inherit", md:"thin"}} boxShadow={{base:"inherit", md:"md"}}>
+  return (
+    <Box
+      pt="2"
+      pb="6"
+      borderRadius={{ base: "none", md: "xl" }}
+      borderWidth={{ base: "inherit", md: "thin" }}
+      boxShadow={{ base: "inherit", md: "md" }}
+    >
       <Container maxW="container.xl">
         <FormProvider {...formMethods}>
           <form onSubmit={filter} noValidate>
-            <VStack spacing={{base:"3", md:"10"}}>
-              {!isSmallerThan768 &&
-                <Heading fontWeight="normal" fontSize="25px">Filtros</Heading>
-              }
-              <SelectField name="district" label="Distrito" options={districtOptions} placeholder="Escolha o Distrito" />
-              <SelectField name="county" label="Concelho" options={countyOptions} disabled={!district} placeholder="Escolha o Concelho"/>
-              <SelectField name="parish" label="Freguesia" options={parishOptions} disabled={!district && !county} placeholder="Escolha a Freguesia"/>
+            <VStack spacing={{ base: "3", md: "10" }}>
+              {!isSmallerThan768 && (
+                <Heading fontWeight="normal" fontSize="25px">
+                  Filtros
+                </Heading>
+              )}
+              <SelectField
+                name="district"
+                label="Distrito"
+                options={districtOptions}
+                placeholder="Escolha o Distrito"
+              />
+              <SelectField
+                name="county"
+                label="Concelho"
+                options={countyOptions}
+                disabled={!district}
+                placeholder="Escolha o Concelho"
+              />
+              <SelectField
+                name="parish"
+                label="Freguesia"
+                options={parishOptions}
+                disabled={!district && !county}
+                placeholder="Escolha a Freguesia"
+              />
               <FormControl id="price">
                 <FormLabel>Preço</FormLabel>
                 <HStack>
-                  <SelectField name="minPrice" label="" options={priceOptions} placeholder="Min"/>
-                  <SelectField name="maxPrice" label="" options={priceOptions} placeholder="Max"/>
+                  <SelectField
+                    name="minPrice"
+                    label=""
+                    options={priceOptions}
+                    placeholder="Min"
+                  />
+                  <SelectField
+                    name="maxPrice"
+                    label=""
+                    options={priceOptions}
+                    placeholder="Max"
+                  />
                 </HStack>
               </FormControl>
               <FormControl id="area">
                 <FormLabel>Área</FormLabel>
                 <HStack>
-                  <SelectField name="minArea" label="" options={areaOptions} placeholder="Min"/>
-                  <SelectField name="maxArea" label="" options={areaOptions} placeholder="Max"/>
+                  <SelectField
+                    name="minArea"
+                    label=""
+                    options={areaOptions}
+                    placeholder="Min"
+                  />
+                  <SelectField
+                    name="maxArea"
+                    label=""
+                    options={areaOptions}
+                    placeholder="Max"
+                  />
                 </HStack>
               </FormControl>
-              <CheckboxField name="houseType" label="Tipo de casa" options={houseTypeOptions} direction={isSmallerThan768 ? "row" : "column"}/>
-              <CheckboxField name="typology" label="Tipologia" options={typologyOptions} direction={isSmallerThan768 ? "row" : "column"}/>
-              <SelectField name="orderBy" label="Ordenar por" options={orderByOptions} placeholder="Escolha a ordenação"/>
+              <CheckboxField
+                name="houseType"
+                label="Tipo de casa"
+                options={houseTypeOptions}
+                direction={isSmallerThan768 ? "row" : "column"}
+              />
+              <CheckboxField
+                name="typology"
+                label="Tipologia"
+                options={typologyOptions}
+                direction={isSmallerThan768 ? "row" : "column"}
+              />
+              <SelectField
+                name="orderBy"
+                label="Ordenar por"
+                options={orderByOptions}
+                placeholder="Escolha a ordenação"
+              />
               <HStack>
-                <Button
-                  colorScheme="blackAlpha"
-                  onClick={clearFilters}>Limpar</Button>
+                <Button colorScheme="blackAlpha" onClick={clearFilters}>
+                  Limpar
+                </Button>
                 <Button type="submit" colorScheme="green">
                   Filtrar
                 </Button>
@@ -240,5 +308,5 @@ export default function Navigation({
         </FormProvider>
       </Container>
     </Box>
-  )
+  );
 }

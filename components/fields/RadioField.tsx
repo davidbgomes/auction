@@ -1,10 +1,7 @@
-import {
-  FormControl,
-  FormLabel,
-} from '@chakra-ui/form-control';
-import { Stack } from '@chakra-ui/layout';
-import { Radio, RadioGroup } from '@chakra-ui/radio';
-import { Controller, useFormContext } from 'react-hook-form';
+import { FormControl, FormLabel } from "@chakra-ui/form-control";
+import { Stack } from "@chakra-ui/layout";
+import { Radio, RadioGroup } from "@chakra-ui/radio";
+import { Controller, useFormContext } from "react-hook-form";
 
 export type RadioOption = {
   label: string;
@@ -16,7 +13,7 @@ type Props = {
   label: string;
   name: string;
   options: RadioOption[];
-  direction?: 'row' | 'column';
+  direction?: "row" | "column";
   isRequired?: boolean;
   defaultValue?: string;
   [rest: string]: string | number | boolean | RadioOption[] | undefined;
@@ -26,9 +23,9 @@ export default function RadioField({
   label,
   name,
   options,
-  direction = 'row',
+  direction = "row",
   isRequired = false,
-  defaultValue = '',
+  defaultValue = "",
   ...rest
 }: Props): JSX.Element {
   const {
@@ -37,18 +34,14 @@ export default function RadioField({
   } = useFormContext();
 
   return (
-    <FormControl
-      as="fieldset"
-      flex={1}
-      isRequired={isRequired}
-    >
+    <FormControl as="fieldset" flex={1} isRequired={isRequired}>
       <FormLabel as="legend">{label}</FormLabel>
       <Controller
         control={control}
         name={name}
         defaultValue={defaultValue}
         render={({ field, fieldState: { invalid } }) => (
-          <RadioGroup {...field} {...rest} >
+          <RadioGroup {...field} {...rest}>
             <Stack direction={direction}>
               {options.map(({ label, value, ...rest }) => (
                 <Radio value={value} key={value} isInvalid={invalid} {...rest}>

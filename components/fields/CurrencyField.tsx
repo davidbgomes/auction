@@ -1,18 +1,20 @@
-import NumberFormat from 'react-number-format';
+import NumberFormat from "react-number-format";
 
 type Props = {
-  value: any,
-  [rest : string] : any,
-}
+  value: any;
+  [rest: string]: any;
+};
 
-export default function CurrencyField({value, rest} : Props){
-  return(
+export default function CurrencyField({ value, rest }: Props) {
+  return (
     <NumberFormat
       value={value}
-      displayType={'text'}
-      thousandSeparator=' '
+      displayType={"text"}
+      thousandSeparator=" "
       suffix="€"
+      decimalScale={2}
+      fixedDecimalScale={true}
       {...rest}
     />
-  )
+  );
 }

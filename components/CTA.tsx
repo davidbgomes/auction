@@ -1,8 +1,12 @@
 import { Box } from "@chakra-ui/layout";
 import Link from "next/link";
 
-export default function CTA({text = "Pesquise Agora"} : {text: string}) : JSX.Element{
-  return(
+export default function CTA({
+  text = "Pesquise Agora",
+}: {
+  text: string;
+}): JSX.Element {
+  return (
     <Link href="/search" passHref>
       <Box
         as="a"
@@ -12,14 +16,14 @@ export default function CTA({text = "Pesquise Agora"} : {text: string}) : JSX.El
         py="4"
         color="white"
         borderRadius="md"
-        fontSize={{ base: 'base', md: 'xl' }}
+        fontSize={{ base: "base", md: "xl" }}
         fontWeight="bold"
         textTransform="uppercase"
-        _hover={{ bg: '#2697b1a1', color: 'white' }}
+        _hover={{ bg: "#2697b1a1", color: "white" }}
         transition="0.3s ease-in-out"
       >
         {text}
       </Box>
     </Link>
-  )
+  );
 }

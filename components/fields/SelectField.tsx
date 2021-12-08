@@ -2,9 +2,9 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-} from '@chakra-ui/form-control';
-import { Select } from '@chakra-ui/select';
-import { useFormContext } from 'react-hook-form';
+} from "@chakra-ui/form-control";
+import { Select } from "@chakra-ui/select";
+import { useFormContext } from "react-hook-form";
 
 export type SelectOption = {
   label: string;
@@ -27,7 +27,7 @@ export default function SelectField({
   options,
   placeholder,
   isRequired = false,
-  defaultValue = '',
+  defaultValue = "",
   ...rest
 }: Props): JSX.Element {
   const {

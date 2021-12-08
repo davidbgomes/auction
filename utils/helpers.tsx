@@ -1,44 +1,42 @@
-import {House} from '@prisma/client'
+import { House } from "@prisma/client";
 
-export const fetcher = async(url: string) => {
-  const res = await fetch(url)
+const ENDPOINT =
+  process.env.NEXT_PUBLIC_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://leiloou.pt";
+
+export const fetcher = async (url: string) => {
+  const res = await fetch(url);
 
   if (!res.ok) {
-    const error = new Error('An error occurred while fetching the data.')
+    const error = new Error("An error occurred while fetching the data.");
     // Attach extra info to the error object.
-    throw error
+    throw error;
   }
-  return res.json()
-}
+  return res.json();
+};
 
-export const getHouse = async(houseId : string) : Promise<House> =>{
-  const endpoint = process.env.NEXT_PUBLIC_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://auction-steel.vercel.app'
-  const house = await fetch(`${endpoint}/api/houses?id=${houseId}`)
-    .then(res => res.json())
-    .catch(err => console.log("Error:", err))
-  return house
-}
+export const getHouse = async (houseId: string): Promise<House> => {
+  const house = await fetch(`${ENDPOINT}/api/houses?id=${houseId}`).then(
+    (res) => res.json()
+  );
+  return house;
+};
 
-export const prefetchHouses = async() : Promise<House> =>{
-  const endpoint = process.env.NEXT_PUBLIC_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://auction-steel.vercel.app'
-  const houses = await fetch(`${endpoint}/api/houses`)
-    .then(res => res.json())
-    .catch(err => console.log("Error:", err))
-  return houses
-}
+export const prefetchHouses = async (): Promise<House[]> => {
+  const houses: House[] = await fetch(`${ENDPOINT}/api/houses`).then((res) =>
+    res.json()
+  );
+  return houses;
+};
 
-export const housesCount = async(query : {[key: string] : string}) : Promise<House> =>{
-  const queryString = new URLSearchParams(query)
-  queryString.append('count', 'true')
-  const endpoint = process.env.NEXT_PUBLIC_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://auction-steel.vercel.app'
-  const count = await fetch(`${endpoint}/api/houses?${queryString}`)
-    .then(res => res.json())
-    .catch(err => console.log("Error:", err))
-  return count
-}
+export const housesCount = async (query: {
+  [key: string]: string;
+}): Promise<number> => {
+  const queryString = new URLSearchParams(query);
+  queryString.append("count", "true");
+  const count = await fetch(`${ENDPOINT}/api/houses?${queryString}`).then(
+    (res) => res.json()
+  );
+  return count;
+};

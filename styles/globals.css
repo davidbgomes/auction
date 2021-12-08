@@ -23,52 +23,58 @@ a {
 }
 
 @keyframes AnimationName {
-  0%{background-position:1% 0%}
-  50%{background-position:99% 100%}
-  100%{background-position:1% 0%}
+  0% {
+    background-position: 1% 0%;
+  }
+  50% {
+    background-position: 99% 100%;
+  }
+  100% {
+    background-position: 1% 0%;
+  }
 }
 
-.area-div{
-  height:35px;
-  width:fit-content;
-  border:2px solid grey;
-  z-index:1;
-  position:relative;
+.area-div {
+  height: 35px;
+  width: fit-content;
+  border: 2px solid grey;
+  z-index: 1;
+  position: relative;
   padding: 2px;
 }
 
 .area-div:before {
-  position:absolute;
-  top:-20%; 
-  left:20%;
-  content:"";
-  display:block;
-  height:10px;
-  width:90%;
-  background:white;
+  position: absolute;
+  top: -20%;
+  left: 20%;
+  content: "";
+  display: block;
+  height: 10px;
+  width: 90%;
+  background: white;
 }
 
 .area-div:after {
-  position:absolute;
-  bottom:-5px; 
-  left:-9%;
-  content:"";
-  display:block;
-  height:6px;
-  width:35px;
-  background:white;
+  position: absolute;
+  bottom: -5px;
+  left: -9%;
+  content: "";
+  display: block;
+  height: 6px;
+  width: 35px;
+  background: white;
 }
 
-.slick-next{
+.slick-next {
   right: 3% !important;
   z-index: 1;
 }
-.slick-prev{
+.slick-prev {
   left: 3% !important;
   z-index: 1;
 }
 
-.chakra-spinner{
+.chakra-spinner {
   display: block !important;
   margin: auto;
   width: min-content;
@@ -76,8 +82,8 @@ a {
 
 .mobile-menu-background {
   position: absolute;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   bottom: 0;
   width: 100vw;
   height: 100%;
@@ -87,7 +93,7 @@ a {
 }
 
 @media screen and (min-width: 721px) {
-  .mobile-menu-background{
+  .mobile-menu-background {
     display: none;
   }
 }
@@ -97,46 +103,45 @@ a {
   min-height: fit-content;
   height: 300px;
   width: "100%";
-  }
-  .ol-control {
+}
+.ol-control {
   position: absolute;
   background-color: rgb(5 129 235 / 57%);
   padding: 2px;
-  }
-  .fullscreen {
-    margin-bottom: 10px;
-    width: 100%;
-  }
+}
+.fullscreen {
+  margin-bottom: 10px;
+  width: 100%;
+}
 
-  .fullscreen:fullscreen .ol-map{
-    width: 100%;
-    height: 100%;
-  }
+.fullscreen:fullscreen .ol-map {
+  width: 100%;
+  height: 100%;
+}
 
-  .ol-full-screen{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  .ol-full-screen-false{
-    line-height: 0;
-    height: 20px;
-    font-size: xx-large;
-  }
-  .ol-full-screen-true{
-    line-height: 0;
-    height: 20px;
-    font-size: xx-large;
-  }
-  .ol-zoom{
-    display: none;
+.ol-full-screen {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.ol-full-screen-false {
+  line-height: 0;
+  height: 20px;
+  font-size: xx-large;
+}
+.ol-full-screen-true {
+  line-height: 0;
+  height: 20px;
+  font-size: xx-large;
+}
+.ol-zoom {
+  display: none;
+}
+.ol-rotate {
+  display: none;
+}
 
-  }
-  .ol-rotate{
-    display: none;
-  }
-
-  .leaflet-container{
-    height: 300px;
-    width: 100%;
-  }
+.leaflet-container {
+  height: 300px;
+  width: 100%;
+}
