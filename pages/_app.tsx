@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           as="fetch"
           crossOrigin="anonymous"
         ></link>
+        <meta name="google-site-verification" content="34aN0oAtR60hpfDReUSgdFjm1raYz6cpOBKwsfTHZRc" />
       </Head>
       <ChakraProvider>
         <Header />
