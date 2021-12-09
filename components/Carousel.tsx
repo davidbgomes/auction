@@ -48,11 +48,11 @@ export default function CarouselComponent({
               </Box>
               <Image
                 src={el}
-                alt={`carousel-image-${i}`}
-                priority={i === 1}
+                alt={`carousel-image-${i + 1}`}
+                priority={i === 0}
                 layout="fill"
                 objectFit="cover"
-                quality={35}
+                quality={25}
               />
             </Box>
           );
