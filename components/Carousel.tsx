@@ -2,7 +2,7 @@ import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image, { ImageLoader } from "next/image";
+import Image from "next/image";
 
 export default function CarouselComponent({
   id,
@@ -52,7 +52,7 @@ export default function CarouselComponent({
                 priority={i === 0}
                 layout="fill"
                 objectFit="cover"
-                quality={25}
+                quality={70}
               />
             </Box>
           );
