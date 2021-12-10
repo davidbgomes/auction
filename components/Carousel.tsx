@@ -52,7 +52,10 @@ export default function CarouselComponent({
                 priority={i === 0}
                 layout="fill"
                 objectFit="cover"
-                quality={70}
+                quality={45}
+                sizes="30vw"
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mN8/frdCwY0wEgDQQBYrRJiITy1dwAAAABJRU5ErkJggg=="
               />
             </Box>
           );
