@@ -3,7 +3,6 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import chromium from "chrome-aws-lambda";
 import {Page} from "puppeteer-core";
-import { Prisma, House } from "@prisma/client";
 import prisma from "../../lib/prisma";
 import { CronJob } from "quirrel/next"
 
@@ -92,7 +91,7 @@ const eLeilaoRobot = async () => {
     const houseItems = await page.$$(".PaginacaoBemArea");
     console.log("Total House Items:", houseItems.length);
 
-    let house: House[] = [];
+    let house: any = [];
 
     for (const item of houseItems) {
       const headerHouseId = await item.$eval(
@@ -127,7 +126,7 @@ const eLeilaoRobot = async () => {
               data: {
                 currentBid,
                 currentBidHistory:{
-                  push: new Prisma.Decimal(currentBid)
+                  push: parseFloat(currentBid)
                 }
               },
             });
@@ -309,10 +308,10 @@ const eLeilaoRobot = async () => {
             district,
             county,
             parish,
-            marketValue: new Prisma.Decimal(marketValue),
-            minimumPrice: new Prisma.Decimal(minimumPrice),
-            startingPrice: new Prisma.Decimal(startingPrice),
-            currentBid: new Prisma.Decimal(currentBid),
+            marketValue: parseFloat(marketValue),
+            minimumPrice: parseFloat(minimumPrice),
+            startingPrice: parseFloat(startingPrice),
+            currentBid: parseFloat(currentBid),
             startsAt: startsAtDate,
             endsAt: endsAtDate,
             website: "e-leiloes",
@@ -324,7 +323,7 @@ const eLeilaoRobot = async () => {
             postcode: locationPostCode as string,
             latitude: locationLatitude as string,
             longitude: locationLongitude as string,
-            currentBidHistory: [new Prisma.Decimal(currentBid)],
+            currentBidHistory: [parseFloat(currentBid)],
             url,
           });
           await housePage.close();
