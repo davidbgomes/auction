@@ -2,7 +2,7 @@
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import chromium from "chrome-aws-lambda";
-import {Page} from "puppeteer";
+import {Page} from "puppeteer-core";
 import { Prisma, House } from "@prisma/client";
 import prisma from "../../lib/prisma";
 import { CronJob } from "quirrel/next"
@@ -69,11 +69,11 @@ const eLeilaoRobot = async () => {
     await page.click("#DataMore span");
     const totalResults = await page.$eval(
       "#CPH_Body_Panel_Conteudo input[name=TotalDeResultados]",
-      (el: HTMLInputElement) => (el as HTMLInputElement).value
+      (el) => (el as HTMLInputElement).value
     );
     let currentResults = await page.$eval(
       "#CPH_Body_Panel_Conteudo input[name=ContagemDeResultados]",
-      (el: HTMLInputElement) => (el as HTMLInputElement).value
+      (el) => (el as HTMLInputElement).value
     );
 
     //console.log("--------------\nStart scrolling!");
@@ -83,7 +83,7 @@ const eLeilaoRobot = async () => {
       await page.mouse.wheel({ deltaY: delta });
       currentResults = await page.$eval(
         "#CPH_Body_Panel_Conteudo input[name=ContagemDeResultados]",
-        (el: HTMLInputElement) => (el as HTMLInputElement).value
+        (el) => (el as HTMLInputElement).value
       );
     }
     //console.log("End of scroll!");
@@ -97,7 +97,7 @@ const eLeilaoRobot = async () => {
     for (const item of houseItems) {
       const headerHouseId = await item.$eval(
         ".PaginacaoBemCabecalho01 b",
-        (el: HTMLElement) => (el as HTMLElement).innerText
+        (el) => (el as HTMLElement).innerText
       );
 
       // If house is already on DB, check if currentBid was updated. If so update the db, else continue to next
@@ -106,14 +106,14 @@ const eLeilaoRobot = async () => {
         const hasCurrentBid = (
           await item.$eval(
             ".PaginacaoBemLanceAtual",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           )
         ).includes("LANCE ATUAL: ");
         if (hasCurrentBid) {
           const currentBid = (
             await item.$eval(
               ".PaginacaoBemLanceAtual",
-              (el: HTMLElement) => (el as HTMLElement).innerText
+              (el) => (el as HTMLElement).innerText
             )
           )
             .substring("LANCE ATUAL: ".length - 1)
@@ -139,7 +139,7 @@ const eLeilaoRobot = async () => {
           const housePage = await browser.newPage();
           const newHouseUrl = await item.$eval(
             "a",
-            (el: HTMLAnchorElement) => (el as HTMLAnchorElement).href
+            (el) => (el as HTMLAnchorElement).href
           );
           await housePage.goto(newHouseUrl);
           await housePage.bringToFront();
@@ -165,19 +165,19 @@ const eLeilaoRobot = async () => {
 
           const houseId = await housePage.$eval(
             "#CPH_Body_DIV_Coluna_03 div:first-child div:last-child b",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           );
           const title = await housePage.$eval(
             "#CPH_Body_DIV_Titulo div b",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           );
           const description = await housePage.$eval(
             "#InfoBemDescricao div:nth-child(13) div:last-child",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           );
           const area = await housePage.$eval(
             "#InfoBemDescricao div:nth-child(11) div:last-child",
-            (el: HTMLElement) =>
+            (el) =>
               parseInt(
                 (el as HTMLElement).innerText.substr(
                   0,
@@ -187,11 +187,11 @@ const eLeilaoRobot = async () => {
           );
           const typology = await housePage.$eval(
             "#InfoBemDescricao div:nth-child(5) div:last-child",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           );
           const houseType = await housePage.$eval(
             "#InfoBemDescricao div:nth-child(3) b",
-            (el: HTMLElement) => (el as HTMLElement).innerText
+            (el) => (el as HTMLElement).innerText
           );
           const locationDiv = await getEleilaoLocation(housePage);
           const locationCities = await locationDiv?.$eval(
@@ -260,28 +260,28 @@ const eLeilaoRobot = async () => {
           );
           const marketValue = await housePage.$eval(
             "#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:first-child div:last-child b",
-            (el: HTMLElement) =>
+            (el) =>
               (el as HTMLElement).innerText
                 .replace(/[€\s]/g, "")
                 .replace(",", ".")
           );
           const minimumPrice = await housePage.$eval(
             "#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:nth-child(5) div:last-child b",
-            (el: HTMLElement) =>
+            (el) =>
               (el as HTMLElement).innerText
                 .replace(/[€\s]/g, "")
                 .replace(",", ".")
           );
           const startingPrice = await housePage.$eval(
             "#CPH_Body_DIV_Coluna_03 div:nth-child(3) div:nth-child(3) div:last-child b",
-            (el: HTMLElement) =>
+            (el) =>
               (el as HTMLElement).innerText
                 .replace(/[€\s]/g, "")
                 .replace(",", ".")
           );
           const currentBid = await housePage.$eval(
             "#CPH_Body_UP_LanceAtual div:nth-child(2) div:first-child:not(b)",
-            (el: HTMLElement) =>
+            (el) =>
               (el as HTMLElement).innerText
                 .substring("P. Mais Alta: ".length - 1)
                 .replace(/[€\s]/g, "")
@@ -289,11 +289,11 @@ const eLeilaoRobot = async () => {
           );
           const startsAt = await housePage.$eval(
             "#CPH_Body_UP_RelogioDatas div:nth-child(2) div:first-child div:nth-child(2) b",
-            (el: HTMLElement) => (el as HTMLElement).innerText.trim().replaceAll(" ", "")
+            (el) => (el as HTMLElement).innerText.trim().replaceAll(" ", "")
           );
           const endsAt = await housePage.$eval(
             "#CPH_Body_UP_RelogioDatas div:nth-child(2) div:nth-child(3) div:nth-child(2) b",
-            (el: HTMLElement) => (el as HTMLElement).innerText.trim().replaceAll(" ", "")
+            (el) => (el as HTMLElement).innerText.trim().replaceAll(" ", "")
           );
           const startsAtDate = dayjs(startsAt, "DD-MM-YYYY HH:mm:ss").toDate();
           const endsAtDate = dayjs(endsAt, "DD-MM-YYYY HH:mm:ss").toDate();
