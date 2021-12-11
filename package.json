@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.3.0",
     "@prisma/client": "^3.5.0",
     "chrome-aws-lambda": "^10.1.0",
+    "cors": "^2.8.5",
     "dayjs": "^1.10.7",
     "framer-motion": "^4.1.17",
     "leaflet": "^1.7.1",
@@ -36,6 +37,7 @@
     "swr": "^1.0.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/leaflet": "^1.7.6",
     "@types/react": "17.0.29",
     "@types/react-slick": "^0.23.7",
