@@ -6,13 +6,10 @@ import prisma from "../../lib/prisma";
 
 const PER_PAGE = 8;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "GET") {
+exports.handler = async (event : any, context : any) => {
+  if (event.httpMethod  === "GET") {
     try {
-      const query = req.query;
+      const query = event.queryStringParameters;
       const houseId = query.id as string;
       if (houseId) {
         const house = await prisma.house.findUnique({
@@ -20,7 +17,10 @@ export default async function handler(
             houseId,
           },
         });
-        res.status(200).json(house);
+        return{
+          statusCode: 200,
+          body: JSON.stringify(house)
+        }
       } else {
         const districtValue = query.district as string;
         const countyValue = query.county as string;
@@ -103,7 +103,10 @@ export default async function handler(
           const housesCount = await prisma.house.count({
             where,
           });
-          res.json(housesCount);
+          return{
+            statusCode: 200,
+            body: JSON.stringify(housesCount)
+          }
         } else {
           const houses = await prisma.house.findMany({
             where,
@@ -115,14 +118,18 @@ export default async function handler(
               },
             }),
           });
-          res.json(houses);
+          return{
+            statusCode: 200,
+            body: JSON.stringify(houses)
+          }
         }
       }
     } catch (err) {
       console.log("error", err);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal Server Error" });
+      return{
+        statusCode: 500,
+        body: JSON.stringify({ success: false, message: "Internal Server Error" })
+      }
     }
   }
 }

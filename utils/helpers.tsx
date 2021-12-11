@@ -1,9 +1,6 @@
 import { House } from "@prisma/client";
 
-const ENDPOINT =
-  process.env.NEXT_PUBLIC_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://master.dlfarc9btibsp.amplifyapp.com";
+const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
 
 export const fetcher = async (url: string) => {
   const res = await fetch(url);
