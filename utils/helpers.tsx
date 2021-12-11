@@ -3,7 +3,7 @@ import { House } from "@prisma/client";
 const ENDPOINT =
   process.env.NEXT_PUBLIC_ENV === "development"
     ? "http://localhost:3000"
-    : "https://silly-engelbart-1bbd3b.netlify.app";
+    : "https://master.dlfarc9btibsp.amplifyapp.com";
 
 export const fetcher = async (url: string) => {
   const res = await fetch(url);
