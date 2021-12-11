@@ -10,6 +10,5 @@ module.exports = {
     }
   
     return config;
-  },
-  target: 'experimental-serverless-trace'
+  }
 };
