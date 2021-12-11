@@ -14,5 +14,6 @@ module.exports = {
   env: {
     NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV,
     DATABASE_URL: process.env.DATABASE_URL
-  }
+  },
+  webpack5: false,
 };
