@@ -4,7 +4,7 @@ module.exports = {
   images: {
     domains: ["www.e-leiloes.pt"],
   },
-  webpack5: (config, { defaultLoaders, isServer }) => {
+  webpack: (config, { defaultLoaders, isServer }) => {
     if (isServer) {
       config.externals.push('_http_common');
     }
