@@ -1,10 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import dayjs from "dayjs";
 import chromium from "chrome-aws-lambda";
+import dayjs from "dayjs";
 import {Page} from "puppeteer-core";
+import { Prisma, House } from "@prisma/client";
 import prisma from "../../lib/prisma";
-import { CronJob } from "quirrel/next"
 
 dayjs.extend(customParseFormat);
 
@@ -12,16 +13,15 @@ type Data = {
   message: string;
 };
 
-export default CronJob(
-  "api/cron", // the route that it's reachable on
-  ["0 1 * * *", "Europe/London"], // every day at 1AM
-  async () => {
-    console.time("cron");
-    await removeFinishedAuctions();
-    await eLeilaoRobot();
-    console.timeEnd("cron");
-  }
-)
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  console.time("cron");
+  await eLeilaoRobot();
+  console.timeEnd("cron");
+  res.status(200).json({ message: "Success" });
+}
 
 const eLeilaoRobot = async () => {
   console.log("E-leilao Bot Starting...");
@@ -75,7 +75,10 @@ const eLeilaoRobot = async () => {
       (el) => (el as HTMLInputElement).value
     );
 
-    //console.log("--------------\nStart scrolling!");
+    //console.log("currentResults", currentResults)
+    //console.log("totalResults", totalResults)
+
+    console.log("--------------\nStart scrolling!");
     while (parseInt(currentResults) < parseInt(totalResults)) {
       const delta = Math.random() * (230 - 140) + 140;
       await page.mouse.wheel({ deltaY: delta });
@@ -85,13 +88,13 @@ const eLeilaoRobot = async () => {
         (el) => (el as HTMLInputElement).value
       );
     }
-    //console.log("End of scroll!");
+    console.log("End of scroll!");
     await page.waitForTimeout(5000);
     await page.waitForSelector(".PaginacaoBemArea");
     const houseItems = await page.$$(".PaginacaoBemArea");
     console.log("Total House Items:", houseItems.length);
 
-    let house: any = [];
+    let house: House[] = [];
 
     for (const item of houseItems) {
       const headerHouseId = await item.$eval(
@@ -108,6 +111,7 @@ const eLeilaoRobot = async () => {
             (el) => (el as HTMLElement).innerText
           )
         ).includes("LANCE ATUAL: ");
+        //console.log("hasCurrentBid", hasCurrentBid)
         if (hasCurrentBid) {
           const currentBid = (
             await item.$eval(
@@ -118,23 +122,26 @@ const eLeilaoRobot = async () => {
             .substring("LANCE ATUAL: ".length - 1)
             .replace(/[€\s]/g, "")
             .replace(",", ".");
+          //console.log("hasCurrentBidChanged", currentHouse?.currentBid?.toNumber() !== parseFloat(currentBid))
           if (currentHouse?.currentBid?.toNumber() !== parseFloat(currentBid)) {
+            console.log(
+              `Updating house ${currentHouse?.houseId} Current Bid...`
+            );
             await prisma.house.update({
               where: {
                 houseId: headerHouseId,
               },
               data: {
                 currentBid,
-                currentBidHistory:{
-                  push: parseFloat(currentBid)
-                }
               },
             });
             housesUpdated = housesUpdated + 1;
+            console.log(`${currentHouse?.houseId} Updated!`);
           }
         }
       } else {
         try {
+          //console.log("House doesn't exist on the DB yet. Fetching data...")
           const housePage = await browser.newPage();
           const newHouseUrl = await item.$eval(
             "a",
@@ -308,10 +315,10 @@ const eLeilaoRobot = async () => {
             district,
             county,
             parish,
-            marketValue: parseFloat(marketValue),
-            minimumPrice: parseFloat(minimumPrice),
-            startingPrice: parseFloat(startingPrice),
-            currentBid: parseFloat(currentBid),
+            marketValue: new Prisma.Decimal(marketValue),
+            minimumPrice: new Prisma.Decimal(minimumPrice),
+            startingPrice: new Prisma.Decimal(startingPrice),
+            currentBid: new Prisma.Decimal(currentBid),
             startsAt: startsAtDate,
             endsAt: endsAtDate,
             website: "e-leiloes",
@@ -323,9 +330,10 @@ const eLeilaoRobot = async () => {
             postcode: locationPostCode as string,
             latitude: locationLatitude as string,
             longitude: locationLongitude as string,
-            currentBidHistory: [parseFloat(currentBid)],
+            currentBidHistory: [],
             url,
           });
+          //console.log("House:", house[house.length - 1])
           await housePage.close();
         } catch (err) {
           console.log("Error:", err);
@@ -365,18 +373,3 @@ const getEleilaoLocation = async (page: Page) => {
     `#InfoBemDescricao div:nth-child(${locationDiv.toString()})`
   );
 };
-
-const removeFinishedAuctions = async() => {
-  try{
-    const deletedHouses = await prisma.house.deleteMany({
-      where:{
-        endsAt:{
-          lt: new Date()
-        },
-      },
-    })
-    console.log("Deleted auctions:", deletedHouses.count)
-  } catch(err : any) {
-    throw new Error(err)
-  }
-}
