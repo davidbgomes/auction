@@ -14,14 +14,14 @@ export const fetcher = async (url: string) => {
 };
 
 export const getHouse = async (houseId: string): Promise<House> => {
-  const house = await fetch(`${ENDPOINT}/api/houses?id=${houseId}`).then(
+  const house = await fetch(`${ENDPOINT}/.netlify/functions/houses?id=${houseId}`).then(
     (res) => res.json()
   );
   return house;
 };
 
 export const prefetchHouses = async (): Promise<House[]> => {
-  const houses: House[] = await fetch(`${ENDPOINT}/api/houses`).then((res) =>
+  const houses: House[] = await fetch(`${ENDPOINT}/.netlify/functions/houses`).then((res) =>
     res.json()
   );
   return houses;
@@ -32,7 +32,7 @@ export const housesCount = async (query: {
 }): Promise<number> => {
   const queryString = new URLSearchParams(query);
   queryString.append("count", "true");
-  const count = await fetch(`${ENDPOINT}/api/houses?${queryString}`).then(
+  const count = await fetch(`${ENDPOINT}/.netlify/functions/houses?${queryString}`).then(
     (res) => res.json()
   );
   return count;
