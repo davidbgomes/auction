@@ -20,6 +20,6 @@
       "@/contexts/*": ["contexts/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/prisma.js"],
   "exclude": ["node_modules"]
 }
