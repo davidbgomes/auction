@@ -205,7 +205,7 @@ const AuctionCard = ({
 };
 
 const GetHouses = ({ query, count }: Props): JSX.Element => {
-  const [endpoint, setEndpoint] = useState<string>(`/api/houses`);
+  const [endpoint, setEndpoint] = useState<string>(`/.netlify/functions/houses`);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
 
@@ -367,7 +367,7 @@ export default function Search({
   query,
   count,
 }: {
-  fallback: { "/api/houses": House[] };
+  fallback: { "/.netlify/functions/houses": House[] };
   query: { [key: string]: string };
   count: number;
 }): JSX.Element {
@@ -387,7 +387,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       query,
       count,
       fallback: {
-        "/api/houses": houses,
+        "/.netlify/functions/houses": houses,
       },
     },
   };

@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff"></meta>
         <link
           rel="preload"
-          href="/api/houses"
+          href="/.netlify/functions/houses"
           as="fetch"
           crossOrigin="anonymous"
         ></link>

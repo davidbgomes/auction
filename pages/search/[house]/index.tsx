@@ -331,7 +331,7 @@ export default function House({
   fallback,
   house,
 }: {
-  fallback: { "/api/houses": HouseType };
+  fallback: { "/.netlify/functions/houses": HouseType };
   house: HouseType;
 }): JSX.Element {
   return (
@@ -349,7 +349,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       house,
       fallback: {
-        "api/houses": house,
+        "/.netlify/functions/houses": house,
       },
     },
   };
