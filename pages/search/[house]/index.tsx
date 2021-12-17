@@ -24,6 +24,9 @@ import { House as HouseType } from "@prisma/client";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 
+const ENV = process.env.NEXT_PUBLIC_ENV
+const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
+
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), {
   ssr: false,
 });
@@ -331,7 +334,7 @@ export default function House({
   fallback,
   house,
 }: {
-  fallback: { "/.netlify/functions/houses": HouseType };
+  fallback: { key: HouseType };
   house: HouseType;
 }): JSX.Element {
   return (
@@ -345,11 +348,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const params = context.params as { [key: string]: string };
   const { house: houseId } = params;
   const house = await getHouse(houseId);
+  const fallbackPath = `${API_PATH}/houses`
   return {
     props: {
       house,
       fallback: {
-        "/.netlify/functions/houses": house,
+        [fallbackPath]: house,
       },
     },
   };

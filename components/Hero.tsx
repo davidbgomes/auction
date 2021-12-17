@@ -1,13 +1,13 @@
 import {
   Box,
   Container,
-  Image,
   Heading,
   Stack,
   VStack,
   Text,
 } from "@chakra-ui/react";
 import CTA from "./CTA";
+import Image from 'next/image'
 
 export default function Hero(): JSX.Element {
   return (
@@ -54,16 +54,16 @@ export default function Hero(): JSX.Element {
               </Text>
               <CTA text="Pesquise agora" />
             </VStack>
-            <Image
-              order={{ base: 1, md: 2 }}
-              src="/realState.svg"
-              alt="real state agent"
-              boxSize={{ base: "52", lg: "initial" }}
-              mx="auto"
-              zIndex={1}
-              loading="eager"
-              ignoreFallback
-            />
+            <Box order={{ base: 1, md: 2 }} boxSize={{ base: "52", lg: "80" }} mx="auto" zIndex={1} pos="relative">
+              <Image
+                src="/realState.svg"
+                alt="real state agent"
+                layout="fill"
+                priority
+                sizes="30vw"
+                quality="65"
+              />
+            </Box>
           </Stack>
         </Container>
       </Box>

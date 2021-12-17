@@ -86,37 +86,37 @@ export default function Explore(): JSX.Element {
                 label="Lisboa"
                 value={11}
                 liveAuctions={200}
-                image="/lisbon.jpg"
+                image="/lisbon.webp"
               />
               <DistrictCard
                 label="Porto"
                 value={13}
                 liveAuctions={200}
-                image="/porto.jpg"
+                image="/porto.webp"
               />
               <DistrictCard
                 label="Setúbal"
                 value={15}
                 liveAuctions={200}
-                image="/setubal.jpg"
+                image="/setubal.webp"
               />
               <DistrictCard
                 label="Braga"
                 value={3}
                 liveAuctions={200}
-                image="/braga.jpg"
+                image="/braga.webp"
               />
               <DistrictCard
                 label="Aveiro"
                 value={1}
                 liveAuctions={200}
-                image="/aveiro.jpg"
+                image="/aveiro.webp"
               />
               <DistrictCard
                 label="Faro"
                 value={8}
                 liveAuctions={200}
-                image="/faro.jpg"
+                image="/faro.webp"
               />
             </SimpleGrid>
           </VStack>

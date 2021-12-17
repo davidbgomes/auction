@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import {
   Box,
   Container,
@@ -24,11 +24,12 @@ import {
   Spinner,
   useMediaQuery,
 } from "@chakra-ui/react";
-import SkeletonSearch from "@/components/SkeletonSearch";
+import dynamic from 'next/dynamic';
+
+const SkeletonSearch = dynamic(() => import('@/components/SkeletonSearch'))
 import Navigation from "@/components/Navigation";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import useSWRInfinite from "swr/infinite";
 import { SWRConfig } from "swr";
 import { fetcher, prefetchHouses, housesCount } from "@/utils/helpers";
@@ -40,6 +41,8 @@ import Head from "next/head";
 import { House } from "@prisma/client";
 
 const PAGE_SIZE = 8;
+const ENV = process.env.NEXT_PUBLIC_ENV
+const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
 
 type Props = {
   count: number;
@@ -205,7 +208,7 @@ const AuctionCard = ({
 };
 
 const GetHouses = ({ query, count }: Props): JSX.Element => {
-  const [endpoint, setEndpoint] = useState<string>(`/.netlify/functions/houses`);
+  const [endpoint, setEndpoint] = useState<string>(`${API_PATH}/houses`);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
 
@@ -367,7 +370,7 @@ export default function Search({
   query,
   count,
 }: {
-  fallback: { "/.netlify/functions/houses": House[] };
+  fallback: { key: House[] };
   query: { [key: string]: string };
   count: number;
 }): JSX.Element {
@@ -382,12 +385,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query;
   const houses = await prefetchHouses();
   const count = await housesCount(query as { [key: string]: string });
+  const fallbackPath = `${API_PATH}/houses`
   return {
     props: {
       query,
       count,
       fallback: {
-        "/.netlify/functions/houses": houses,
+        [fallbackPath]: houses,
       },
     },
   };

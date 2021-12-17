@@ -14,9 +14,9 @@ export default function AboutUs(): JSX.Element {
   const InfoCard = ({ title }: { title: string }): JSX.Element => {
     return (
       <Box d="flex" alignItems="center">
-        <Icon as={AiOutlineCheck} w={6} h={6} mr="4" />
+        <Icon as={AiOutlineCheck} w={6} h={6} mr="4" color="darkcyan" />
         <Heading
-          fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
+          fontSize={{ base: "md", md: "xl", lg: "2xl" }}
           fontWeight="light"
         >
           {title}
@@ -81,7 +81,7 @@ export default function AboutUs(): JSX.Element {
               alignItems="flex-start"
               maxW="fit-content"
               m="auto"
-              spacing={8}
+              spacing={9}
             >
               <Heading
                 as="h2"
@@ -94,9 +94,8 @@ export default function AboutUs(): JSX.Element {
               <InfoCard title="Pesquisa centralizada" />
               <InfoCard title="Site responsivo" />
               <InfoCard title="Decisão informada" />
-              <InfoCard title="Excelente experiência de utilizador" />
               <InfoCard title="Navegação rápida" />
-              <InfoCard title="Filtre por várias categorias" />
+              <InfoCard title="Filtros avançados" />
             </VStack>
           </Box>
         </SimpleGrid>
