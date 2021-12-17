@@ -8,7 +8,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import CTA from "./CTA";
-import { AiOutlineCheck } from "react-icons/ai";
+import { AiOutlineCheck } from "@react-icons/all-files/ai/AiOutlineCheck"
 
 export default function AboutUs(): JSX.Element {
   const InfoCard = ({ title }: { title: string }): JSX.Element => {

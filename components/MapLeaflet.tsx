@@ -4,7 +4,7 @@ import { LatLngBoundsExpression, LatLngTuple } from "leaflet";
 import Head from "next/head";
 import { useMediaQuery } from "@chakra-ui/media-query";
 import { Text, Button, Icon } from "@chakra-ui/react";
-import { SiGooglemaps } from "react-icons/si";
+import { SiGooglemaps } from "@react-icons/all-files/si/SiGooglemaps"
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
