@@ -59,9 +59,10 @@ export default function Hero(): JSX.Element {
                 src="/realState.svg"
                 alt="real state agent"
                 layout="fill"
-                priority
+                priority={true}
                 sizes="30vw"
-                quality="65"
+                quality="25"
+                loading="eager"
               />
             </Box>
           </Stack>
