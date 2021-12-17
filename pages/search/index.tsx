@@ -43,6 +43,7 @@ import { House } from "@prisma/client";
 const PAGE_SIZE = 8;
 const ENV = process.env.NEXT_PUBLIC_ENV
 const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
+const PREFETCH_PATH = ENV === 'development' ? '/api/houses' : 'https://determined-villani-81a550.netlify.app/.netlify/functions/houses'
 
 type Props = {
   count: number;
@@ -375,9 +376,19 @@ export default function Search({
   count: number;
 }): JSX.Element {
   return (
-    <SWRConfig value={{ fallback }}>
-      <GetHouses query={query} count={count} />
-    </SWRConfig>
+    <>
+      <Head>
+        <link
+          rel="preload"
+          href={PREFETCH_PATH}
+          as="fetch"
+          crossOrigin="anonymous"
+        ></link>
+      </Head>
+      <SWRConfig value={{ fallback }}>
+        <GetHouses query={query} count={count} />
+      </SWRConfig>
+    </>
   );
 }
 

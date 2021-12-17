@@ -33,12 +33,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a5967" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff"></meta>
-        <link
-          rel="preload"
-          href="/netlify/functions/houses"
-          as="fetch"
-          crossOrigin="anonymous"
-        ></link>
         <meta name="google-site-verification" content="34aN0oAtR60hpfDReUSgdFjm1raYz6cpOBKwsfTHZRc" />
       </Head>
       <ChakraProvider>
