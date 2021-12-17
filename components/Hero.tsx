@@ -5,9 +5,9 @@ import {
   Stack,
   VStack,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import CTA from "./CTA";
-import Image from 'next/image'
 
 export default function Hero(): JSX.Element {
   return (
@@ -54,17 +54,16 @@ export default function Hero(): JSX.Element {
               </Text>
               <CTA text="Pesquise agora" />
             </VStack>
-            <Box order={{ base: 1, md: 2 }} boxSize={{ base: "52", lg: "80" }} mx="auto" zIndex={1} pos="relative">
-              <Image
-                src="/realState.svg"
-                alt="real state agent"
-                layout="fill"
-                priority={true}
-                sizes="30vw"
-                quality="25"
-                loading="eager"
-              />
-            </Box>
+            <Image
+              order={{ base: 1, md: 2 }}
+              src="/realState.svg"
+              alt="real state agent"
+              boxSize={{ base: "52", lg: "initial" }}
+              mx="auto"
+              zIndex={1}
+              loading="eager"
+              ignoreFallback
+            />
           </Stack>
         </Container>
       </Box>
