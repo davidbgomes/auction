@@ -7,7 +7,9 @@ import Script from "next/script";
 
 import Header from "../components/Header";
 
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const GA_ID = process.env.GA_ID
   return (
     <>
       <Head>
@@ -42,13 +44,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ChakraProvider>
       {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
       <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-NRX4X2PD84"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
       />
       <Script
         id="googleAnalytics"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-NRX4X2PD84');`,
+          __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`,
         }}
       />
     </>
