@@ -8,6 +8,7 @@ Disallow: /search?district=8
 Disallow: /search/
 Disallow: /terms
 Disallow: /privacy
+Disallow: /.netlify/
 
 Sitemap: https://www.leiloou.pt/sitemap.xml
 Sitemap: https://leiloou.pt/sitemap.xml

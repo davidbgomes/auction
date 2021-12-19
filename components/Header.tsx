@@ -83,49 +83,51 @@ export default function Header(): JSX.Element {
           </motion.nav>
         )}
       </Container>
-      <motion.div
-        initial={{ opacity: 0 }}
-        className="mobile-menu-background"
-        animate={isOpen ? "open" : "closed"}
-        variants={variants}
-      >
-        <VStack
-          pos="absolute"
-          top="0"
-          left="0"
-          mt="10"
-          ml="10"
-          spacing="10"
-          alignItems="flex-start"
+      {!isLargerThan768 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          className="mobile-menu-background"
+          animate={isOpen ? "open" : "closed"}
+          variants={variants}
         >
-          <Link href="/search" passHref>
-            <a onClick={() => setIsOpen(false)}>
-              <Box d="flex" alignItems="center">
-                <ChevronRightIcon />
-                <Heading fontWeight="medium" size="lg">
-                  Imóveis
-                </Heading>
-              </Box>
-            </a>
-          </Link>
-          <Box d="flex" alignItems="center">
-            <ChevronRightIcon />
-            <Heading fontWeight="medium" size="lg" textDecor="line-through">
-              Veículos
-            </Heading>
-            <Badge borderRadius="xl" ml="3">
-              Em breve!
-            </Badge>
-          </Box>
-          <Box d="flex" alignItems="center">
-            <ChevronRightIcon />
-            <Heading fontWeight="medium" size="lg" textDecor="line-through">
-              Equipamentos
-            </Heading>
-            <Badge ml="3">Em breve!</Badge>
-          </Box>
-        </VStack>
-      </motion.div>
+          <VStack
+            pos="absolute"
+            top="0"
+            left="0"
+            mt="10"
+            ml="10"
+            spacing="10"
+            alignItems="flex-start"
+          >
+            <Link href="/search" passHref>
+              <a onClick={() => setIsOpen(false)}>
+                <Box d="flex" alignItems="center">
+                  <ChevronRightIcon />
+                  <Heading fontWeight="medium" size="lg">
+                    Imóveis
+                  </Heading>
+                </Box>
+              </a>
+            </Link>
+            <Box d="flex" alignItems="center">
+              <ChevronRightIcon />
+              <Heading fontWeight="medium" size="lg" textDecor="line-through">
+                Veículos
+              </Heading>
+              <Badge borderRadius="xl" ml="3">
+                Em breve!
+              </Badge>
+            </Box>
+            <Box d="flex" alignItems="center">
+              <ChevronRightIcon />
+              <Heading fontWeight="medium" size="lg" textDecor="line-through">
+                Equipamentos
+              </Heading>
+              <Badge ml="3">Em breve!</Badge>
+            </Box>
+          </VStack>
+        </motion.div>
+      )}
     </Box>
   );
 }
