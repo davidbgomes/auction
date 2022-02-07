@@ -47,6 +47,7 @@ exports.handler = async (event : any, context : any) => {
         const count = query.count as string;
         const page = Number(query.page || 1);
         const skip = Math.abs((page - 1) * PER_PAGE);
+        const defaultOrder : { [x: string]: "desc" | "asc"; } = {website : "desc"}
 
         const where: Prisma.HouseWhereInput = {
           ...(district && { district: district }),
@@ -112,9 +113,13 @@ exports.handler = async (event : any, context : any) => {
             take: PER_PAGE,
             skip,
             ...(sortBy && {
-              orderBy: {
-                [sortBy[0]]: sortBy[1],
-              },
+              ...(sortBy ? {
+                orderBy: {
+                  [sortBy[0]]: sortBy[1],
+                },
+              } : {
+                orderBy: defaultOrder,
+              }),
             }),
           });
           return{
