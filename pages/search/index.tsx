@@ -14,6 +14,7 @@ import {
   Stat,
   StatLabel,
   StatNumber,
+  StatArrow,
   useDisclosure,
   Drawer,
   DrawerBody,
@@ -63,8 +64,8 @@ type AuctionCardType = {
   currentBid: number;
   endsAt: any;
   isNew?: boolean;
-  priceChange?: number;
-  [rest: string]: number | string | boolean | string[] | undefined;
+  currentBidHistory: number[];
+  [rest: string]: number | string | boolean | string[] | number[] | undefined;
 };
 
 const AreaInfo = ({ area }: { area: number }): JSX.Element => {
@@ -86,7 +87,7 @@ const AuctionCard = ({
   isNew,
   currentBid,
   endsAt,
-  priceChange,
+  currentBidHistory,
 }: AuctionCardType): JSX.Element => {
   const formatTitle = () => {
     const lowerCaseTitle = title.toLowerCase();
@@ -117,6 +118,10 @@ const AuctionCard = ({
       return "Terminado";
     }
   };
+
+  const percentageIncrease = (finalValue: number, initialValue: number) => {
+    return ((finalValue - initialValue) / initialValue * 100).toFixed(1)
+  }
 
   return (
     <>
@@ -192,12 +197,12 @@ const AuctionCard = ({
                       <Text>- €</Text>
                       }
                     </StatNumber>
-                    {/*{priceChange === 1 &&
+                    {currentBidHistory.length > 1 && currentBidHistory[0] > 0 &&
                       <>
                         <StatArrow type="increase" />
-                        23.36%
+                        {percentageIncrease(currentBidHistory[currentBidHistory.length-1],currentBidHistory[currentBidHistory.length-2])}%
                       </>
-                    } */}
+                    }
                   </Stat>
                 </Box>
                 <Text fontSize="xs" color="gray.600">
