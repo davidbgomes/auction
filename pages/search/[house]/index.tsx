@@ -11,6 +11,7 @@ import {
   Icon,
   Divider,
   useMediaQuery,
+  Image,
 } from "@chakra-ui/react";
 import CarouselComponent from "@/components/Carousel";
 import { GetServerSideProps } from "next";
@@ -97,7 +98,7 @@ const GetHouse = ({ house }: any): JSX.Element => {
       <Container maxW="container.xl" py="2">
         <Grid
           templateRows={{
-            base: "1fr 1fr 450px 450px 30px",
+            base: `1fr 1fr 450px ${latitude && '450px'} 30px`,
             lg: "500px 1fr 50px",
           }}
           templateColumns="repeat(4, 1fr)"
@@ -163,7 +164,7 @@ const GetHouse = ({ house }: any): JSX.Element => {
                       h={{ base: 6, md: 8 }}
                     />
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
-                      {houseType}
+                      {houseType || "Imóvel"}
                     </Text>
                   </Box>
                   <Box
@@ -207,11 +208,9 @@ const GetHouse = ({ house }: any): JSX.Element => {
                   {description}
                 </Text>
               </Box>
-              <Box px={{ md: "6" }} w="full">
-                <Text fontSize={{ base: "sm", md: "md" }}>
-                  {" "}
-                  <b>Leiloeira:</b> {website}
-                </Text>
+              <Box px={{ md: "6" }} w="full" d="flex" alignItems="center">
+                <Heading size="md" mr="2">Leiloeira:</Heading>
+                <Image src={`/${website}.png`} alt={website} bgColor={website === "e-leiloes" ? "#4A66A0" : "initial"}/>
               </Box>
             </VStack>
           </GridItem>
@@ -226,7 +225,9 @@ const GetHouse = ({ house }: any): JSX.Element => {
               textAlign="center"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="normal"
-              my="3"
+              bgColor="#3e474a"
+              color="white"
+              py="3"
             >
               Detalhes
             </Heading>
@@ -243,11 +244,19 @@ const GetHouse = ({ house }: any): JSX.Element => {
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor mínimo:</Text>
-                <CurrencyField value={minimumPrice} />
+                {minimumPrice ?
+                  <CurrencyField value={minimumPrice} />
+                : 
+                  <Text>--</Text>
+                }
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor de abertura:</Text>
-                <CurrencyField value={startingPrice} />
+                {startingPrice ?
+                  <CurrencyField value={startingPrice} />
+                :
+                  <Text>--</Text>
+                }
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de início:</Text>
@@ -266,7 +275,7 @@ const GetHouse = ({ house }: any): JSX.Element => {
               d="flex"
               pos="absolute"
               bottom="0"
-              bgColor="#7ca9cd2e"
+              bgColor="#efefef"
               w="full"
               height="70px"
               alignItems="center"
@@ -282,33 +291,37 @@ const GetHouse = ({ house }: any): JSX.Element => {
               </Text>
             </Box>
           </GridItem>
-          <GridItem
-            rowSpan={1}
-            colSpan={{ base: 4, lg: 1 }}
-            boxShadow="0px 0px 11px -6px rgba(0,0,0,0.8)"
-            borderRadius="md"
-          >
-            <Heading
-              textAlign="center"
-              fontSize={{ base: "xl", md: "2xl" }}
-              fontWeight="normal"
-              my="3"
+          { latitude && longitude && addressLine1 &&
+            <GridItem
+              rowSpan={1}
+              colSpan={{ base: 4, lg: 1 }}
+              boxShadow="0px 0px 11px -6px rgba(0,0,0,0.8)"
+              borderRadius="md"
             >
-              Localização
-            </Heading>
-            <Divider />
-            <MapLeaflet
-              latitude={parseFloat(latitude)}
-              longitude={parseFloat(longitude)}
-              title={title}
-            />
-            <Text fontSize="xs" py="5" px="3">
-              {`${addressLine1}${
-                addressNumber !== null ? `, ${addressNumber}` : ""
-              }${addressFloor !== null ? ` ${addressFloor}` : ""} `}{" "}
-              <br></br> {postcode} <br></br> {county}, {parish}
-            </Text>
-          </GridItem>
+              <Heading
+                textAlign="center"
+                fontSize={{ base: "xl", md: "2xl" }}
+                fontWeight="normal"
+                bgColor="#3e474a"
+                color="white"
+                py="3"
+              >
+                Localização
+              </Heading>
+              <Divider />
+              <MapLeaflet
+                latitude={parseFloat(latitude)}
+                longitude={parseFloat(longitude)}
+                title={title}
+              />
+              <Text fontSize="xs" py="5" px="3">
+                {`${addressLine1}${
+                  addressNumber !== null ? `, ${addressNumber}` : ""
+                }${addressFloor !== null ? ` ${addressFloor}` : ""} `}{" "}
+                <br></br> {postcode} <br></br> {county}, {parish}
+              </Text>
+            </GridItem>
+          }
           <GridItem rowSpan={1} colSpan={{ base: 4, lg: 1 }}>
             <Button
               as="a"

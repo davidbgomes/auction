@@ -59,7 +59,7 @@ type AuctionCardType = {
   description: string;
   houseType: "apartamento" | "moradia";
   typology: string;
-  area: string;
+  area: number;
   currentBid: number;
   endsAt: any;
   isNew?: boolean;
@@ -67,7 +67,7 @@ type AuctionCardType = {
   [rest: string]: number | string | boolean | string[] | undefined;
 };
 
-const AreaInfo = ({ area }: { area: string }): JSX.Element => {
+const AreaInfo = ({ area }: { area: number }): JSX.Element => {
   return (
     <Box className="area-div" fontSize="sm">
       <Text as="span">{area} m²</Text>
@@ -163,10 +163,10 @@ const AuctionCard = ({
                     textTransform="uppercase"
                     ml="2"
                   >
-                    {typology} &bull; {houseType}
+                    {typology} {houseType && <>&bull; {houseType}</>}
                   </Box>
                 </Box>
-                <AreaInfo area={area} />
+                {area > 0 && <AreaInfo area={area} />}
               </Box>
               <Heading size="sm" mt="2">
                 {formatTitle()}
@@ -186,7 +186,11 @@ const AuctionCard = ({
                   <Stat colorScheme="linkedin">
                     <StatLabel>Lance Atual</StatLabel>
                     <StatNumber>
-                      <CurrencyField value={currentBid} />
+                      {currentBid ?
+                        <CurrencyField value={currentBid} />
+                      :
+                      <Text>- €</Text>
+                      }
                     </StatNumber>
                     {/*{priceChange === 1 &&
                       <>

@@ -1,15 +1,24 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import GdprBanner from "@/components/GdprBanner";
 import Head from "next/head";
 import Script from "next/script";
+import "@fontsource/faustina"
 
 import Header from "../components/Header";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const theme = extendTheme({
+    fonts: {
+      heading: 'Faustina',
+      body: 'Faustina',
+    },
+  })
+
   return (
     <>
       <Head>
@@ -37,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff"></meta>
         <meta name="google-site-verification" content="34aN0oAtR60hpfDReUSgdFjm1raYz6cpOBKwsfTHZRc" />
       </Head>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
         <GdprBanner />

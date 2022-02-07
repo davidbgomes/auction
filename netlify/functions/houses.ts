@@ -28,15 +28,15 @@ exports.handler = async (event : any, context : any) => {
         const district = citiesList.find(
           ({ level, code }) =>
             level === 1 && parseInt(code as string) === parseInt(districtValue)
-        )?.name;
+        )?.name.toLowerCase();
         const county = citiesList.find(
           ({ level, code }) =>
             level === 2 && parseInt(code as string) === parseInt(countyValue)
-        )?.name;
+        )?.name.toLowerCase();
         const parish = citiesList.find(
           ({ level, code }) =>
             level === 3 && parseInt(code as string) === parseInt(parishValue)
-        )?.name;
+        )?.name.toLowerCase();
         const minPrice = parseInt(query.minPrice as string);
         const maxPrice = parseInt(query.maxPrice as string);
         const minArea = parseInt(query.minArea as string);
