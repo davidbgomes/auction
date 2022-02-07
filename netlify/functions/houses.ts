@@ -112,14 +112,12 @@ exports.handler = async (event : any, context : any) => {
             where,
             take: PER_PAGE,
             skip,
-            ...(sortBy && {
-              ...(sortBy ? {
-                orderBy: {
-                  [sortBy[0]]: sortBy[1],
-                },
-              } : {
-                orderBy: defaultOrder,
-              }),
+            ...(sortBy ? {
+              orderBy: {
+                [sortBy[0]]: sortBy[1],
+              },
+            } : {
+              orderBy: defaultOrder,
             }),
           });
           return{
