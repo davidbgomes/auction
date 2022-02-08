@@ -53,6 +53,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ChakraProvider>
       {/* <!-- Google Tag Manager -->  */}
       <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
+      />
+      <Script
         id="googleTagManager"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
