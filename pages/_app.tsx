@@ -9,6 +9,8 @@ import "@fontsource/faustina"
 import Header from "../components/Header";
 
 const GTM_ID = process.env.GTM_ID
+const GA_ID = process.env.GA_ID
+const G_TRACKING_ID = process.env.G_TRACKING_ID
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -52,9 +54,27 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GdprBanner />
       </ChakraProvider>
       {/* <!-- Google Tag Manager -->  */}
+      {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
       <Script
         async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GTM_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+      />
+      <Script
+        id="googleAnalytics"
+        async
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`,
+        }}
+      />
+      <Script
+        id="googleAds"
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', '${G_TRACKING_ID}');`
+        }}
       />
       <Script
         id="googleTagManager"
