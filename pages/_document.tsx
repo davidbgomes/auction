@@ -21,11 +21,6 @@ class MyDocument extends Document {
           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9812155664610860" crossOrigin="anonymous"></script>
         </Head>
         <body>
-        {/* <!-- Google Tag Manager (noscript) --> */}
-          <noscript>
-            <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{display:"none",visibility:"hidden"}}></iframe>
-          </noscript>
-        {/* <!-- End Google Tag Manager (noscript) --> */}
           <Main />
           <NextScript />
         </body>
