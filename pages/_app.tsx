@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <GdprBanner />
       </ChakraProvider>
-      {/* <!-- Google Tag Manager -->  */}
+      
       {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
       <Script
         async
@@ -66,6 +66,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`,
         }}
       />
+      {/* <!-- Global site tag (gtag.js) - Google Ads -->  */}
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${G_TRACKING_ID}`}
+      />
       <Script
         id="googleAds"
         dangerouslySetInnerHTML={{
@@ -76,6 +81,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           gtag('config', '${G_TRACKING_ID}');`
         }}
       />
+      {/* <!-- Google Tag Manager -->  */}
       <Script
         id="googleTagManager"
         strategy="afterInteractive"
