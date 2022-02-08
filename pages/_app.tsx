@@ -8,7 +8,7 @@ import "@fontsource/faustina"
 
 import Header from "../components/Header";
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
+const GTM_ID = process.env.GTM_ID
 
 function MyApp({ Component, pageProps }: AppProps) {
 
