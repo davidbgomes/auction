@@ -6,15 +6,16 @@ import {
   SimpleGrid,
   Button,
   HStack,
+  Center,
 } from "@chakra-ui/react";
 import { Skeleton, SkeletonText } from "@chakra-ui/react";
 
-export default function SkeletonSearch(): JSX.Element {
+export default function SkeletonHouse(): JSX.Element {
   return (
     <Container maxW="container.xl">
       <Grid
         templateRows="repeat(2, 1fr)"
-        templateColumns=" 240px repeat(4, 1fr)"
+        templateColumns=" 220px repeat(4, 1fr)"
         gap={4}
       >
         <GridItem
@@ -24,7 +25,7 @@ export default function SkeletonSearch(): JSX.Element {
         >
           <Box
             py="20"
-            px="6"
+            px="8"
             borderRadius="xl"
             borderWidth="thin"
             boxShadow="md"
@@ -41,6 +42,16 @@ export default function SkeletonSearch(): JSX.Element {
           </Box>
         </GridItem>
         <GridItem rowSpan={3} colSpan={{ base: 5, lg: 4 }}>
+          <Center mb="6" d={{ base: "flex", md: "none" }}>
+            <Button
+              borderRadius="xl"
+              width="56"
+              isDisabled
+              bgColor="gray.100"
+            >
+              Filtros
+            </Button>
+          </Center>
           <SimpleGrid
             columns={{ base: 1, md: 2 }}
             spacing={5}
@@ -55,7 +66,7 @@ export default function SkeletonSearch(): JSX.Element {
                   bg="white"
                   borderRadius="lg"
                   w="md"
-                  maxW={{ base: "300px", lg: "410px" }}
+                  maxW="350px"
                 >
                   <Skeleton height="300px" />
                   <SkeletonText mt="4" noOfLines={8} spacing="5" />

@@ -14,8 +14,6 @@ import {
   Image,
 } from "@chakra-ui/react";
 import CarouselComponent from "@/components/Carousel";
-import { GetServerSideProps } from "next";
-import { getHouse } from "@/utils/helpers";
 import CurrencyField from "@/components/fields/CurrencyField";
 import dayjs from "dayjs";
 import Countdown from "react-countdown";
@@ -25,9 +23,12 @@ import { BiBuilding } from "@react-icons/all-files/bi/BiBuilding";
 import { BiHome } from "@react-icons/all-files/bi/BiHome";
 import { BiBed } from "@react-icons/all-files/bi/BiBed";
 import dynamic from "next/dynamic";
-import { House as HouseType } from "@prisma/client";
 import Head from "next/head";
-import { SWRConfig } from "swr";
+import { useRouter } from "next/router";
+import { fetcher } from "@/utils/helpers";
+import useSWR from "swr";
+import SkeletonHouse from "@/components/SkeletonHouse";
+
 
 const ENV = process.env.NEXT_PUBLIC_ENV
 const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
@@ -36,36 +37,48 @@ const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), {
   ssr: false,
 });
 
-const GetHouse = ({ house }: any): JSX.Element => {
+const renderer = ({
+  days,
+  hours,
+  minutes,
+  seconds,
+  completed,
+}: {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  completed: boolean;
+}) => {
+  if (completed) {
+    return <Text>Terminado</Text>;
+  } else {
+    return (
+      <span>
+        {days > 0 && `${days} ${days > 1 ? "dias" : "dia"} `}
+        {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
+        {("0" + seconds).slice(-2)} h
+      </span>
+    );
+  }
+};
+
+export default function House() : JSX.Element {
+  const router = useRouter()
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const renderer = ({
-    days,
-    hours,
-    minutes,
-    seconds,
-    completed,
-  }: {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    completed: boolean;
-  }) => {
-    if (completed) {
-      return <Text>Terminado</Text>;
-    } else {
-      return (
-        <span>
-          {days > 0 && `${days} ${days > 1 ? "dias" : "dia"} `}
-          {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
-          {("0" + seconds).slice(-2)} h
-        </span>
-      );
-    }
-  };
+  const houseId = router.query.house as string
+
+  const { data, error } = useSWR(`${API_PATH}/houses?id=${houseId}`, fetcher)
+
+  if(!data || error){
+    return(
+      <SkeletonHouse />
+    )
+  }
+
+  console.log("data", data)
 
   const {
-    houseId,
     images,
     title,
     area,
@@ -89,7 +102,8 @@ const GetHouse = ({ house }: any): JSX.Element => {
     longitude,
     url,
     website,
-  } = house;
+  } = data;
+
   return (
     <>
       <Head>
@@ -345,33 +359,4 @@ const GetHouse = ({ house }: any): JSX.Element => {
       </Container>
     </>
   );
-};
-
-export default function House({
-  fallback,
-  house,
-}: {
-  fallback: { key: HouseType };
-  house: HouseType;
-}): JSX.Element {
-  return (
-    <SWRConfig value={{ fallback }}>
-      <GetHouse house={house} />
-    </SWRConfig>
-  );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const params = context.params as { [key: string]: string };
-  const { house: houseId } = params;
-  const house = await getHouse(houseId);
-  const fallbackPath = `${API_PATH}/houses`
-  return {
-    props: {
-      house,
-      fallback: {
-        [fallbackPath]: house,
-      },
-    },
-  };
 };
