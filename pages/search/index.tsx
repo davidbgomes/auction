@@ -88,7 +88,6 @@ export default function Search(): JSX.Element {
   const hasFinished =
     houses.length < PAGE_SIZE || data[data.length - 1].length < PAGE_SIZE;
 
-  console.log("resultSize", resultSize)
   return (
     <>
       <Head>
@@ -129,7 +128,7 @@ export default function Search(): JSX.Element {
                 />
               </GridItem>
             )}
-            <GridItem rowSpan={3} colSpan={{ base: 5, lg: 4 }}>
+            <GridItem rowSpan={3} colSpan={{ base: 5, md: 4 }}>
               <Center mb="4" d={{ base: "flex", md: "none" }}>
                 <Button
                   onClick={onOpen}
@@ -205,7 +204,7 @@ export default function Search(): JSX.Element {
                 }
               >
                 <SimpleGrid
-                  columns={{ base: 1, md: 2 }}
+                  columns={{ base: 1, lg: 2 }}
                   spacing={5}
                   justifyItems="center"
                 >
