@@ -76,8 +76,6 @@ export default function House() : JSX.Element {
     )
   }
 
-  console.log("data", data)
-
   const {
     images,
     title,
