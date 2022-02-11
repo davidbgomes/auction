@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-import Hero from '../components/Hero'
-const AboutUs = dynamic(() => import('../components/AboutUs'))
-const Explore = dynamic(() => import('../components/Explore'))
-const Footer = dynamic(() => import('../components/Footer'))
-const OurServices = dynamic(() => import('../components/OurServices'))
+import Hero from "../components/Hero";
+const AboutUs = dynamic(() => import("../components/AboutUs"));
+const Explore = dynamic(() => import("../components/Explore"));
+const Footer = dynamic(() => import("../components/Footer"));
+const OurServices = dynamic(() => import("../components/OurServices"));
 
 const Home: NextPage = () => {
   return (

@@ -4,22 +4,21 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import GdprBanner from "@/components/GdprBanner";
 import Head from "next/head";
 import Script from "next/script";
-import "@fontsource/faustina"
+import "@fontsource/faustina";
 
 import Header from "../components/Header";
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID
-const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
-
   const theme = extendTheme({
     fonts: {
-      heading: 'Faustina',
-      body: 'Faustina',
+      heading: "Faustina",
+      body: "Faustina",
     },
-  })
+  });
 
   return (
     <>
@@ -46,14 +45,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a5967" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff"></meta>
-        <meta name="google-site-verification" content="34aN0oAtR60hpfDReUSgdFjm1raYz6cpOBKwsfTHZRc" />
+        <meta
+          name="google-site-verification"
+          content="34aN0oAtR60hpfDReUSgdFjm1raYz6cpOBKwsfTHZRc"
+        />
       </Head>
       <ChakraProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
         <GdprBanner />
       </ChakraProvider>
-      
+
       {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
       <Script
         async
@@ -78,7 +80,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
-          gtag('config', '${G_TRACKING_ID}');`
+          gtag('config', '${G_TRACKING_ID}');`,
         }}
       />
       {/* <!-- Google Tag Manager -->  */}

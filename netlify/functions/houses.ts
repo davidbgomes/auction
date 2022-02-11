@@ -5,8 +5,8 @@ import prisma from "../../lib/prisma";
 
 const PER_PAGE = 8;
 
-exports.handler = async (event : any, context : any) => {
-  if (event.httpMethod  === "GET") {
+exports.handler = async (event: any, context: any) => {
+  if (event.httpMethod === "GET") {
     try {
       const query = event.queryStringParameters;
       const houseId = query.id as string;
@@ -16,27 +16,34 @@ exports.handler = async (event : any, context : any) => {
             houseId,
           },
         });
-        return{
+        return {
           statusCode: 200,
-          body: JSON.stringify(house)
-        }
+          body: JSON.stringify(house),
+        };
       } else {
         const districtValue = query.district as string;
         const countyValue = query.county as string;
         const parishValue = query.parish as string;
 
-        const district = citiesList.find(
-          ({ level, code }) =>
-            level === 1 && parseInt(code as string) === parseInt(districtValue)
-        )?.name.toLowerCase();
-        const county = citiesList.find(
-          ({ level, code }) =>
-            level === 2 && parseInt(code as string) === parseInt(countyValue)
-        )?.name.toLowerCase();
-        const parish = citiesList.find(
-          ({ level, code }) =>
-            level === 3 && parseInt(code as string) === parseInt(parishValue)
-        )?.name.toLowerCase();
+        const district = citiesList
+          .find(
+            ({ level, code }) =>
+              level === 1 &&
+              parseInt(code as string) === parseInt(districtValue)
+          )
+          ?.name.toLowerCase();
+        const county = citiesList
+          .find(
+            ({ level, code }) =>
+              level === 2 && parseInt(code as string) === parseInt(countyValue)
+          )
+          ?.name.toLowerCase();
+        const parish = citiesList
+          .find(
+            ({ level, code }) =>
+              level === 3 && parseInt(code as string) === parseInt(parishValue)
+          )
+          ?.name.toLowerCase();
         const minPrice = parseInt(query.minPrice as string);
         const maxPrice = parseInt(query.maxPrice as string);
         const minArea = parseInt(query.minArea as string);
@@ -47,7 +54,9 @@ exports.handler = async (event : any, context : any) => {
         const count = query.count as string;
         const page = Number(query.page || 1);
         const skip = Math.abs((page - 1) * PER_PAGE);
-        const defaultOrder : { [x: string]: "desc" | "asc"; } = {website : "desc"}
+        const defaultOrder: { [x: string]: "desc" | "asc" } = {
+          website: "desc",
+        };
 
         const where: Prisma.HouseWhereInput = {
           ...(district && { district: district }),
@@ -103,35 +112,40 @@ exports.handler = async (event : any, context : any) => {
           const housesCount = await prisma.house.count({
             where,
           });
-          return{
+          return {
             statusCode: 200,
-            body: JSON.stringify(housesCount)
-          }
+            body: JSON.stringify(housesCount),
+          };
         } else {
           const houses = await prisma.house.findMany({
             where,
             take: PER_PAGE,
             skip,
-            ...(sortBy ? {
-              orderBy: {
-                [sortBy[0]]: sortBy[1],
-              },
-            } : {
-              orderBy: defaultOrder,
-            }),
+            ...(sortBy
+              ? {
+                  orderBy: {
+                    [sortBy[0]]: sortBy[1],
+                  },
+                }
+              : {
+                  orderBy: defaultOrder,
+                }),
           });
-          return{
+          return {
             statusCode: 200,
-            body: JSON.stringify(houses)
-          }
+            body: JSON.stringify(houses),
+          };
         }
       }
     } catch (err) {
       console.log("error", err);
-      return{
+      return {
         statusCode: 500,
-        body: JSON.stringify({ success: false, message: "Internal Server Error" })
-      }
+        body: JSON.stringify({
+          success: false,
+          message: "Internal Server Error",
+        }),
+      };
     }
   }
-}
+};

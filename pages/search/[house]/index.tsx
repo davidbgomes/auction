@@ -29,9 +29,8 @@ import { fetcher } from "@/utils/helpers";
 import useSWR from "swr";
 import SkeletonHouse from "@/components/SkeletonHouse";
 
-
-const ENV = process.env.NEXT_PUBLIC_ENV
-const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
+const ENV = process.env.NEXT_PUBLIC_ENV;
+const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
 
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), {
   ssr: false,
@@ -63,17 +62,15 @@ const renderer = ({
   }
 };
 
-export default function House() : JSX.Element {
-  const router = useRouter()
+export default function House(): JSX.Element {
+  const router = useRouter();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const houseId = router.query.house as string
+  const houseId = router.query.house as string;
 
-  const { data, error } = useSWR(`${API_PATH}/houses?id=${houseId}`, fetcher)
+  const { data, error } = useSWR(`${API_PATH}/houses?id=${houseId}`, fetcher);
 
-  if(!data || error){
-    return(
-      <SkeletonHouse />
-    )
+  if (!data || error) {
+    return <SkeletonHouse />;
   }
 
   const {
@@ -110,7 +107,7 @@ export default function House() : JSX.Element {
       <Container maxW="container.xl" py="2">
         <Grid
           templateRows={{
-            base: `1fr 1fr 450px ${latitude && '450px'} 30px`,
+            base: `1fr 1fr 450px ${latitude && "450px"} 30px`,
             lg: "500px 1fr 50px",
           }}
           templateColumns="repeat(4, 1fr)"
@@ -221,8 +218,14 @@ export default function House() : JSX.Element {
                 </Text>
               </Box>
               <Box px={{ md: "6" }} w="full" d="flex" alignItems="center">
-                <Heading size="md" mr="2">Leiloeira:</Heading>
-                <Image src={`/${website}.png`} alt={website} bgColor={website === "e-leiloes" ? "#4A66A0" : "initial"}/>
+                <Heading size="md" mr="2">
+                  Leiloeira:
+                </Heading>
+                <Image
+                  src={`/${website}.png`}
+                  alt={website}
+                  bgColor={website === "e-leiloes" ? "#4A66A0" : "initial"}
+                />
               </Box>
             </VStack>
           </GridItem>
@@ -256,19 +259,19 @@ export default function House() : JSX.Element {
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor mínimo:</Text>
-                {minimumPrice ?
+                {minimumPrice ? (
                   <CurrencyField value={minimumPrice} />
-                : 
+                ) : (
                   <Text>--</Text>
-                }
+                )}
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor de abertura:</Text>
-                {startingPrice ?
+                {startingPrice ? (
                   <CurrencyField value={startingPrice} />
-                :
+                ) : (
                   <Text>--</Text>
-                }
+                )}
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de início:</Text>
@@ -303,7 +306,7 @@ export default function House() : JSX.Element {
               </Text>
             </Box>
           </GridItem>
-          { latitude && longitude && addressLine1 &&
+          {latitude && longitude && addressLine1 && (
             <GridItem
               rowSpan={1}
               colSpan={{ base: 4, lg: 1 }}
@@ -333,7 +336,7 @@ export default function House() : JSX.Element {
                 <br></br> {postcode} <br></br> {county}, {parish}
               </Text>
             </GridItem>
-          }
+          )}
           <GridItem rowSpan={1} colSpan={{ base: 4, lg: 1 }}>
             <Button
               as="a"
@@ -357,4 +360,4 @@ export default function House() : JSX.Element {
       </Container>
     </>
   );
-};
+}

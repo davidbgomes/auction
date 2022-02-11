@@ -19,9 +19,9 @@ import {
   Spinner,
   useMediaQuery,
 } from "@chakra-ui/react";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const SkeletonSearch = dynamic(() => import('@/components/SkeletonSearch'))
+const SkeletonSearch = dynamic(() => import("@/components/SkeletonSearch"));
 import Navigation from "@/components/Navigation";
 import useSWRInfinite from "swr/infinite";
 import { fetcher } from "@/utils/helpers";
@@ -31,27 +31,32 @@ import { useRouter } from "next/router";
 import { AuctionCard, AuctionCardType } from "@/components/AuctionCard";
 
 const PAGE_SIZE = 8;
-const ENV = process.env.NEXT_PUBLIC_ENV
-const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
-const PREFETCH_PATH = ENV === 'development' ? '/api/houses' : 'https://determined-villani-81a550.netlify.app/.netlify/functions/houses'
+const ENV = process.env.NEXT_PUBLIC_ENV;
+const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
+const PREFETCH_PATH =
+  ENV === "development"
+    ? "/api/houses"
+    : "https://determined-villani-81a550.netlify.app/.netlify/functions/houses";
 
 export default function Search(): JSX.Element {
-  const router = useRouter()
+  const router = useRouter();
   const [endpoint, setEndpoint] = useState<string>(`${API_PATH}/houses`);
   const [resultSize, setResultSize] = useState<number>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
-  const queryString = router.asPath.substring(router.asPath.indexOf("?"))
+  const queryString = router.asPath.substring(router.asPath.indexOf("?"));
 
   useEffect(() => {
     const resultSizeParams = new URLSearchParams(queryString);
-    resultSizeParams.append("count","true")
+    resultSizeParams.append("count", "true");
     const getResultSize = async () => {
-      const housesSize : number = await fetch(`${API_PATH}/houses?${resultSizeParams}`).then((res) => res.json())
-      setResultSize(housesSize)
-    }
-    getResultSize()
-  },[queryString])
+      const housesSize: number = await fetch(
+        `${API_PATH}/houses?${resultSizeParams}`
+      ).then((res) => res.json());
+      setResultSize(housesSize);
+    };
+    getResultSize();
+  }, [queryString]);
 
   const {
     district: defaultDistrict,
@@ -194,7 +199,11 @@ export default function Search(): JSX.Element {
                 hasMore={!hasFinished}
                 loader={
                   <Center w="min-content" m="auto" py="4">
-                    <Spinner color="green.500" emptyColor="gray.300" size="lg" />
+                    <Spinner
+                      color="green.500"
+                      emptyColor="gray.300"
+                      size="lg"
+                    />
                   </Center>
                 }
                 endMessage={

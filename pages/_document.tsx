@@ -7,7 +7,7 @@ import Document, {
   NextScript,
 } from "next/document";
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -18,7 +18,11 @@ class MyDocument extends Document {
     return (
       <Html lang="pt">
         <Head>
-          <script data-ad-client="ca-pub-9812155664610860" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <script
+            data-ad-client="ca-pub-9812155664610860"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
         </Head>
         <body>
           <Main />

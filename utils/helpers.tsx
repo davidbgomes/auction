@@ -1,8 +1,8 @@
 import { House } from "@prisma/client";
 
-const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
-const ENV = process.env.NEXT_PUBLIC_ENV
-const API_PATH = ENV === 'development' ? '/api' : '/.netlify/functions'
+const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT;
+const ENV = process.env.NEXT_PUBLIC_ENV;
+const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
 
 export const fetcher = async (url: string) => {
   const res = await fetch(url);

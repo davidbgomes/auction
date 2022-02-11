@@ -20,12 +20,12 @@ export default function Footer(): JSX.Element {
             width={{ base: "initial", md: "full" }}
             justifyContent={{ base: "initial", md: "space-around" }}
             spacing={{ base: 6, md: 1 }}
-            alignItems={{base:"center", md:"flex-start"}}
+            alignItems={{ base: "center", md: "flex-start" }}
           >
             <VStack
               maxW="56"
               spacing={{ base: 3, md: 6 }}
-              alignItems={{base:"center", md:"flex-start"}}
+              alignItems={{ base: "center", md: "flex-start" }}
             >
               <Heading as="h3" fontSize="3xl" fontWeight="medium">
                 Leiloou
@@ -48,7 +48,7 @@ export default function Footer(): JSX.Element {
             <VStack
               maxW="72"
               spacing={{ base: 3, md: 6 }}
-              alignItems={{base:"center", md:"flex-start"}}
+              alignItems={{ base: "center", md: "flex-start" }}
             >
               <Heading
                 as="h3"
@@ -57,7 +57,7 @@ export default function Footer(): JSX.Element {
               >
                 Pesquise connosco
               </Heading>
-              <Text as="p" textAlign={{base:"center", md:"left"}}>
+              <Text as="p" textAlign={{ base: "center", md: "left" }}>
                 Trazemos o melhor e mais rápido motor de busca de leilões em
                 território nacional.
               </Text>

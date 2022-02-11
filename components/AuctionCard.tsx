@@ -81,8 +81,8 @@ export const AuctionCard = ({
   };
 
   const percentageIncrease = (finalValue: number, initialValue: number) => {
-    return ((finalValue - initialValue) / initialValue * 100).toFixed(1)
-  }
+    return (((finalValue - initialValue) / initialValue) * 100).toFixed(1);
+  };
 
   return (
     <>
@@ -145,18 +145,22 @@ export const AuctionCard = ({
                   <Stat colorScheme="linkedin">
                     <StatLabel>Lance Atual</StatLabel>
                     <StatNumber>
-                      {currentBid ?
+                      {currentBid ? (
                         <CurrencyField value={currentBid} />
-                      :
-                      <Text>- €</Text>
-                      }
+                      ) : (
+                        <Text>- €</Text>
+                      )}
                     </StatNumber>
-                    {currentBidHistory.length > 1 && currentBidHistory[0] > 0 &&
+                    {currentBidHistory.length > 1 && currentBidHistory[0] > 0 && (
                       <>
                         <StatArrow type="increase" />
-                        {percentageIncrease(currentBidHistory[currentBidHistory.length-1],currentBidHistory[currentBidHistory.length-2])}%
+                        {percentageIncrease(
+                          currentBidHistory[currentBidHistory.length - 1],
+                          currentBidHistory[currentBidHistory.length - 2]
+                        )}
+                        %
                       </>
-                    }
+                    )}
                   </Stat>
                 </Box>
                 <Text fontSize="xs" color="gray.600">

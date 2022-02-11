@@ -43,12 +43,7 @@ export default function SkeletonHouse(): JSX.Element {
         </GridItem>
         <GridItem rowSpan={3} colSpan={{ base: 5, lg: 4 }}>
           <Center mb="6" d={{ base: "flex", md: "none" }}>
-            <Button
-              borderRadius="xl"
-              width="56"
-              isDisabled
-              bgColor="gray.100"
-            >
+            <Button borderRadius="xl" width="56" isDisabled bgColor="gray.100">
               Filtros
             </Button>
           </Center>

@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-})
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
@@ -10,9 +10,9 @@ module.exports = withBundleAnalyzer({
   },
   webpack: (config, { defaultLoaders, isServer }) => {
     if (isServer) {
-      config.externals.push('_http_common');
+      config.externals.push("_http_common");
     }
-  
+
     return config;
   },
-})
+});

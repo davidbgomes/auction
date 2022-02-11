@@ -145,3 +145,12 @@ a {
   height: 300px;
   width: 100%;
 }
+
+.privacy-policy-container a {
+  text-decoration: underline;
+  color: darkgoldenrod;
+}
+
+.privacy-policy-container a:visited {
+  color: rgb(25, 25, 177);
+}

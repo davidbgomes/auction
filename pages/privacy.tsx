@@ -16,6 +16,7 @@ export default function Privacy(): JSX.Element {
         mt="12"
         boxShadow={{ base: "inherit", md: "md" }}
         px={{ base: "5", md: "10" }}
+        className="privacy-policy-container"
       >
         <Heading as="h2" mb="8" color="brand">
           Política de Privacidade
@@ -76,11 +77,39 @@ export default function Privacy(): JSX.Element {
               cookies afetará a funcionalidade deste site.
             </Text>
             <Text as="p">
-              <b>1.4</b> - Cookies que usamos:
+              <b>1.4</b> - Vendedores terceiros, incluindo a Google, usam
+              cookies para servir anúncios com base no histórico e perfil do
+              utilizador, nomeadamente visitas anteriores a este ou a outros
+              websites. O uso de cookies de publicidade por parte da Google,
+              permite-nos e aos nossos parceiros exibir publicidade com base nas
+              suas visitas a este ou outros websites na internet. Como
+              utilizador, pode optar pela não permissão de utilização de
+              anúncios personalizados visitando as{" "}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://adssettings.google.com/authenticated"
+              >
+                definições de anúncios da Google
+              </a>
+              . (Alternativamente, pode somente não permitir a utilização de
+              cookies de terceiros relativos a publicidade personalizada ao
+              visitar{" "}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.aboutads.info"
+              >
+                www.aboutads.info
+              </a>
+              )
+            </Text>
+            <Text as="p">
+              <b>1.5</b> - Cookies que usamos:
             </Text>
             <Text as="p">
               Este site usa o Google Analytics, que é uma das soluções de
-              análise mais difundidas e confiáveis ​​da Web, para nos ajudar a
+              análise mais difundidas e confiáveis da Web, para nos ajudar a
               entender como você utiliza o site e como podemos melhorar a sua
               experiência. Esses cookies podem gravar métricas de utilização,
               como por exemplo quanto tempo você navega no site e quais as
@@ -105,8 +134,8 @@ export default function Privacy(): JSX.Element {
                 <span>
                   Periodicamente, testamos novos recursos e fazemos alterações
                   subtis na maneira como o site se apresenta. Quando ainda
-                  estamos testando novos recursos, esses cookies podem ser
-                  usados ​​para garantir que você receba uma experiência
+                  estamos a testar novos recursos, esses cookies podem ser
+                  usados para garantir que você receba uma experiência
                   consistente enquanto estiver no site, enquanto entendemos
                   quais otimizações os nossos usuários mais apreciam.
                 </span>
