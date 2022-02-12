@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import {
   Box,
   Heading,
@@ -24,20 +26,19 @@ export type AuctionCardType = {
   area: number;
   currentBid: number;
   endsAt: any;
-  isNew?: boolean;
+  createdAt: Date;
   currentBidHistory: number[];
-  [rest: string]: number | string | boolean | string[] | number[] | undefined;
+  [rest: string]:
+    | number
+    | Date
+    | string
+    | boolean
+    | string[]
+    | number[]
+    | undefined;
 };
 
-const AreaInfo = ({ area }: { area: number }): JSX.Element => {
-  return (
-    <Box className="area-div" fontSize="sm">
-      <Text as="span">{area} m²</Text>
-    </Box>
-  );
-};
-
-export const AuctionCard = ({
+const AuctionCard = ({
   houseId,
   images,
   title,
@@ -45,7 +46,7 @@ export const AuctionCard = ({
   houseType,
   typology,
   area,
-  isNew,
+  createdAt,
   currentBid,
   endsAt,
   currentBidHistory,
@@ -53,6 +54,14 @@ export const AuctionCard = ({
   const formatTitle = () => {
     const lowerCaseTitle = title.toLowerCase();
     return lowerCaseTitle.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
+  };
+
+  const AreaInfo = ({ area }: { area: number }): JSX.Element => {
+    return (
+      <Box className="area-div" fontSize="sm">
+        <Text as="span">{area} m²</Text>
+      </Box>
+    );
   };
 
   const timeRemaining = (): string => {
@@ -109,7 +118,7 @@ export const AuctionCard = ({
                 justifyContent="space-between"
               >
                 <Box display="flex" alignItems="baseline">
-                  {isNew && (
+                  {dayjs().diff(dayjs(createdAt), "day") < 1 && (
                     <Badge borderRadius="full" px="2" colorScheme="teal">
                       Novo
                     </Badge>
@@ -174,3 +183,5 @@ export const AuctionCard = ({
     </>
   );
 };
+
+export const MemoedAuctionCard = memo(AuctionCard);

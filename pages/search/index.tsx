@@ -28,7 +28,7 @@ import { fetcher } from "@/utils/helpers";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { AuctionCard, AuctionCardType } from "@/components/AuctionCard";
+import { MemoedAuctionCard, AuctionCardType } from "@/components/AuctionCard";
 
 const PAGE_SIZE = 8;
 const ENV = process.env.NEXT_PUBLIC_ENV;
@@ -218,7 +218,7 @@ export default function Search(): JSX.Element {
                   justifyItems="center"
                 >
                   {houses.map((house) => {
-                    return <AuctionCard key={house.houseId} {...house} />;
+                    return <MemoedAuctionCard key={house.houseId} {...house} />;
                   })}
                 </SimpleGrid>
               </InfiniteScroll>
