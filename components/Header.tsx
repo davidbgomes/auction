@@ -68,13 +68,25 @@ export default function Header(): JSX.Element {
             </a>
           </Link>
           {isLargerThan768 && (
-            <Link href="/search" passHref>
-              <a>
+            <>
+              <Link href="/search" passHref>
+                <a>
+                  <Heading size="md" _hover={{ color: "grey" }}>
+                    Imóveis
+                  </Heading>
+                </a>
+              </Link>
+              <a onClick={() => window.scrollTo({top:2000, behavior:"smooth"})}>
                 <Heading size="md" _hover={{ color: "grey" }}>
-                  Imóveis
+                  Serviços
                 </Heading>
               </a>
-            </Link>
+              <a onClick={() => window.scrollTo({top:1200, behavior:"smooth"})}>
+                <Heading size="md" _hover={{ color: "grey" }}>
+                  Sobre Nós
+                </Heading>
+              </a>
+            </>
           )}
         </HStack>
         {!isLargerThan768 && (
@@ -101,30 +113,30 @@ export default function Header(): JSX.Element {
           >
             <Link href="/search" passHref>
               <a onClick={() => setIsOpen(false)}>
-                <Box d="flex" alignItems="center">
+                <HStack>
                   <ChevronRightIcon />
-                  <Heading fontWeight="medium" size="lg">
+                  <Heading size="lg">
                     Imóveis
                   </Heading>
-                </Box>
+                </HStack>
               </a>
             </Link>
-            <Box d="flex" alignItems="center">
-              <ChevronRightIcon />
-              <Heading fontWeight="medium" size="lg" textDecor="line-through">
-                Veículos
-              </Heading>
-              <Badge borderRadius="xl" ml="3">
-                Em breve!
-              </Badge>
-            </Box>
-            <Box d="flex" alignItems="center">
-              <ChevronRightIcon />
-              <Heading fontWeight="medium" size="lg" textDecor="line-through">
-                Equipamentos
-              </Heading>
-              <Badge ml="3">Em breve!</Badge>
-            </Box>
+            <a onClick={() => {setIsOpen(false); window.scrollTo({top:2350, behavior:"smooth"})}}>
+              <HStack>
+                <ChevronRightIcon />
+                <Heading size="lg">
+                  Serviços
+                </Heading>
+              </HStack>
+            </a>
+            <a onClick={() => {setIsOpen(false); window.scrollTo({top:1790, behavior:"smooth"}) }}>
+              <HStack>
+                <ChevronRightIcon />
+                <Heading size="lg">
+                  Sobre Nós
+                </Heading>
+              </HStack>
+            </a>
           </VStack>
         </motion.div>
       )}
