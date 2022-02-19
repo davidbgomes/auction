@@ -7,7 +7,7 @@ import Document, {
   NextScript,
 } from "next/document";
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GOOGLE_ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -19,10 +19,10 @@ class MyDocument extends Document {
       <Html lang="pt">
         <Head>
           <script
-            data-ad-client="ca-pub-9812155664610860"
             async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          ></script>
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
