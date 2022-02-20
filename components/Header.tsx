@@ -76,16 +76,6 @@ export default function Header(): JSX.Element {
                   </Heading>
                 </a>
               </Link>
-              <a onClick={() => window.scrollTo({top:2000, behavior:"smooth"})}>
-                <Heading size="md" _hover={{ color: "grey" }}>
-                  Serviços
-                </Heading>
-              </a>
-              <a onClick={() => window.scrollTo({top:1200, behavior:"smooth"})}>
-                <Heading size="md" _hover={{ color: "grey" }}>
-                  Sobre Nós
-                </Heading>
-              </a>
             </>
           )}
         </HStack>
@@ -121,22 +111,6 @@ export default function Header(): JSX.Element {
                 </HStack>
               </a>
             </Link>
-            <a onClick={() => {setIsOpen(false); window.scrollTo({top:2350, behavior:"smooth"})}}>
-              <HStack>
-                <ChevronRightIcon />
-                <Heading size="lg">
-                  Serviços
-                </Heading>
-              </HStack>
-            </a>
-            <a onClick={() => {setIsOpen(false); window.scrollTo({top:1790, behavior:"smooth"}) }}>
-              <HStack>
-                <ChevronRightIcon />
-                <Heading size="lg">
-                  Sobre Nós
-                </Heading>
-              </HStack>
-            </a>
           </VStack>
         </motion.div>
       )}
