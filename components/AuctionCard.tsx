@@ -15,6 +15,7 @@ import CarouselComponent from "@/components/Carousel";
 import dayjs from "dayjs";
 import Link from "next/link";
 import CurrencyField from "@/components/fields/CurrencyField";
+import { formatTitle } from "@/utils/helpers";
 
 export type AuctionCardType = {
   houseId: string;
@@ -51,10 +52,7 @@ const AuctionCard = ({
   endsAt,
   currentBidHistory,
 }: AuctionCardType): JSX.Element => {
-  const formatTitle = () => {
-    const lowerCaseTitle = title.toLowerCase();
-    return lowerCaseTitle.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
-  };
+
 
   const AreaInfo = ({ area }: { area: number }): JSX.Element => {
     return (
@@ -137,7 +135,7 @@ const AuctionCard = ({
                 {area > 0 && <AreaInfo area={area} />}
               </Box>
               <Heading size="sm" mt="2">
-                {formatTitle()}
+                {formatTitle(title)}
               </Heading>
               <Box mt="2" color="slategray">
                 <Text fontSize="sm" noOfLines={3}>

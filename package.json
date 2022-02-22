@@ -19,6 +19,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/faustina": "^4.5.3",
+    "@hookform/resolvers": "^2.8.8",
     "@next/bundle-analyzer": "^12.0.7",
     "@prisma/client": "^3.5.0",
     "@react-icons/all-files": "^4.1.0",
@@ -40,7 +41,8 @@
     "react-slick": "^0.28.1",
     "sharp": "^0.29.3",
     "slick-carousel": "^1.8.1",
-    "swr": "^1.0.1"
+    "swr": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.9.2",

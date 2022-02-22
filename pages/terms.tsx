@@ -1,6 +1,5 @@
 import { Container, Heading, Text, VStack } from "@chakra-ui/layout";
 import Head from "next/head";
-import Footer from "@/components/Footer";
 
 export default function Terms(): JSX.Element {
   return (
@@ -205,7 +204,6 @@ export default function Terms(): JSX.Element {
           </VStack>
         </VStack>
       </Container>
-      <Footer />
     </>
   );
 }

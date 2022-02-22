@@ -28,6 +28,7 @@ import { useRouter } from "next/router";
 import { fetcher } from "@/utils/helpers";
 import useSWR from "swr";
 import SkeletonHouse from "@/components/SkeletonHouse";
+import { formatTitle } from "@/utils/helpers";
 
 const ENV = process.env.NEXT_PUBLIC_ENV;
 const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
@@ -157,7 +158,7 @@ export default function House(): JSX.Element {
                     <Text
                       fontSize="md"
                       ml={{ base: "2", md: "0" }}
-                    >{`${district}, ${county}`}</Text>
+                    >{formatTitle(`${district}, ${county}`)}</Text>
                   </Box>
                   <Box
                     d="flex"
@@ -225,6 +226,8 @@ export default function House(): JSX.Element {
                   src={`/${website}.png`}
                   alt={website}
                   bgColor={website === "e-leiloes" ? "#4A66A0" : "initial"}
+                  h={website === "e-leiloes" ? "7" : "10"}
+                  borderRadius="lg"
                 />
               </Box>
             </VStack>

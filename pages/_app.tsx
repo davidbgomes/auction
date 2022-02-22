@@ -4,6 +4,8 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import GdprBanner from "@/components/GdprBanner";
 import Head from "next/head";
 import Script from "next/script";
+import { useRouter } from 'next/router';
+import Footer from "@/components/Footer";
 import "@fontsource/faustina";
 
 import Header from "../components/Header";
@@ -13,6 +15,8 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  const isSearchPage = router.pathname === "/search"
   const theme = extendTheme({
     fonts: {
       heading: "Faustina",
@@ -53,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
+        {!isSearchPage && <Footer />}
         <GdprBanner />
       </ChakraProvider>
 

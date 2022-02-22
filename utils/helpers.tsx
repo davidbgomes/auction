@@ -1,8 +1,4 @@
-import { House } from "@prisma/client";
-
-const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT;
 const ENV = process.env.NEXT_PUBLIC_ENV;
-const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
 
 export const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -13,4 +9,9 @@ export const fetcher = async (url: string) => {
     throw error;
   }
   return res.json();
+};
+
+export const formatTitle = (title: string) => {
+  const lowerCaseTitle = title.toLowerCase();
+  return lowerCaseTitle.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 };

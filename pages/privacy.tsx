@@ -1,7 +1,6 @@
 import { Container, Heading, Text, VStack } from "@chakra-ui/layout";
 import { ListItem, UnorderedList } from "@chakra-ui/react";
 import Head from "next/head";
-import Footer from "@/components/Footer";
 
 export default function Privacy(): JSX.Element {
   return (
@@ -200,7 +199,6 @@ export default function Privacy(): JSX.Element {
           </VStack>
         </VStack>
       </Container>
-      <Footer />
     </>
   );
 }
