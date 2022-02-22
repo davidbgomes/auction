@@ -16,7 +16,7 @@ const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
-  const isSearchPage = router.pathname === "/search"
+  const isSearchPages = router.pathname.startsWith("/search")
   const theme = extendTheme({
     fonts: {
       heading: "Faustina",
@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ChakraProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
-        {!isSearchPage && <Footer />}
+        {!isSearchPages && <Footer />}
         <GdprBanner />
       </ChakraProvider>
 

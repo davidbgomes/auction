@@ -137,6 +137,7 @@ export default function House(): JSX.Element {
                 >
                   {title}
                 </Heading>
+                <Divider />
                 <SimpleGrid
                   columns={{ base: 1, md: 4 }}
                   spacing={{ base: 1, md: 5 }}
@@ -154,6 +155,7 @@ export default function House(): JSX.Element {
                       as={BiMap}
                       w={{ base: 6, md: 8 }}
                       h={{ base: 6, md: 8 }}
+                      color="#095785"
                     />
                     <Text
                       fontSize="md"
@@ -172,6 +174,7 @@ export default function House(): JSX.Element {
                       as={houseType === "Apartamento" ? BiBuilding : BiHome}
                       w={{ base: 6, md: 8 }}
                       h={{ base: 6, md: 8 }}
+                      color="#095785"
                     />
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {houseType || "Imóvel"}
@@ -189,6 +192,7 @@ export default function House(): JSX.Element {
                       as={BiBed}
                       w={{ base: 6, md: 8 }}
                       h={{ base: 6, md: 8 }}
+                      color="#095785"
                     />
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {typology}
@@ -206,20 +210,23 @@ export default function House(): JSX.Element {
                       as={BiArea}
                       w={{ base: 6, md: 8 }}
                       h={{ base: 6, md: 8 }}
+                      color="#095785"
                     />
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {area} m²
                     </Text>
                   </Box>
                 </SimpleGrid>
+                <Divider />
               </VStack>
               <Box px={{ md: "6" }}>
                 <Text fontSize={{ base: "sm", md: "md" }} textAlign="justify">
                   {description}
                 </Text>
               </Box>
+              <Divider />
               <Box px={{ md: "6" }} w="full" d="flex" alignItems="center">
-                <Heading size="md" mr="2">
+                <Heading size="md" fontWeight="medium" mr="2">
                   Leiloeira:
                 </Heading>
                 <Image
@@ -332,11 +339,11 @@ export default function House(): JSX.Element {
                 longitude={parseFloat(longitude)}
                 title={title}
               />
-              <Text fontSize="xs" py="5" px="3">
+              <Text fontSize="sm" py="5" px="3">
                 {`${addressLine1}${
                   addressNumber !== null ? `, ${addressNumber}` : ""
-                }${addressFloor !== null ? ` ${addressFloor}` : ""} `}{" "}
-                <br></br> {postcode} <br></br> {county}, {parish}
+                }${addressFloor !== null ? ` ${addressFloor}` : ""}`}{", "}
+                {postcode} <br></br> {formatTitle(`${county}, ${parish}`)}
               </Text>
             </GridItem>
           )}

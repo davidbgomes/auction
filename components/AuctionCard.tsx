@@ -152,7 +152,7 @@ const AuctionCard = ({
                   <Stat colorScheme="linkedin">
                     <StatLabel>Lance Atual</StatLabel>
                     <StatNumber>
-                      {currentBid ? (
+                      {currentBid && Math.floor(currentBid) !== 0 ? (
                         <CurrencyField value={currentBid} />
                       ) : (
                         <Text>- €</Text>
