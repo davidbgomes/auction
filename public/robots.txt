@@ -1,6 +1,4 @@
 User-Agent: *
-Disallow: /terms
-Disallow: /privacy
 Disallow: /.netlify/
 
 Sitemap: https://www.leiloou.pt/sitemap.xml

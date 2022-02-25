@@ -14,6 +14,7 @@ export default function Terms(): JSX.Element {
         mt="12"
         boxShadow={{ base: "inherit", md: "md" }}
         px={{ base: "5", md: "10" }}
+        className="privacy-policy-container"
       >
         <VStack spacing="8" alignItems="flex-start" mb="8">
           <Heading as="h2" color="brand">

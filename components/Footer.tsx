@@ -7,7 +7,9 @@ import {
   VStack,
   Container,
   Heading,
+  HStack,
 } from "@chakra-ui/layout";
+import { Button, Image  } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function Footer(): JSX.Element {
@@ -34,12 +36,17 @@ export default function Footer(): JSX.Element {
                 <List fontSize={{ base: "15px", sm: "md" }}>
                   <ListItem _hover={{ textDecoration: "underline" }}>
                     <Link href="/terms" passHref>
-                      <a>Termos & Condições</a>
+                      <a>&bull; Termos & Condições</a>
                     </Link>
                   </ListItem>
                   <ListItem _hover={{ textDecoration: "underline" }}>
                     <Link href="/privacy" passHref>
-                      <a>Política de Privacidade</a>
+                      <a>&bull; Política de Privacidade</a>
+                    </Link>
+                  </ListItem>
+                  <ListItem _hover={{ textDecoration: "underline" }}>
+                    <Link href="/faq" passHref>
+                      <a>&bull; FAQ&apos;s</a>
                     </Link>
                   </ListItem>
                 </List>
@@ -52,17 +59,35 @@ export default function Footer(): JSX.Element {
             >
               <Heading
                 as="h3"
-                fontSize={{ base: "2xl", md: "3xl" }}
+                fontSize={{ base: "xl", md: "2xl" }}
                 fontWeight="medium"
               >
                 Pesquise connosco
               </Heading>
-              <Text as="p" textAlign={{ base: "center", md: "left" }}>
+              <Text as="p" fontSize="sm" textAlign={{ base: "center", md: "left" }}>
                 Trazemos o melhor e mais rápido motor de busca de leilões em
                 território nacional.
               </Text>
             </VStack>
           </Stack>
+          <a href="https://www.buymeacoffee.com/leiloou" target="_blank" rel="noreferrer">
+            <Button
+              color="white"
+              borderRadius="full"
+              bgGradient='linear(to-br, blue.600, blue.500)'
+              transition={'all .3s ease'}
+              _hover={{
+                bgGradient:'linear(to-br, blue.200, blue.300)'
+              }}
+            >
+              <HStack alignItems="center">
+                <Image src="/buymeacoffee.svg" w="5" alt="" />
+                <Text fontSize="sm" fontWeight={600}>
+                  Compre-me um café
+                </Text>
+              </HStack>
+            </Button>
+          </a>
           <Box textAlign="center">
             <Text as="p">Todos os direitos reservados.</Text>
             <Text as="p">Leiloou.pt | 2022</Text>

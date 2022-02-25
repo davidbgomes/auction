@@ -41,7 +41,7 @@ export default function AboutUs(): JSX.Element {
               as="h2"
               fontSize={{ base: "3xl", md: "3xl", lg: "4xl", xl: "5xl" }}
             >
-              Sobre Nós
+              A Nossa Missão
             </Heading>
             <Text
               fontSize={{ base: "sm", sm: "md", md: "lg" }}
@@ -70,9 +70,8 @@ export default function AboutUs(): JSX.Element {
               textAlign="justify"
             >
               Os dias de sites de leilões dispersos e sem usabilidade acabaram.
-              Aqui pode encontrar facilmente{" "}
-              <b>imóveis, veículos, equipamento e mobiliário</b> de várias
-              entidades certificadas.
+              Aqui pode encontrar facilmente <b>e-leilões de apartamentos e moradias</b> de
+              várias entidades certificadas.
             </Text>
             <CTA text="Pesquise Já" />
           </VStack>
