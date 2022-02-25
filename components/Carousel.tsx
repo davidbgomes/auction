@@ -49,6 +49,7 @@ export default function CarouselComponent({
               <Image
                 src={el}
                 alt={`carousel-image-${i + 1}`}
+                priority={i === 0}
                 layout="fill"
                 objectFit="cover"
                 quality={45}
