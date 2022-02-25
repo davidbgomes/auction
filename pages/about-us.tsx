@@ -10,7 +10,7 @@ export default function AboutUs() : JSX.Element {
       </Head>
       <Container maxW="container.xl" my="12">
         <VStack spacing={"16"}>
-          <VStack>
+          <VStack spacing="1">
             <Heading
               fontSize={{
                 base: "2xl",
@@ -21,17 +21,16 @@ export default function AboutUs() : JSX.Element {
             <Heading fontSize={{base:"sm", md:"lg"}} fontWeight="light" textAlign={{base:"center", md:"initial"}} color="gray.500">Saiba mais sobre a nossa missão</Heading>
           </VStack>
           <VStack spacing={{base:"10", md:"44"}}>
-            <SimpleGrid columns={{base:1, md:2}} spacing={10}>
-              <VStack spacing={10}>
+            <SimpleGrid columns={{base:1, md:2}} spacing={10} justifyItems="center">
+              <VStack spacing={{base:4, md:10}}>
                 <Heading
                   fontSize={{
-                    base: "lg",
-                    sm: "xl",
+                    base: "xl",
                     md: "2xl",
                     lg: "3xl",
                   }}
                 >
-                  Juntamos as peças
+                  Juntámos as peças
                 </Heading>
                 <VStack spacing={4} alignItems="flex-start">
                   <Text
@@ -65,11 +64,11 @@ export default function AboutUs() : JSX.Element {
                   </Text>
                 </VStack>
               </VStack>
-              <Image src="/puzzle.svg" alt="Juntamos todos os leilões"/>
+              <Image src="/puzzle.svg" alt="Juntamos todos os leilões" boxSize={{base:"60", md:"initial"}}/>
             </SimpleGrid>
-            <SimpleGrid columns={{base:1, md:2}} spacing={10}>
-              <Image src="/responsive.svg" alt="Acesso responsivo a todos os leilões"/>
-              <VStack spacing={10}>
+            <SimpleGrid columns={{base:1, md:2}} spacing={10} justifyItems="center">
+              <Image src="/responsive.svg" alt="Acesso responsivo a todos os leilões" boxSize={{base:"60", md:"initial"}} order={{base:2, md:1}}/>
+              <VStack spacing={{base:4, md:10}} order={{base:1, md:2}}>
                 <Heading
                   fontSize={{
                     base: "lg",
@@ -105,8 +104,8 @@ export default function AboutUs() : JSX.Element {
                 </VStack>
               </VStack>
             </SimpleGrid>
-            <SimpleGrid columns={{base:1, md:2}} spacing={10}>
-              <VStack spacing={10}>
+            <SimpleGrid columns={{base:1, md:2}} spacing={10} justifyItems="center">
+              <VStack spacing={{base:4, md:10}}>
                 <Heading
                   fontSize={{
                     base: "lg",
@@ -144,7 +143,7 @@ export default function AboutUs() : JSX.Element {
                   </Text>
                 </VStack>
               </VStack>
-              <Image src="/information.svg" alt="Juntamos todos os leilões"/>
+              <Image src="/information.svg" alt="Juntamos todos os leilões" boxSize={{base:"60", md:"initial"}}/>
             </SimpleGrid>
           </VStack>
         </VStack>
