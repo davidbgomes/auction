@@ -32,7 +32,6 @@ import { formatTitle } from "@/utils/helpers";
 
 const ENV = process.env.NEXT_PUBLIC_ENV;
 const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
-const GOOGLE_ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID;
 
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), {
   ssr: false,
@@ -105,11 +104,6 @@ export default function House(): JSX.Element {
     <>
       <Head>
         <title>Leiloou - {title}</title>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-        />
       </Head>
       <Container maxW="container.xl" py="2">
         <Grid

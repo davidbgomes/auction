@@ -37,7 +37,6 @@ const PREFETCH_PATH =
   ENV === "development"
     ? "/api/houses"
     : "https://determined-villani-81a550.netlify.app/.netlify/functions/houses";
-const GOOGLE_ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID;
 
 export default function Search(): JSX.Element {
   const router = useRouter();
@@ -108,11 +107,6 @@ export default function Search(): JSX.Element {
           as="fetch"
           crossOrigin="anonymous"
         ></link>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-        />
       </Head>
       <Box>
         <Container maxW="container.xl" py="6">
