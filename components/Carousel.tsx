@@ -46,7 +46,8 @@ export default function CarouselComponent({
                   images.length
                 }`}</Text>
               </Box>
-              <Image
+              <img src={el} alt={`carousel-image-${i + 1}`} style={{objectFit:"cover", height:"inherit", width:"inherit"}}/>
+              {/* <Image
                 src={el}
                 alt={`carousel-image-${i + 1}`}
                 priority={i === 0}
@@ -56,7 +57,7 @@ export default function CarouselComponent({
                 sizes="30vw"
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mN8/frdCwY0wEgDQQBYrRJiITy1dwAAAABJRU5ErkJggg=="
-              />
+              /> */}
             </Box>
           );
         })}
