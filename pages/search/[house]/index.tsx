@@ -107,7 +107,12 @@ export default function House(): JSX.Element {
         <title>Leiloou - {title}</title>
       </Head>
       <Container maxW="container.xl" py="2">
-        <GoogleAd adSlot="7481611029" isResponsive />
+        <GoogleAd
+          adSlot="6204188373"
+          style={{ textAlign: "center" }}
+          adFormat="fluid"
+          layout="in-article"
+        />
         <Grid
           templateRows={{
             base: `1fr 1fr 450px ${latitude && "450px"} 30px`,
