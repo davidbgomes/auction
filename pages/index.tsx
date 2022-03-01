@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import GoogleAd from "@/components/GoogleAd";
+import { Container } from "@chakra-ui/react";
 
 import Hero from "../components/Hero";
 const AboutUs = dynamic(() => import("../components/AboutUs"));
@@ -20,10 +21,14 @@ const Home: NextPage = () => {
       </Head>
       <Hero />
       <Explore />
-      <GoogleAd adSlot="9457215288" isResponsive/>
+      <Container maxW="container.xl">
+        <GoogleAd adSlot="9457215288" isResponsive/>
+      </Container>
       <AboutUs />
       <OurServices />
-      <GoogleAd adSlot="9457215288" isResponsive/>
+      <Container maxW="container.xl">
+        <GoogleAd adSlot="6204188373" style={{textAlign:"center"}} adFormat="fluid" layout="in-article"/>
+      </Container>
     </>
   );
 };

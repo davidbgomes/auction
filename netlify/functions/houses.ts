@@ -3,7 +3,7 @@ import { Prisma, House } from "@prisma/client";
 import citiesList from "@/utils/data/cities.json";
 import prisma from "../../lib/prisma";
 
-const PER_PAGE = 24;
+const PER_PAGE = 16;
 
 exports.handler = async (event: any, context: any) => {
   if (event.httpMethod === "GET") {

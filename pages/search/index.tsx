@@ -31,7 +31,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { MemoedAuctionCard, AuctionCardType } from "@/components/AuctionCard";
 
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 16;
 const ENV = process.env.NEXT_PUBLIC_ENV;
 const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
 const PREFETCH_PATH =
