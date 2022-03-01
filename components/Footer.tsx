@@ -9,7 +9,7 @@ import {
   Heading,
   HStack,
 } from "@chakra-ui/layout";
-import { Button, Image  } from "@chakra-ui/react";
+import { Button, Image } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function Footer(): JSX.Element {
@@ -64,20 +64,28 @@ export default function Footer(): JSX.Element {
               >
                 Pesquise connosco
               </Heading>
-              <Text as="p" fontSize="sm" textAlign={{ base: "center", md: "left" }}>
+              <Text
+                as="p"
+                fontSize="sm"
+                textAlign={{ base: "center", md: "left" }}
+              >
                 Trazemos o melhor e mais rápido motor de busca de leilões em
                 território nacional.
               </Text>
             </VStack>
           </Stack>
-          <a href="https://www.buymeacoffee.com/leiloou" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.buymeacoffee.com/leiloou"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Button
               color="white"
               borderRadius="full"
-              bgGradient='linear(to-br, blue.600, blue.500)'
-              transition={'all .3s ease'}
+              bgGradient="linear(to-br, blue.600, blue.500)"
+              transition={"all .3s ease"}
               _hover={{
-                bgGradient:'linear(to-br, blue.200, blue.300)'
+                bgGradient: "linear(to-br, blue.200, blue.300)",
               }}
             >
               <HStack alignItems="center">

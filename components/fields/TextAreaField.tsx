@@ -1,6 +1,10 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/form-control';
-import { Textarea } from '@chakra-ui/react';
-import { useFormContext } from 'react-hook-form';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+} from "@chakra-ui/form-control";
+import { Textarea } from "@chakra-ui/react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   name: string;
@@ -8,17 +12,14 @@ type Props = {
   isRequired?: boolean;
   defaultValue?: string;
   size?: "xs" | "sm" | "md" | "lg";
-  [rest: string]: string
-  | number
-  | boolean
-  | undefined
+  [rest: string]: string | number | boolean | undefined;
 };
 
 export function TextField({
   label,
   name,
   isRequired = true,
-  defaultValue = '',
+  defaultValue = "",
   size = "sm",
   ...rest
 }: Props) {
@@ -28,10 +29,15 @@ export function TextField({
   } = useFormContext();
 
   return (
-    <FormControl id={name} flex={1} isRequired={isRequired} isInvalid={!!errors?.[name]?.message}>
+    <FormControl
+      id={name}
+      flex={1}
+      isRequired={isRequired}
+      isInvalid={!!errors?.[name]?.message}
+    >
       {label ? <FormLabel>{label}</FormLabel> : null}
       <Textarea
-        variant='outline'
+        variant="outline"
         size={size}
         borderColor="brand"
         borderRadius="4"

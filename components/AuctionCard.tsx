@@ -52,8 +52,6 @@ const AuctionCard = ({
   endsAt,
   currentBidHistory,
 }: AuctionCardType): JSX.Element => {
-
-
   const AreaInfo = ({ area }: { area: number }): JSX.Element => {
     return (
       <Box className="area-div" fontSize="sm">

@@ -36,9 +36,9 @@ export default function Header(): JSX.Element {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const isSearchPage = router.pathname === "/search"
-  const isAboutUsPage = router.pathname === "/about-us"
-  const isContactUsPage = router.pathname === "/contact-us"
+  const isSearchPage = router.pathname === "/search";
+  const isAboutUsPage = router.pathname === "/about-us";
+  const isContactUsPage = router.pathname === "/contact-us";
 
   useEffect(() => {
     if (isOpen) {
@@ -76,7 +76,11 @@ export default function Header(): JSX.Element {
               <>
                 <Link href="/search" passHref>
                   <a>
-                    <Heading size="md" _hover={{ color: "grey" }} color={isSearchPage ? '#02667c' : 'black'}>
+                    <Heading
+                      size="md"
+                      _hover={{ color: "grey" }}
+                      color={isSearchPage ? "#02667c" : "black"}
+                    >
                       Imóveis
                     </Heading>
                   </a>
@@ -85,17 +89,25 @@ export default function Header(): JSX.Element {
             )}
           </HStack>
           {isLargerThan768 && (
-            <HStack spacing={'10'}>
+            <HStack spacing={"10"}>
               <Link href="/about-us" passHref>
                 <a>
-                  <Heading size="md" _hover={{ color: "grey" }} color={isAboutUsPage ? '#02667c' : 'black'}>
+                  <Heading
+                    size="md"
+                    _hover={{ color: "grey" }}
+                    color={isAboutUsPage ? "#02667c" : "black"}
+                  >
                     Sobre Nós
                   </Heading>
                 </a>
               </Link>
               <Link href="/contact-us" passHref>
                 <a>
-                  <Heading size="md" _hover={{ color: "grey" }} color={isContactUsPage ? '#02667c' : 'black'}>
+                  <Heading
+                    size="md"
+                    _hover={{ color: "grey" }}
+                    color={isContactUsPage ? "#02667c" : "black"}
+                  >
                     Contacte-nos
                   </Heading>
                 </a>
@@ -130,20 +142,16 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="lg">
-                    Imóveis
-                  </Heading>
+                  <Heading size="lg">Imóveis</Heading>
                 </HStack>
               </a>
             </Link>
-            <Divider w="full"/>
+            <Divider w="full" />
             <Link href="/about-us" passHref>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="sm">
-                    Sobre Nós
-                  </Heading>
+                  <Heading size="sm">Sobre Nós</Heading>
                 </HStack>
               </a>
             </Link>
@@ -151,9 +159,7 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="sm">
-                    Contacte-nos
-                  </Heading>
+                  <Heading size="sm">Contacte-nos</Heading>
                 </HStack>
               </a>
             </Link>
@@ -161,9 +167,7 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="sm">
-                    FAQ
-                  </Heading>
+                  <Heading size="sm">FAQ</Heading>
                 </HStack>
               </a>
             </Link>

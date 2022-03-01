@@ -70,8 +70,9 @@ export default function AboutUs(): JSX.Element {
               textAlign="justify"
             >
               Os dias de sites de leilões dispersos e sem usabilidade acabaram.
-              Aqui pode encontrar facilmente <b>e-leilões de apartamentos e moradias</b> de
-              várias entidades certificadas.
+              Aqui pode encontrar facilmente{" "}
+              <b>e-leilões de apartamentos e moradias</b> de várias entidades
+              certificadas.
             </Text>
             <CTA text="Pesquise Já" />
           </VStack>

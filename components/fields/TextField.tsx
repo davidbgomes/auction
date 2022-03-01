@@ -1,7 +1,11 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/form-control';
-import { Input, InputProps } from '@chakra-ui/input';
-import { Text } from '@chakra-ui/react';
-import { useFormContext } from 'react-hook-form';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+} from "@chakra-ui/form-control";
+import { Input, InputProps } from "@chakra-ui/input";
+import { Text } from "@chakra-ui/react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   name: string;
@@ -14,7 +18,7 @@ export function TextField({
   label,
   name,
   isRequired = true,
-  defaultValue = '',
+  defaultValue = "",
   ...rest
 }: Props & InputProps) {
   const {
@@ -23,10 +27,15 @@ export function TextField({
   } = useFormContext();
 
   return (
-    <FormControl id={name} flex={1} isRequired={isRequired} isInvalid={!!errors?.[name]?.message}>
+    <FormControl
+      id={name}
+      flex={1}
+      isRequired={isRequired}
+      isInvalid={!!errors?.[name]?.message}
+    >
       {label ? <FormLabel>{label}</FormLabel> : null}
       <Input
-        variant='outline'
+        variant="outline"
         size="md"
         borderColor="brand"
         borderRadius="4"

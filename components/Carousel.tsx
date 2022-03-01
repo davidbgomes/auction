@@ -46,7 +46,16 @@ export default function CarouselComponent({
                   images.length
                 }`}</Text>
               </Box>
-              <img src={el} alt={`carousel-image-${i + 1}`} style={{objectFit:"cover", height:"inherit", width:"inherit"}} loading="lazy" />
+              <img
+                src={el}
+                alt={`carousel-image-${i + 1}`}
+                style={{
+                  objectFit: "cover",
+                  height: "inherit",
+                  width: "inherit",
+                }}
+                loading="lazy"
+              />
             </Box>
           );
         })}

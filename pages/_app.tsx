@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Head from "next/head";
 import Script from "next/script";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import "@fontsource/faustina";
 
@@ -14,8 +14,8 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  const isSearchPages = router.pathname.startsWith("/search")
+  const router = useRouter();
+  const isSearchPages = router.pathname.startsWith("/search");
   const theme = extendTheme({
     fonts: {
       heading: "Faustina",

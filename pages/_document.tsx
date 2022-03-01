@@ -7,8 +7,8 @@ import Document, {
   NextScript,
 } from "next/document";
 
-
-const GOOGLE_ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID;
+const GOOGLE_ADSENSE_CLIENT_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID;
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

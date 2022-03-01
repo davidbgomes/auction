@@ -107,7 +107,7 @@ export default function House(): JSX.Element {
         <title>Leiloou - {title}</title>
       </Head>
       <Container maxW="container.xl" py="2">
-        <GoogleAd adSlot="7481611029" isResponsive/>
+        <GoogleAd adSlot="7481611029" isResponsive />
         <Grid
           templateRows={{
             base: `1fr 1fr 450px ${latitude && "450px"} 30px`,
@@ -159,10 +159,9 @@ export default function House(): JSX.Element {
                       h={{ base: 6, md: 8 }}
                       color="#095785"
                     />
-                    <Text
-                      fontSize="md"
-                      ml={{ base: "2", md: "0" }}
-                    >{formatTitle(`${district}, ${county}`)}</Text>
+                    <Text fontSize="md" ml={{ base: "2", md: "0" }}>
+                      {formatTitle(`${district}, ${county}`)}
+                    </Text>
                   </Box>
                   <Box
                     d="flex"
@@ -344,7 +343,8 @@ export default function House(): JSX.Element {
               <Text fontSize="sm" py="5" px="3">
                 {`${addressLine1}${
                   addressNumber !== null ? `, ${addressNumber}` : ""
-                }${addressFloor !== null ? ` ${addressFloor}` : ""}`}{", "}
+                }${addressFloor !== null ? ` ${addressFloor}` : ""}`}
+                {", "}
                 {postcode} <br></br> {formatTitle(`${county}, ${parish}`)}
               </Text>
             </GridItem>
