@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import GdprBanner from "@/components/GdprBanner";
 import Head from "next/head";
 import Script from "next/script";
 import { useRouter } from 'next/router';
@@ -58,7 +57,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Header />
         <Component {...pageProps} />
         {!isSearchPages && <Footer />}
-        <GdprBanner />
       </ChakraProvider>
 
       {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
