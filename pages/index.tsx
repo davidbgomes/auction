@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import GoogleAd from "@/components/GoogleAd";
 
 import Hero from "../components/Hero";
 const AboutUs = dynamic(() => import("../components/AboutUs"));
@@ -19,8 +20,10 @@ const Home: NextPage = () => {
       </Head>
       <Hero />
       <Explore />
+      <GoogleAd adSlot="9457215288" isResponsive/>
       <AboutUs />
       <OurServices />
+      <GoogleAd adSlot="9457215288" isResponsive/>
     </>
   );
 };

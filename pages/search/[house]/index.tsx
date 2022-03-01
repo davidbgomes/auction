@@ -29,6 +29,7 @@ import { fetcher } from "@/utils/helpers";
 import useSWR from "swr";
 import SkeletonHouse from "@/components/SkeletonHouse";
 import { formatTitle } from "@/utils/helpers";
+import GoogleAd from "@/components/GoogleAd";
 
 const ENV = process.env.NEXT_PUBLIC_ENV;
 const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
@@ -106,6 +107,7 @@ export default function House(): JSX.Element {
         <title>Leiloou - {title}</title>
       </Head>
       <Container maxW="container.xl" py="2">
+        <GoogleAd adSlot="7481611029" isResponsive/>
         <Grid
           templateRows={{
             base: `1fr 1fr 450px ${latitude && "450px"} 30px`,

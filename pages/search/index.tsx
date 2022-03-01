@@ -20,6 +20,7 @@ import {
   useMediaQuery,
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import GoogleAd from "@/components/GoogleAd";
 
 const SkeletonSearch = dynamic(() => import("@/components/SkeletonSearch"));
 import Navigation from "@/components/Navigation";
@@ -217,8 +218,15 @@ export default function Search(): JSX.Element {
                   spacing={5}
                   justifyItems="center"
                 >
-                  {houses.map((house) => {
-                    return <MemoedAuctionCard key={house.houseId} {...house} />;
+                  {houses.map((house, i) => {
+                    return (
+                      <>
+                        {i % 10 === 0 && i !== 0 && (
+                          <GoogleAd adSlot="9908641422" layoutKey="+37+r3+5j-64-4t" adFormat="fluid" isResponsive={false}/>
+                        )}
+                        <MemoedAuctionCard key={house.houseId} {...house} />
+                      </>
+                    )
                   })}
                 </SimpleGrid>
               </InfiniteScroll>

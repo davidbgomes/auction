@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from "next/image";
 
 export default function CarouselComponent({
   id,
@@ -46,18 +46,7 @@ export default function CarouselComponent({
                   images.length
                 }`}</Text>
               </Box>
-              <img src={el} alt={`carousel-image-${i + 1}`} style={{objectFit:"cover", height:"inherit", width:"inherit"}}/>
-              {/* <Image
-                src={el}
-                alt={`carousel-image-${i + 1}`}
-                priority={i === 0}
-                layout="fill"
-                objectFit="cover"
-                quality={45}
-                sizes="30vw"
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mN8/frdCwY0wEgDQQBYrRJiITy1dwAAAABJRU5ErkJggg=="
-              /> */}
+              <img src={el} alt={`carousel-image-${i + 1}`} style={{objectFit:"cover", height:"inherit", width:"inherit"}} loading="lazy" />
             </Box>
           );
         })}
