@@ -285,7 +285,11 @@ export default function House(): JSX.Element {
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de início:</Text>
-                <Text>{dayjs(startsAt).format("DD-MM-YYYY HH:mm")}h</Text>
+                <Text>
+                  {startsAt
+                    ? `${dayjs(startsAt).format("DD-MM-YYYY HH:mm")}h`
+                    : "--"}
+                </Text>
               </Box>
               <Box d="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de fim:</Text>
