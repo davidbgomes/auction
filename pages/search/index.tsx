@@ -221,7 +221,7 @@ export default function Search(): JSX.Element {
                   {houses.map((house, i) => {
                     return (
                       <>
-                        {i % 10 === 0 && i !== 0 && (
+                        {i % 5 === 0 && i !== 0 && (
                           <GoogleAd
                             adSlot="9908641422"
                             layoutKey="+37+r3+5j-64-4t"

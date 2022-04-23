@@ -14,9 +14,16 @@ import Link from "next/link";
 
 export default function Footer(): JSX.Element {
   return (
-    <Box py="10" px="4" boxShadow="inner" mt="20">
+    <Box
+      py="10"
+      px="4"
+      boxShadow="inner"
+      mt="20"
+      bgColor={"blackAlpha.900"}
+      color="white"
+    >
       <Container maxWidth="container.xl">
-        <VStack alignItems="center" spacing={{ base: 5, md: 2 }}>
+        <VStack alignItems="center" spacing={{ base: 5, md: 3 }}>
           <Stack
             direction={{ base: "column", md: "row" }}
             width={{ base: "initial", md: "full" }}
@@ -29,8 +36,12 @@ export default function Footer(): JSX.Element {
               spacing={{ base: 3, md: 6 }}
               alignItems={{ base: "center", md: "flex-start" }}
             >
-              <Heading as="h3" fontSize="3xl" fontWeight="medium">
-                Leiloou
+              <Heading
+                as="h3"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                fontWeight="medium"
+              >
+                Leiloou.pt
               </Heading>
               <VStack spacing={6}>
                 <List fontSize={{ base: "15px", sm: "md" }}>
@@ -53,7 +64,7 @@ export default function Footer(): JSX.Element {
               </VStack>
             </VStack>
             <VStack
-              maxW="72"
+              maxW="56"
               spacing={{ base: 3, md: 6 }}
               alignItems={{ base: "center", md: "flex-start" }}
             >

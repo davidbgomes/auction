@@ -29,6 +29,8 @@ import { fetcher } from "@/utils/helpers";
 import useSWR from "swr";
 import SkeletonHouse from "@/components/SkeletonHouse";
 import { formatTitle } from "@/utils/helpers";
+import { House as HouseType } from "@prisma/client";
+import React, { ReactNode } from "react";
 
 const ENV = process.env.NEXT_PUBLIC_ENV;
 const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
@@ -63,12 +65,31 @@ const renderer = ({
   }
 };
 
+const IconComponent = ({ children }: { children: ReactNode }) => {
+  return (
+    <Box
+      d="flex"
+      alignItems={{ base: "flex-start", md: "center" }}
+      mr="auto"
+      m={{ base: "inherit", md: "auto" }}
+      flexDirection={{ base: "inherit", md: "column" }}
+      textAlign="center"
+      w="full"
+    >
+      {children}
+    </Box>
+  );
+};
+
 export default function House(): JSX.Element {
   const router = useRouter();
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const houseId = router.query.house as string;
 
-  const { data, error } = useSWR(`${API_PATH}/houses?id=${houseId}`, fetcher);
+  const { data, error } = useSWR<HouseType>(
+    `${API_PATH}/houses?id=${houseId}`,
+    fetcher
+  );
 
   if (!data || error) {
     return <SkeletonHouse />;
@@ -98,6 +119,7 @@ export default function House(): JSX.Element {
     longitude,
     url,
     website,
+    updatedAt,
   } = data;
 
   return (
@@ -143,14 +165,7 @@ export default function House(): JSX.Element {
                   spacing={{ base: 1, md: 5 }}
                   w="full"
                 >
-                  <Box
-                    d="flex"
-                    alignItems={{ base: "flex-start", md: "center" }}
-                    mr="auto"
-                    m={{ base: "inherit", md: "auto" }}
-                    flexDirection={{ base: "inherit", md: "column" }}
-                    w="full"
-                  >
+                  <IconComponent>
                     <Icon
                       as={BiMap}
                       w={{ base: 6, md: 8 }}
@@ -160,15 +175,8 @@ export default function House(): JSX.Element {
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {formatTitle(`${district}, ${county}`)}
                     </Text>
-                  </Box>
-                  <Box
-                    d="flex"
-                    alignItems={{ base: "flex-start", md: "center" }}
-                    mr="auto"
-                    m={{ base: "inherit", md: "auto" }}
-                    flexDirection={{ base: "inherit", md: "column" }}
-                    w="full"
-                  >
+                  </IconComponent>
+                  <IconComponent>
                     <Icon
                       as={houseType === "Apartamento" ? BiBuilding : BiHome}
                       w={{ base: 6, md: 8 }}
@@ -178,15 +186,8 @@ export default function House(): JSX.Element {
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {houseType || "Imóvel"}
                     </Text>
-                  </Box>
-                  <Box
-                    d="flex"
-                    alignItems={{ base: "flex-start", md: "center" }}
-                    mr="auto"
-                    m={{ base: "inherit", md: "auto" }}
-                    flexDirection={{ base: "inherit", md: "column" }}
-                    w="full"
-                  >
+                  </IconComponent>
+                  <IconComponent>
                     <Icon
                       as={BiBed}
                       w={{ base: 6, md: 8 }}
@@ -196,15 +197,8 @@ export default function House(): JSX.Element {
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {typology}
                     </Text>
-                  </Box>
-                  <Box
-                    d="flex"
-                    alignItems={{ base: "flex-start", md: "center" }}
-                    mr="auto"
-                    m={{ base: "inherit", md: "auto" }}
-                    flexDirection={{ base: "inherit", md: "column" }}
-                    w="full"
-                  >
+                  </IconComponent>
+                  <IconComponent>
                     <Icon
                       as={BiArea}
                       w={{ base: 6, md: 8 }}
@@ -214,7 +208,7 @@ export default function House(): JSX.Element {
                     <Text fontSize="md" ml={{ base: "2", md: "0" }}>
                       {area} m²
                     </Text>
-                  </Box>
+                  </IconComponent>
                 </SimpleGrid>
                 <Divider />
               </VStack>
@@ -224,10 +218,13 @@ export default function House(): JSX.Element {
                 </Text>
               </Box>
               <Divider />
-              <Box px={{ md: "6" }} w="full" d="flex" alignItems="center">
-                <Heading size="md" fontWeight="medium" mr="2">
-                  Leiloeira:
-                </Heading>
+              <Box
+                px={{ md: "6" }}
+                w="full"
+                d="flex"
+                alignItems="center"
+                justifyContent={"space-between"}
+              >
                 <Image
                   src={`/${website}.png`}
                   alt={website}
@@ -235,6 +232,10 @@ export default function House(): JSX.Element {
                   h={website === "e-leiloes" ? "7" : "10"}
                   borderRadius="lg"
                 />
+                <Text>
+                  <b>Última atualização:</b>{" "}
+                  {dayjs(updatedAt).format("DD/MM/YYYY")}
+                </Text>
               </Box>
             </VStack>
           </GridItem>
