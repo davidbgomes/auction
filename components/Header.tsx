@@ -39,6 +39,7 @@ export default function Header(): JSX.Element {
   const isSearchPage = router.pathname === "/search";
   const isAboutUsPage = router.pathname === "/about-us";
   const isContactUsPage = router.pathname === "/contact-us";
+  const isBlogPage = router.pathname === "/blog";
 
   useEffect(() => {
     if (isOpen) {
@@ -52,14 +53,14 @@ export default function Header(): JSX.Element {
     <Box my={{ base: "5", md: "10" }}>
       <Container
         maxW="container.xl"
-        d="flex"
+        display="flex"
         alignItems="center"
         justifyContent="space-between"
         zIndex="3"
       >
-        <Box d="flex" w="full" justifyContent="space-between">
+        <Box display="flex" w="full" justifyContent="space-between">
           <HStack spacing="10">
-            <Link href="/" passHref>
+            <Link href="/" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <Image
                   src="/auction-logo.png"
@@ -74,12 +75,12 @@ export default function Header(): JSX.Element {
             </Link>
             {isLargerThan768 && (
               <>
-                <Link href="/search" passHref>
+                <Link href="/search" passHref legacyBehavior>
                   <a>
                     <Heading
                       size="md"
                       _hover={{ color: "grey" }}
-                      color={isSearchPage ? "#02667c" : "black"}
+                      textDecoration={isSearchPage ? "underline" : "none"}
                     >
                       Imóveis
                     </Heading>
@@ -90,23 +91,34 @@ export default function Header(): JSX.Element {
           </HStack>
           {isLargerThan768 && (
             <HStack spacing={"10"}>
-              <Link href="/about-us" passHref>
+              <Link href="/blog" passHref legacyBehavior>
                 <a>
                   <Heading
                     size="md"
                     _hover={{ color: "grey" }}
-                    color={isAboutUsPage ? "#02667c" : "black"}
+                    textDecoration={isBlogPage ? "underline" : "none"}
+                  >
+                    Blog
+                  </Heading>
+                </a>
+              </Link>
+              <Link href="/about-us" passHref legacyBehavior>
+                <a>
+                  <Heading
+                    size="md"
+                    _hover={{ color: "grey" }}
+                    textDecoration={isAboutUsPage ? "underline" : "none"}
                   >
                     Sobre Nós
                   </Heading>
                 </a>
               </Link>
-              <Link href="/contact-us" passHref>
+              <Link href="/contact-us" passHref legacyBehavior>
                 <a>
                   <Heading
                     size="md"
                     _hover={{ color: "grey" }}
-                    color={isContactUsPage ? "#02667c" : "black"}
+                    textDecoration={isContactUsPage ? "underline" : "none"}
                   >
                     Contacte-nos
                   </Heading>
@@ -138,7 +150,7 @@ export default function Header(): JSX.Element {
             alignItems="flex-start"
             w="full"
           >
-            <Link href="/search" passHref>
+            <Link href="/search" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
@@ -147,7 +159,7 @@ export default function Header(): JSX.Element {
               </a>
             </Link>
             <Divider w="full" />
-            <Link href="/about-us" passHref>
+            <Link href="/about-us" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
@@ -155,7 +167,7 @@ export default function Header(): JSX.Element {
                 </HStack>
               </a>
             </Link>
-            <Link href="/contact-us" passHref>
+            <Link href="/contact-us" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
@@ -163,7 +175,7 @@ export default function Header(): JSX.Element {
                 </HStack>
               </a>
             </Link>
-            <Link href="/faq" passHref>
+            <Link href="/faq" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />

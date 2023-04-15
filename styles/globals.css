@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    position: initial !important;
+  position: initial !important;
 }
 
 a {
@@ -155,4 +155,37 @@ a {
 
 .privacy-policy-container a:visited {
   color: rgb(25, 25, 177);
+}
+
+.markdown {
+  font-size: medium;
+  line-height: 2;
+}
+
+.markdown p,
+.markdown ul,
+.markdown ol,
+.markdown blockquote {
+  margin: 10px 0px;
+}
+
+.markdown h1 {
+  font-size: x-large;
+  margin-top: 35px;
+  margin-bottom: 15px;
+  line-height: 0.4;
+}
+
+.markdown h2 {
+  font-size: large;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  line-height: 0.4;
+}
+
+.markdown h3 {
+  font-size: medium;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  line-height: 0.4;
 }
