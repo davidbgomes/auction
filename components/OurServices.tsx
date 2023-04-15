@@ -44,7 +44,7 @@ export default function OurServices() {
                 textAlign="justify"
               >
                 Somos um agregador completo de e-leilões listados em diversas
-                leiloeiras oficiais, com centenas de imóveis por todo o país
+                leiloeiras em Portugal, com centenas de imóveis por todo o país
                 disponíveis para serem comprados. Fazemos de intemediário entre
                 si, o comprador, e a leiloeira oficial onde poderá licitar e
                 comprar o bem em leilão.

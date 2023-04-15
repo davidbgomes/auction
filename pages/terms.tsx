@@ -22,7 +22,7 @@ export default function Terms(): JSX.Element {
           </Heading>
           <Text as="p">
             Ao utilizar o site Leiloou.pt, concorda em cumprir estes termos de
-            serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é
+            serviço, todas as leis e regulamentos aplicáveis e concorda que é
             responsável pelo cumprimento de todas as leis locais aplicáveis. Se
             você não concordar com algum desses termos, está proibido de usar ou
             utilizar este site. Os materiais contidos neste site são protegidos
