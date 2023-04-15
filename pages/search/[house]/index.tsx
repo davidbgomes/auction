@@ -33,7 +33,10 @@ import { House as HouseType } from "@prisma/client";
 import React, { ReactNode } from "react";
 
 const ENV = process.env.NEXT_PUBLIC_ENV;
-const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
+const API_PATH =
+  ENV === "development"
+    ? "http://localhost:9999/.netlify/functions"
+    : "/.netlify/functions";
 
 const MapLeaflet = dynamic(() => import("@/components/MapLeaflet"), {
   ssr: false,
@@ -68,7 +71,7 @@ const renderer = ({
 const IconComponent = ({ children }: { children: ReactNode }) => {
   return (
     <Box
-      d="flex"
+      display="flex"
       alignItems={{ base: "flex-start", md: "center" }}
       mr="auto"
       m={{ base: "inherit", md: "auto" }}
@@ -213,7 +216,11 @@ export default function House(): JSX.Element {
                 <Divider />
               </VStack>
               <Box px={{ md: "6" }}>
-                <Text fontSize={{ base: "sm", md: "md" }} textAlign="justify">
+                <Text
+                  fontSize={{ base: "sm", md: "md" }}
+                  textAlign="justify"
+                  color={"gray.600"}
+                >
                   {description}
                 </Text>
               </Box>
@@ -221,7 +228,7 @@ export default function House(): JSX.Element {
               <Box
                 px={{ md: "6" }}
                 w="full"
-                d="flex"
+                display="flex"
                 alignItems="center"
                 justifyContent={"space-between"}
               >
@@ -232,8 +239,8 @@ export default function House(): JSX.Element {
                   h={website === "e-leiloes" ? "7" : "10"}
                   borderRadius="lg"
                 />
-                <Text>
-                  <b>Última atualização:</b>{" "}
+                <Text fontSize={"sm1"}>
+                  <b>última atualização:</b>{" "}
                   {dayjs(updatedAt).format("DD/MM/YYYY")}
                 </Text>
               </Box>
@@ -250,8 +257,8 @@ export default function House(): JSX.Element {
               textAlign="center"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="normal"
-              bgColor="#3e474a"
-              color="white"
+              bgColor="#d3d3d1"
+              color="hsla(0,0%,13%,1)"
               py="3"
             >
               Detalhes
@@ -263,11 +270,11 @@ export default function House(): JSX.Element {
               alignItems="flex-start"
               mx={{ base: "4", lg: "1", xl: "7" }}
             >
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor de mercado:</Text>
                 <CurrencyField value={marketValue} />
               </Box>
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor mínimo:</Text>
                 {minimumPrice ? (
                   <CurrencyField value={minimumPrice} />
@@ -275,7 +282,7 @@ export default function House(): JSX.Element {
                   <Text>--</Text>
                 )}
               </Box>
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Valor de abertura:</Text>
                 {startingPrice ? (
                   <CurrencyField value={startingPrice} />
@@ -283,7 +290,7 @@ export default function House(): JSX.Element {
                   <Text>--</Text>
                 )}
               </Box>
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de início:</Text>
                 <Text>
                   {startsAt
@@ -291,20 +298,21 @@ export default function House(): JSX.Element {
                     : "--"}
                 </Text>
               </Box>
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Data de fim:</Text>
                 <Text>{dayjs(endsAt).format("DD-MM-YYYY HH:mm")}h</Text>
               </Box>
-              <Box d="flex" w="full" justifyContent="space-between">
+              <Box display="flex" w="full" justifyContent="space-between">
                 <Text fontWeight="semibold">Tempo restante:</Text>
                 <Countdown date={endsAt} renderer={renderer}></Countdown>
               </Box>
             </VStack>
             <Box
-              d="flex"
+              display="flex"
               pos="absolute"
               bottom="0"
-              bgColor="#efefef"
+              bgColor="#3e3e3e"
+              color={"white"}
               w="full"
               height="70px"
               alignItems="center"
@@ -331,8 +339,8 @@ export default function House(): JSX.Element {
                 textAlign="center"
                 fontSize={{ base: "xl", md: "2xl" }}
                 fontWeight="normal"
-                bgColor="#3e474a"
-                color="white"
+                bgColor="#d3d3d1"
+                color="hsla(0,0%,13%,1)"
                 py="3"
               >
                 Localização

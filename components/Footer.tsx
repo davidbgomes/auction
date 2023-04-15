@@ -10,6 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/layout";
 import { Button, Image } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import Link from "next/link";
 
 export default function Footer(): JSX.Element {
@@ -18,7 +19,6 @@ export default function Footer(): JSX.Element {
       py="10"
       px="4"
       boxShadow="inner"
-      mt="20"
       bgColor={"blackAlpha.900"}
       color="white"
     >
@@ -46,17 +46,17 @@ export default function Footer(): JSX.Element {
               <VStack spacing={6}>
                 <List fontSize={{ base: "15px", sm: "md" }}>
                   <ListItem _hover={{ textDecoration: "underline" }}>
-                    <Link href="/terms" passHref>
+                    <Link href="/terms" passHref legacyBehavior>
                       <a>&bull; Termos & Condições</a>
                     </Link>
                   </ListItem>
                   <ListItem _hover={{ textDecoration: "underline" }}>
-                    <Link href="/privacy" passHref>
+                    <Link href="/privacy" passHref legacyBehavior>
                       <a>&bull; Política de Privacidade</a>
                     </Link>
                   </ListItem>
                   <ListItem _hover={{ textDecoration: "underline" }}>
-                    <Link href="/faq" passHref>
+                    <Link href="/faq" passHref legacyBehavior>
                       <a>&bull; FAQ&apos;s</a>
                     </Link>
                   </ListItem>
@@ -109,7 +109,7 @@ export default function Footer(): JSX.Element {
           </a>
           <Box textAlign="center">
             <Text as="p">Todos os direitos reservados.</Text>
-            <Text as="p">Leiloou.pt | 2022</Text>
+            <Text as="p">Leiloou.pt | {dayjs().year()}</Text>
           </Box>
         </VStack>
       </Container>

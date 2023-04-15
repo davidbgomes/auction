@@ -17,9 +17,10 @@ export default function Hero(): JSX.Element {
         transform="skewY(-3deg)"
         pos="absolute"
         w="100%"
-        h="600px"
+        h={{ base: "550px", md: "500px" }}
+        mt={{ base: "initial", md: "10" }}
       ></Box>
-      <Box pt={{ base: "8", md: "24" }}>
+      <Box pt={{ base: "0", md: "24" }}>
         <Container maxW="container.xl">
           <Stack
             spacing="10"
@@ -45,12 +46,12 @@ export default function Hero(): JSX.Element {
                   xl: "7xl",
                 }}
               >
-                Todos os Leilões
+                Todos os Leilões,
                 <br />
-                num só lugar
+                um só lugar
               </Heading>
               <Text fontSize={{ base: "md", md: "xl" }}>
-                Todos os bens em leilão eletrónico em Portugal.
+                Pesquise todos os bens em leilões eletrónicos de Portugal.
               </Text>
               <CTA text="Pesquise agora" />
             </VStack>

@@ -20,12 +20,12 @@ const Home: NextPage = () => {
         />
       </Head>
       <Hero />
-      <Explore />
-      <Container maxW="container.xl" mt={{ base: "8", md: "20" }}>
-        <GoogleAd adSlot="9457215288" isResponsive />
-      </Container>
-      <AboutUs />
       <OurServices />
+      <Explore />
+      {/*       <Container maxW="container.xl" mt={{ base: "8", md: "20" }}>
+        <GoogleAd adSlot="9457215288" isResponsive />
+      </Container> */}
+      <AboutUs />
       <Container maxW="container.xl" mt={{ base: "8", md: "20" }}>
         <GoogleAd
           adSlot="6204188373"

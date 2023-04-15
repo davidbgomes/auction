@@ -105,7 +105,7 @@ const AuctionCard = ({
         transition="0.2s ease-in-out"
       >
         <CarouselComponent id={houseId} images={images} />
-        <Link href={`/search/${houseId}`} passHref>
+        <Link href={`/search/${houseId}`} passHref legacyBehavior>
           <a>
             <Box p="6">
               <Box
@@ -156,16 +156,17 @@ const AuctionCard = ({
                         <Text>- €</Text>
                       )}
                     </StatNumber>
-                    {currentBidHistory.length > 1 && currentBidHistory[0] > 0 && (
-                      <>
-                        <StatArrow type="increase" />
-                        {percentageIncrease(
-                          currentBidHistory[currentBidHistory.length - 1],
-                          currentBidHistory[currentBidHistory.length - 2]
-                        )}
-                        %
-                      </>
-                    )}
+                    {currentBidHistory.length > 1 &&
+                      currentBidHistory[0] > 0 && (
+                        <>
+                          <StatArrow type="increase" />
+                          {percentageIncrease(
+                            currentBidHistory[currentBidHistory.length - 1],
+                            currentBidHistory[currentBidHistory.length - 2]
+                          )}
+                          %
+                        </>
+                      )}
                   </Stat>
                 </Box>
                 <Text fontSize="xs" color="gray.600">

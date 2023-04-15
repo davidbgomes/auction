@@ -19,6 +19,7 @@ const DistrictCard = ({
         query: { district: value },
       }}
       passHref
+      legacyBehavior
     >
       <a>
         <Box
@@ -62,7 +63,7 @@ const DistrictCard = ({
 export default function Explore(): JSX.Element {
   return (
     <>
-      <Box pt={{ base: "24", md: "52" }} pb="20" bgColor="gray.100">
+      <Box pt={{ base: "4", md: "10" }} pb="20" bgColor="gray.100">
         <Container maxW="container.xl" borderColor="gray.300">
           <VStack
             order={{ base: 2, md: 1 }}
@@ -76,7 +77,7 @@ export default function Explore(): JSX.Element {
               fontSize={{ base: "3xl", md: "3xl", lg: "4xl", xl: "5xl" }}
               mb="5"
             >
-              Principais Cidades
+              Pesquise pelas maiores cidades
             </Heading>
             <SimpleGrid
               columns={{ base: 2, lg: 3 }}
