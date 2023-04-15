@@ -15,3 +15,7 @@ export const formatTitle = (title: string) => {
   const lowerCaseTitle = title.toLowerCase();
   return lowerCaseTitle.replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 };
+
+export const capitalize = (text: string) => {
+  return text.substring(0, 1).toUpperCase() + text.slice(1);
+};

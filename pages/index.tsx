@@ -26,14 +26,14 @@ const Home: NextPage = () => {
         <GoogleAd adSlot="9457215288" isResponsive />
       </Container> */}
       <AboutUs />
-      <Container maxW="container.xl" mt={{ base: "8", md: "20" }}>
+      {/* <Container maxW="container.xl" mt={{ base: "8", md: "20" }}>
         <GoogleAd
           adSlot="6204188373"
           style={{ textAlign: "center" }}
           adFormat="fluid"
           layout="in-article"
         />
-      </Container>
+      </Container> */}
     </>
   );
 };

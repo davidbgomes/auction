@@ -64,7 +64,10 @@ export const leilosocRobot = async () => {
         continue;
       }
       const auctionPage = await browser.newPage();
-      const url: string = await (await item.getProperty("href")).jsonValue();
+      const url: string | undefined = await (
+        await item.getProperty("href")
+      )?.jsonValue();
+      if (!url) return null;
       await auctionPage.goto(url);
       await auctionPage.bringToFront();
       await auctionPage.waitForTimeout(2000);

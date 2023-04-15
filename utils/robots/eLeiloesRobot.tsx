@@ -153,14 +153,14 @@ export const eLeiloesRobot = async () => {
           );
           const images: string[] = [];
           for (const image of imagesDiv) {
-            const backgroundImage: string | undefined = await (
+            const backgroundImage: unknown = await (
               await (
                 await image.getProperty("style")
               )?.getProperty("backgroundImage")
             )?.jsonValue();
-            const url = backgroundImage?.substring(
-              backgroundImage?.indexOf('"') + 1,
-              backgroundImage?.lastIndexOf('"')
+            const url = (backgroundImage as string)?.substring(
+              (backgroundImage as string)?.indexOf('"') + 1,
+              (backgroundImage as string)?.lastIndexOf('"')
             );
             if (url) {
               images.push(`https://www.e-leiloes.pt/${url}`);

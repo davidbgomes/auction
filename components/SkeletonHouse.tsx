@@ -5,6 +5,7 @@ import {
   GridItem,
   Button,
   Divider,
+  VStack,
 } from "@chakra-ui/react";
 import { Skeleton, SkeletonText } from "@chakra-ui/react";
 
@@ -41,7 +42,7 @@ export default function SkeletonHouse(): JSX.Element {
         >
           <SkeletonText m="4" noOfLines={1} />
           <Divider />
-          <Box
+          <VStack
             mt="8"
             spacing="7"
             alignItems="flex-start"
@@ -49,9 +50,9 @@ export default function SkeletonHouse(): JSX.Element {
             px="4"
           >
             <SkeletonText mt="4" noOfLines={7} spacing="10" />
-          </Box>
+          </VStack>
           <Box
-            d="flex"
+            display="flex"
             pos="absolute"
             bottom="0"
             bgColor="#efefef"

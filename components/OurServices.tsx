@@ -32,31 +32,42 @@ export default function OurServices() {
             <VStack spacing="4" maxW="container.lg">
               <Text
                 as="p"
-                fontSize={{ base: "sm", sm: "md", md: "lg" }}
+                fontSize={{ base: "xs", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
-                Atualmente apresentamos um serviço de pesquisa de leilões
-                eletrónicos de imóveis, e estamos apostados em apresentar o
-                melhor motor de busca do setor.
+                O nosso site é paragem obrigatória para quem pesquisa por
+                leilões eletrónicos de casas no mercado português.
               </Text>
               <Text
                 as="p"
-                fontSize={{ base: "sm", sm: "md", md: "lg" }}
+                fontSize={{ base: "xs", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
-                A nossa ambição é apresentar todos os leilões de diversas
-                categorias e apresentá-los da forma que os nossos utilizadores
-                desejam, com grande facilidade de pesquisa e usabilidade que
-                permite a qualquer pessoa aceder esta informação.
+                Somos um agregador completo de e-leilões listados em diversas
+                leiloeiras oficiais, com centenas de imóveis por todo o país
+                disponíveis para serem comprados. Fazemos de intemediário entre
+                si, o comprador, e a leiloeira oficial onde poderá licitar e
+                comprar o bem em leilão.
               </Text>
               <Text
                 as="p"
-                fontSize={{ base: "sm", sm: "md", md: "lg" }}
+                fontSize={{ base: "xs", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
-                Estamos a trabalhar no sentido de ampliar a nossa base de dados
-                para além de Leilões de casas e moradias, e em breve teremos um
-                leque vasto de bens que poderá analisar aqui no leiloou.pt
+                A nossa base de dados aumenta de dia para dia! Neste momento
+                temos as listagens das principais leiloeiras do mercado que pode
+                pesquisar com os nossos filtros avançados e limitar a sua busca
+                ao que realmente pretende.
+              </Text>
+              <Text
+                as="p"
+                fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                textAlign="justify"
+              >
+                Se deseja licitar num leilão de moradia ou leilão de
+                apartamento, use o nosso motor de busca para encontrá-lo de
+                forma rápida e intuitiva o que de outra forma se encontra
+                espalhado por diversos sites difíceis de usar.
               </Text>
             </VStack>
             <CTA text="Pesquise Imóveis" />

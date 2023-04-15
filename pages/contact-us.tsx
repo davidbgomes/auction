@@ -159,7 +159,7 @@ export default function ContactUs(): JSX.Element {
                         label="Mensagem:"
                         height="200px"
                       />
-                      <Box d="flex" w="full" justifyContent="flex-end">
+                      <Box display="flex" w="full" justifyContent="flex-end">
                         <Button
                           type="submit"
                           size="md"
@@ -180,7 +180,6 @@ export default function ContactUs(): JSX.Element {
             </GridItem>
             <GridItem
               colSpan={{ base: 5, md: 2 }}
-              d="flex"
               justifyContent="center"
               display={{ base: "none", md: "flex" }}
             >

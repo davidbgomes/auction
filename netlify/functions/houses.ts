@@ -5,6 +5,12 @@ import prisma from "../../lib/prisma";
 
 const PER_PAGE = 16;
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+};
+
 exports.handler = async (event: any, context: any) => {
   if (event.httpMethod === "GET") {
     try {
@@ -18,6 +24,7 @@ exports.handler = async (event: any, context: any) => {
         });
         return {
           statusCode: 200,
+          headers,
           body: JSON.stringify(house),
         };
       } else {
@@ -27,21 +34,17 @@ exports.handler = async (event: any, context: any) => {
 
         const district = citiesList
           .find(
-            ({ level, code }) =>
-              level === 1 &&
-              parseInt(code as string) === parseInt(districtValue)
+            ({ level, code }) => level === 1 && code === parseInt(districtValue)
           )
           ?.name.toLowerCase();
         const county = citiesList
           .find(
-            ({ level, code }) =>
-              level === 2 && parseInt(code as string) === parseInt(countyValue)
+            ({ level, code }) => level === 2 && code === parseInt(countyValue)
           )
           ?.name.toLowerCase();
         const parish = citiesList
           .find(
-            ({ level, code }) =>
-              level === 3 && parseInt(code as string) === parseInt(parishValue)
+            ({ level, code }) => level === 3 && code === parseInt(parishValue)
           )
           ?.name.toLowerCase();
         const minPrice = parseInt(query.minPrice as string);
@@ -114,6 +117,7 @@ exports.handler = async (event: any, context: any) => {
           });
           return {
             statusCode: 200,
+            headers,
             body: JSON.stringify(housesCount),
           };
         } else {
@@ -133,6 +137,7 @@ exports.handler = async (event: any, context: any) => {
           });
           return {
             statusCode: 200,
+            headers,
             body: JSON.stringify(houses),
           };
         }

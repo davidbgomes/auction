@@ -7,7 +7,7 @@ export default function CTA({
   text: string;
 }): JSX.Element {
   return (
-    <Link href="/search" passHref>
+    <Link href="/search" passHref legacyBehavior>
       <Box
         as="a"
         href="/form"

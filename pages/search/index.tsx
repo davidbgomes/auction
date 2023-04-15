@@ -33,10 +33,13 @@ import { MemoedAuctionCard, AuctionCardType } from "@/components/AuctionCard";
 
 const PAGE_SIZE = 16;
 const ENV = process.env.NEXT_PUBLIC_ENV;
-const API_PATH = ENV === "development" ? "/api" : "/.netlify/functions";
+const API_PATH =
+  ENV === "development"
+    ? "http://localhost:9999/.netlify/functions"
+    : "/.netlify/functions";
 const PREFETCH_PATH =
   ENV === "development"
-    ? "/api/houses"
+    ? "https://determined-villani-81a550.netlify.app/.netlify/functions/houses"
     : "https://determined-villani-81a550.netlify.app/.netlify/functions/houses";
 
 export default function Search(): JSX.Element {
@@ -135,7 +138,7 @@ export default function Search(): JSX.Element {
               </GridItem>
             )}
             <GridItem rowSpan={3} colSpan={{ base: 5, md: 4 }}>
-              <Center mb="4" d={{ base: "flex", md: "none" }}>
+              <Center mb="4" display={{ base: "flex", md: "none" }}>
                 <Button
                   onClick={onOpen}
                   borderRadius="xl"

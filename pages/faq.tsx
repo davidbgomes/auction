@@ -123,7 +123,7 @@ export default function Terms(): JSX.Element {
               </Heading>
               <Text as="p">
                 Claro! Entre na página{" "}
-                <Link href="/contact-us" passHref>
+                <Link href="/contact-us" passHref legacyBehavior>
                   <a>contacte-nos</a>
                 </Link>{" "}
                 e escreva a sua mensagem! Estamos sempre disponíveis para ouvir
