@@ -15,8 +15,6 @@ type Props = {
 };
 
 export default function Post({ post, morePosts, preview }: Props): JSX.Element {
-  console.log("post", post);
-
   const router = useRouter();
   const title = `Leiloou | ${post.title}`;
 

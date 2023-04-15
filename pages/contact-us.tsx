@@ -60,7 +60,6 @@ export default function ContactUs(): JSX.Element {
   } = formMethods;
 
   const onSubmit = async (formData: FormInputs) => {
-    console.log("formData", formData);
     setIsLoading(true);
     const data = {
       service_id: "service_f229dwb",
@@ -91,7 +90,6 @@ export default function ContactUs(): JSX.Element {
           status: "error",
           isClosable: true,
         });
-        console.log(err);
       });
   };
 
