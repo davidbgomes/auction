@@ -11,6 +11,7 @@ import Header from "../components/Header";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
 const G_TRACKING_ID = process.env.NEXT_PUBLIC_G_TRACKING_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -59,7 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {!isSearchPages && <Footer />}
       </ChakraProvider>
 
-      {/* <!-- Global site tag (gtag.js) - Google Analytics -->  */}
+      {/* <!-- Google Analytics */}
       <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -69,6 +70,18 @@ function MyApp({ Component, pageProps }: AppProps) {
         async
         dangerouslySetInnerHTML={{
           __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`,
+        }}
+      />
+      {/* <!-- Google Analytics 4 -->  */}
+      <Script
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+      />
+      <Script
+        id="googleAnalytics4"
+        async
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA4_ID}');`,
         }}
       />
       {/* <!-- Global site tag (gtag.js) - Google Ads -->  */}
