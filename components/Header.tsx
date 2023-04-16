@@ -154,16 +154,38 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="lg">Imóveis</Heading>
+                  <Heading
+                    size="md"
+                    textDecoration={isSearchPage ? "underline" : "none"}
+                  >
+                    Imóveis
+                  </Heading>
                 </HStack>
               </a>
             </Link>
-            <Divider w="full" />
+            <Link href="/blog" passHref legacyBehavior>
+              <a onClick={() => setIsOpen(false)}>
+                <HStack>
+                  <ChevronRightIcon />
+                  <Heading
+                    size="md"
+                    textDecoration={isBlogPage ? "underline" : "none"}
+                  >
+                    Blog
+                  </Heading>
+                </HStack>
+              </a>
+            </Link>
             <Link href="/about-us" passHref legacyBehavior>
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="sm">Sobre Nós</Heading>
+                  <Heading
+                    size="md"
+                    textDecoration={isAboutUsPage ? "underline" : "none"}
+                  >
+                    Sobre Nós
+                  </Heading>
                 </HStack>
               </a>
             </Link>
@@ -171,15 +193,12 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <HStack>
                   <ChevronRightIcon />
-                  <Heading size="sm">Contacte-nos</Heading>
-                </HStack>
-              </a>
-            </Link>
-            <Link href="/faq" passHref legacyBehavior>
-              <a onClick={() => setIsOpen(false)}>
-                <HStack>
-                  <ChevronRightIcon />
-                  <Heading size="sm">FAQ</Heading>
+                  <Heading
+                    size="md"
+                    textDecoration={isContactUsPage ? "underline" : "none"}
+                  >
+                    Contacte-nos
+                  </Heading>
                 </HStack>
               </a>
             </Link>

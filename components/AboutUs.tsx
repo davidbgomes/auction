@@ -103,7 +103,7 @@ export default function AboutUs(): JSX.Element {
           >
             <Heading
               as="h2"
-              fontSize={{ base: "2xl", md: "3xl", lg: "4xl", xl: "5xl" }}
+              fontSize={{ base: "3xl", lg: "4xl", xl: "5xl" }}
               color={"blackAlpha.700"}
             >
               A Nossa Missão
@@ -115,7 +115,7 @@ export default function AboutUs(): JSX.Element {
             >
               <VStack spacing={"8"} width={{ base: "initial", md: "80%" }}>
                 <Text
-                  fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                  fontSize={{ base: "sm", sm: "md", md: "lg" }}
                   textAlign="justify"
                   color={"gray.800"}
                 >
@@ -127,7 +127,7 @@ export default function AboutUs(): JSX.Element {
                   resultados no nosso site.
                 </Text>
                 <Text
-                  fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                  fontSize={{ base: "sm", sm: "md", md: "lg" }}
                   textAlign="justify"
                   color={"gray.800"}
                 >
@@ -140,7 +140,7 @@ export default function AboutUs(): JSX.Element {
                   fazer uma decição mais informada.
                 </Text>
                 <Text
-                  fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                  fontSize={{ base: "sm", sm: "md", md: "lg" }}
                   textAlign="justify"
                   color={"gray.800"}
                 >
@@ -182,7 +182,7 @@ export default function AboutUs(): JSX.Element {
             >
               <Heading
                 as="h2"
-                fontSize={{ base: "3xl", md: "3xl", lg: "4xl", xl: "5xl" }}
+                fontSize={{ base: "3xl", lg: "4xl", xl: "5xl" }}
                 w="full"
                 textAlign="center"
               >

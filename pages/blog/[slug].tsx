@@ -34,7 +34,7 @@ export default function Post({ post, morePosts, preview }: Props): JSX.Element {
           <Image
             src={post.coverImage}
             alt={post.imageAlt}
-            mt={"5"}
+            mt={"10"}
             width={"full"}
             objectFit={"cover"}
             maxH={"lg"}

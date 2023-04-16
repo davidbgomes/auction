@@ -32,7 +32,7 @@ export default function OurServices() {
             <VStack spacing="4" maxW="container.lg">
               <Text
                 as="p"
-                fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                fontSize={{ base: "sm", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
                 O nosso site é paragem obrigatória para quem pesquisa por
@@ -40,7 +40,7 @@ export default function OurServices() {
               </Text>
               <Text
                 as="p"
-                fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                fontSize={{ base: "sm", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
                 Somos um agregador completo de e-leilões listados em diversas
@@ -51,7 +51,7 @@ export default function OurServices() {
               </Text>
               <Text
                 as="p"
-                fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                fontSize={{ base: "sm", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
                 A nossa base de dados aumenta de dia para dia! Neste momento
@@ -61,7 +61,7 @@ export default function OurServices() {
               </Text>
               <Text
                 as="p"
-                fontSize={{ base: "xs", sm: "md", md: "lg" }}
+                fontSize={{ base: "sm", sm: "md", md: "lg" }}
                 textAlign="justify"
               >
                 Se deseja licitar num leilão de moradia ou leilão de
