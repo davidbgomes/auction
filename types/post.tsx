@@ -3,6 +3,7 @@ export type PostType = {
   title: string;
   date: string;
   coverImage: string;
+  imageAlt: string;
   excerpt: string;
   content: string;
 };

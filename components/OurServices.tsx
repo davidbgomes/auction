@@ -74,7 +74,7 @@ export default function OurServices() {
           </VStack>
           <Image
             src="/our_services.svg"
-            alt="search app"
+            alt="pesquisa de imóveis online"
             boxSize={{ base: "80", md: "initial" }}
             mx="auto"
             loading="eager"

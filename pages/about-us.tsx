@@ -96,7 +96,7 @@ export default function AboutUs(): JSX.Element {
               </VStack>
               <Image
                 src="/puzzle.svg"
-                alt="Juntamos todos os leilões"
+                alt="Pessoas a montar peças de um puzzle"
                 boxSize={{ base: "60", md: "initial" }}
               />
             </SimpleGrid>
@@ -107,7 +107,7 @@ export default function AboutUs(): JSX.Element {
             >
               <Image
                 src="/responsive.svg"
-                alt="Acesso responsivo a todos os leilões"
+                alt="Telemóvel, desktop e portátil conectados ao mundo"
                 boxSize={{ base: "60", md: "initial" }}
                 order={{ base: 2, md: 1 }}
               />
@@ -210,7 +210,7 @@ export default function AboutUs(): JSX.Element {
               </VStack>
               <Image
                 src="/information.svg"
-                alt="Juntamos todos os leilões"
+                alt="Homem tocando em vários paineis e gráficos digitais"
                 boxSize={{ base: "60", md: "initial" }}
               />
             </SimpleGrid>

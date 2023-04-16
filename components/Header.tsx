@@ -64,7 +64,7 @@ export default function Header(): JSX.Element {
               <a onClick={() => setIsOpen(false)}>
                 <Image
                   src="/auction-logo.png"
-                  alt="logo"
+                  alt="logo leiloou"
                   h="7"
                   w="30"
                   _hover={{ opacity: "0.6" }}

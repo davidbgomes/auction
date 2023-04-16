@@ -26,6 +26,7 @@ type Props = {
 type BlogItem = {
   title: string;
   coverImage: string;
+  imageAlt: string;
   excerpt: string;
   date: string;
   slug: string;
@@ -34,6 +35,7 @@ type BlogItem = {
 const MainBlogItem = ({
   title,
   coverImage,
+  imageAlt,
   excerpt,
   date,
   slug,
@@ -44,7 +46,7 @@ const MainBlogItem = ({
         <Link href={`/blog/${slug}`}>
           <Image
             src={coverImage}
-            alt="imagem de leilão"
+            alt={imageAlt}
             width={"full"}
             objectFit={"cover"}
           />
@@ -70,6 +72,7 @@ const MainBlogItem = ({
 const OtherBlogItem = ({
   title,
   coverImage,
+  imageAlt,
   excerpt,
   slug,
 }: BlogItem): JSX.Element => {
@@ -84,7 +87,7 @@ const OtherBlogItem = ({
         <Link href={`/blog/${slug}`}>
           <Image
             src={coverImage}
-            alt="imagem de leilão"
+            alt={imageAlt}
             w={"full"}
             objectFit={"cover"}
           />
@@ -120,6 +123,7 @@ export default function Blog({ allPosts }: Props): JSX.Element {
           <MainBlogItem
             title={heroPost.title}
             coverImage={heroPost.coverImage}
+            imageAlt={heroPost.imageAlt}
             excerpt={heroPost.excerpt}
             date={heroPost.date}
             slug={heroPost.slug}
@@ -131,16 +135,19 @@ export default function Blog({ allPosts }: Props): JSX.Element {
               Mais Posts
             </Heading>
             <SimpleGrid columns={{ base: 1, md: 2 }} gap={16}>
-              {otherPosts.map(({ title, coverImage, excerpt, date, slug }) => (
-                <OtherBlogItem
-                  key={title}
-                  title={title}
-                  coverImage={coverImage}
-                  excerpt={excerpt}
-                  date={date}
-                  slug={slug}
-                />
-              ))}
+              {otherPosts.map(
+                ({ title, coverImage, imageAlt, excerpt, date, slug }) => (
+                  <OtherBlogItem
+                    key={title}
+                    title={title}
+                    coverImage={coverImage}
+                    imageAlt={heroPost.imageAlt}
+                    excerpt={excerpt}
+                    date={date}
+                    slug={slug}
+                  />
+                )
+              )}
             </SimpleGrid>
           </>
         )}
@@ -155,6 +162,7 @@ export const getStaticProps = async () => {
     "date",
     "slug",
     "coverImage",
+    "imageAlt",
     "excerpt",
   ]);
 

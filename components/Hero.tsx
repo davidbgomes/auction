@@ -58,7 +58,7 @@ export default function Hero(): JSX.Element {
             <Image
               order={{ base: 1, md: 2 }}
               src="/realState.svg"
-              alt="real state agent"
+              alt="imóvel vendido"
               boxSize={{ base: "52", lg: "initial" }}
               mx="auto"
               zIndex={1}

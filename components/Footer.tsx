@@ -100,7 +100,7 @@ export default function Footer(): JSX.Element {
               }}
             >
               <HStack alignItems="center">
-                <Image src="/buymeacoffee.svg" w="5" alt="" />
+                <Image src="/buymeacoffee.svg" w="5" alt="Compre-me um café" />
                 <Text fontSize="sm" fontWeight={600}>
                   Compre-me um café
                 </Text>

@@ -48,7 +48,7 @@ export default function CarouselComponent({
               </Box>
               <img
                 src={el}
-                alt={`carousel-image-${i + 1}`}
+                alt={`imagem do imóvel número ${i + 1}`}
                 style={{
                   objectFit: "cover",
                   height: "inherit",

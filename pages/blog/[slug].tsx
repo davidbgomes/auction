@@ -33,7 +33,7 @@ export default function Post({ post, morePosts, preview }: Props): JSX.Element {
           </Heading>
           <Image
             src={post.coverImage}
-            alt={post.title}
+            alt={post.imageAlt}
             mt={"5"}
             width={"full"}
             objectFit={"cover"}
@@ -65,6 +65,7 @@ export async function getStaticProps({ params }: Params) {
     "slug",
     "content",
     "coverImage",
+    "imageAlt",
   ]);
   const content = await markdownToHtml(post.content || "");
 

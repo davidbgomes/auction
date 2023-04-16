@@ -125,10 +125,7 @@ export default function ContactUs(): JSX.Element {
               textAlign={{ base: "center", md: "initial" }}
               color="gray.500"
             >
-              Fale connosco usando o formulário abaixo ou diretamente em{" "}
-              <b>
-                <a href="mailto:geral@leiloou.pt">geral@leiloou.pt</a>
-              </b>
+              Fale connosco usando o formulário abaixo
             </Heading>
           </VStack>
           <Grid
@@ -183,7 +180,7 @@ export default function ContactUs(): JSX.Element {
             >
               <Image
                 src="/contact-us.svg"
-                alt="Contacte-nos"
+                alt="Formulário de contacto com uma mulher levantando o braço"
                 w="800px"
                 h="auto"
               />
