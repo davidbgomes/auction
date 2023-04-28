@@ -1,3 +1,5 @@
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+
 export type PostType = {
   slug: string;
   title: string;
@@ -5,5 +7,8 @@ export type PostType = {
   coverImage: string;
   imageAlt: string;
   excerpt: string;
-  content: string;
+  mdxSource: MDXRemoteSerializeResult<
+    Record<string, unknown>,
+    Record<string, unknown>
+  >;
 };

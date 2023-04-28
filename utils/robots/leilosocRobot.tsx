@@ -14,7 +14,7 @@ const PER_PAGE = 36;
 export const leilosocRobot = async () => {
   console.log("Leilosoc Bot Starting...");
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     slowMo: 250, //slow down by 250ms
   });
   const page = await browser.newPage();
@@ -197,7 +197,7 @@ export const leilosocRobot = async () => {
                 .replace(",", ".")
           );
         } catch {
-          console.log("no currentBid");
+          //console.log("no currentBid");
         }
         //console.log("currentBid", currentBid);
 
@@ -220,7 +220,7 @@ export const leilosocRobot = async () => {
                 .replace(",", ".")
             )) || "0";
         } catch {
-          console.log("no minimumPrice");
+          //console.log("no minimumPrice");
         }
         //console.log("minimumPrice", minimumPrice);
 
@@ -231,7 +231,7 @@ export const leilosocRobot = async () => {
               (el as HTMLDivElement).innerText.indexOf(" em ") + 4
             )
         );
-        //console.log("endsAtText", endsAtText);
+        console.log("endsAtText", endsAtText);
         const endsAtDay = endsAtText
           .substring(0, endsAtText.indexOf(" "))
           .trim();
@@ -240,7 +240,8 @@ export const leilosocRobot = async () => {
             endsAtText.indexOf("de ") + 3,
             endsAtText.indexOf("pelas ")
           )
-          .trim();
+          .trim()
+          .toLowerCase();
         const endsAtYear = dayjs().year().toString();
         const endsAtHour = endsAtText
           .substring(endsAtText.indexOf("pelas ") + 6, endsAtText.indexOf("h"))
@@ -288,7 +289,7 @@ export const leilosocRobot = async () => {
     await page.click(".mat-paginator-navigation-next");
     await page.waitForSelector("p.text.trunc-title a");
     currentResults += PER_PAGE;
-    console.log("currentResults", currentResults);
+    //console.log("currentResults", currentResults);
   }
   try {
     await prisma.house.createMany({
