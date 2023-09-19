@@ -198,10 +198,13 @@ export const eLeiloesRobot = async () => {
             (el) => (el as HTMLElement).innerText
           );
           const locationDiv = await getEleilaoLocation(housePage);
-          const locationCities = await locationDiv?.$eval(
-            `div:nth-child(6)`,
-            (el) => (el as HTMLElement).innerText.trim()
-          );
+          const locationCities = await locationDiv?.evaluate(() => {
+            const el = document.querySelector("div:nth-child(6)");
+            if (el) {
+              return (el as HTMLElement).innerText.trim();
+            }
+            return "";
+          });
           const district = locationCities
             ?.substring(
               "Distrito: ".length,

@@ -157,35 +157,22 @@ a {
   color: rgb(25, 25, 177);
 }
 
-.markdown {
-  font-size: large;
-  line-height: 2;
-}
-
-.markdown p,
-.markdown ul,
-.markdown ol,
-.markdown blockquote {
-  margin: 10px 0px;
-}
-
 .markdown h1 {
-  font-size: x-large;
-  margin-top: 35px;
-  margin-bottom: 15px;
+  font-size: xx-large;
+  margin: 40px 0 30px;
   line-height: 0.4;
 }
 
 .markdown h2 {
-  font-size: large;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  font-size: x-large;
+  font-weight: bold;
+  margin: 40px 0 30px;
   line-height: 0.4;
 }
 
 .markdown h3 {
-  font-size: medium;
-  margin-top: 15px;
-  margin-bottom: 5px;
+  font-size: large;
+  font-weight: bold;
+  margin: 40px 0 30px;
   line-height: 0.4;
 }

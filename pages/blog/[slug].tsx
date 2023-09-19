@@ -54,7 +54,9 @@ export default function Post({ post }: Props): JSX.Element {
           <Text mt={"6"} pb={3} color={"gray.600"}>
             {capitalize(dayjs(post.date).locale("pt").format("MMMM DD, YYYY"))}
           </Text>
-          <MDXRemote {...post.mdxSource} components={components} />
+          <div className="markdown">
+            <MDXRemote {...post.mdxSource} components={components} />
+          </div>
         </>
       )}
     </Container>
